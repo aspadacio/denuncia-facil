@@ -47,3 +47,5 @@ Thumbs.db
 
 # Json-server DB
 /json-server/db.json
+
+/package-lock.json
