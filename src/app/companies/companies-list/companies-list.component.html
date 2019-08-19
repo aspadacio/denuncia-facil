@@ -1,0 +1,100 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="float-left">
+       <h5 class="card-title">Empresas</h5>
+    </div>
+    <div class="float-right">
+        <button type="button" class="btn btn-primary" [routerLink]="['new']">Nova Empresa</button>
+        <!-- button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button -->
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-borderless table-hover" *ngIf="companies$ | async as companies; else loading">
+        <thead>
+            <tr>
+              <th scope="col">Empresa</th>
+              <th scope="col">CNPJ</th>
+              <th scope="col">UF</th>
+              <th scope="col">Cidade</th>
+              <th scope="col">Bairro</th>
+              <th scope="col" class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of companies">
+              <td>{{ c.fantasia ? c.fantasia : c.nome }}</td>
+              <td>{{ c.cnpj | mask: '00.000.000/0000-00' }}</td>
+              <td>{{ c.uf }}</td>
+              <td>{{ c.municipio }}</td>
+              <td>{{ c.bairro }}</td>
+              <td>
+                <span style="display: table; margin: auto">
+                  <button class="btn mb-1 mr-2 btn-sm">
+                    <fa-icon [icon]="['fas', 'eye']" size="fa-sm" (click)="onView(c)"></fa-icon>
+                  </button>
+                  <button class="btn btn-outline-warning mb-1 mr-2 btn-sm" (click)="onEdit(c.id)">
+                    <fa-icon [icon]="['fas', 'edit']" size="fa-sm"></fa-icon>
+                  </button>
+                  <button class="btn btn-outline-danger mb-1 btn-sm">
+                    <fa-icon [icon]="['fas', 'trash']" size="fa-sm"></fa-icon>
+                  </button>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+    </table>
+
+    <ng-template #loading> 
+        <div class="d-flex align-items-center">
+            <strong>Carregando...</strong>
+            <div class="spinner-border text-warning ml-auto" role="status" aria-hidden="true"></div>
+          </div>
+      </ng-template>
+  </div>
+
+  <!-- Details -->
+  <ng-template #modalDetail>
+    <div class="alert">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Detalhes</h4>
+            <button type="button" class="close" aria-label="Close" (click)="onModalClose()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="position: relative; overflow-y: scroll; max-height: 450px;" *ngIf="companySelected as c">
+            <div class="row">
+              <div class="card text-white bg-info col-12">
+                <div class="card-body">
+                  <h4 class="card-title">CNPJ</h4>
+                  <p class="card-text">{{ c.cnpj | mask: '00.000.000/0000-00' }}</p>
+                  <h4 class="card-title">Nome</h4>
+                  <p class="card-text">{{ c.nome }}</p>
+                  <div *ngIf="c.fantasia" style="padding-bottom: 15px;">
+                    <h4 class="card-title">Nome Fantasia</h4>
+                    <p class="card-text">{{ c.fantasia }}</p>
+                  </div>
+                  <div *ngIf="c.telefone" style="padding-bottom: 15px;">
+                    <h4 class="card-title">Telefone(s)</h4>
+                    <p class="card-text">{{ c.telefone }}</p>
+                  </div>
+                  <h4 class="card-title">Endereço</h4>
+                  <p class="card-text">{{ c.uf }} - {{ c.municipio }} - {{ c.bairro }} - {{ c.logradouro }} - {{ c.numero }}</p>
+                  <div *ngIf="c.atividade_principal" style="padding-bottom: 15px;">
+                    <h4 class="card-title">Atividade Principal</h4>
+                    <p class="card-text">{{ c.atividade_principal[0].text }}</p>
+                  </div>
+                  <div *ngIf="c.atividades_secundarias" style="padding-bottom: 15px;">
+                    <h4 class="card-title">Atividade Secundaria</h4>
+                    <p class="card-text">{{ c.atividades_secundarias[0].text }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="onModalClose()">Fechar</button>
+          </div>
+    </div>
+  </ng-template>
+
+</div>

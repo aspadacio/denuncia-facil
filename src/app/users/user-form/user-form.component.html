@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group form-row">
+    <div class="col-sm-2">
+        <label for="cpf">CPF</label>
+        <input type="text" class="form-control" id="cpf" placeholder="000.000.000-00" 
+          mask='000.000.000-00' formControlName="cpf" maxlength="14"/>
+    </div>
+    <div class="col">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" formControlName="nome" maxlength="40"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-group form-row">
+      <div class="col-sm-6">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="nome@email.com" formControlName="email" maxlength="40">
+      </div>
+      <div class="col-sm-6">
+        <label for="confirmarEmail">Confirmar Email</label>
+        <input type="email" class="form-control" id="confirmarEmail" placeholder="nome@email.com"
+          formControlName="confirmarEmail" maxlength="40" [readonly]="!(form.get('email').status === 'VALID')">
+      </div>
+    </div>
+  </div>
+  <div class="form-group" formGroupName="endereco">
+    <div class="form-group form-row">
+      <div class="col-2">
+        <label for="cep">CEP</label>
+        <input type="text" class="form-control" placeholder="Digite o CEP" id="cep" 
+          mask='00000-000' formControlName="cep" maxlength="9"/>
+      </div>
+      <div class="col-1">
+        <label for="estado">Estado</label>
+        <input type="text" class="form-control" id="estado" formControlName="estado" readonly/>
+      </div>
+      <div class="col">
+        <label for="municipio">Município</label>
+        <input type="text" class="form-control" id="municipio" formControlName="municipio" readonly/>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col">
+        <label for="logradouro">Endereço</label>
+        <input type="text" class="form-control" id="logradouro" formControlName="logradouro" readonly/>
+      </div>
+      <div class="col-sm-2">
+        <label for="numero">Número</label>
+        <input type="number" class="form-control" id="numero" formControlName="numero"  maxlength="7">
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <div class="col-sm-3">
+        <label for="bairro">Bairro</label>
+        <input type="text" class="form-control" id="bairro" formControlName="bairro" readonly/>
+      </div>
+      <div class="col">
+        <label for="complemento">Complemento</label>
+        <input type="text" class="form-control" id="complemento" formControlName="complemento" maxlength="60"/>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 20px">
+    <button type="submit" class="btn btn-primary mr-3" [disabled]="!(form.status === 'VALID')">
+      {{ btnSubmit }}
+    </button>
+    <button type="submit" class="btn btn-dark" (click)="onCancel()">
+       Cancelar
+    </button>
+  </div>
+
+  <!-- <debug-form [form]="form"></debug-form> -->
+  
+</form>

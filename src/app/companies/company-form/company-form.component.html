@@ -1,0 +1,64 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="cnpj">CNPJ</label>
+    <div class="input-group">
+        <input type="text" class="form-control col-3" id="cnpj" aria-describedby="cnpjHelp" placeholder="Digite o CNPJ" 
+            mask='00.000.000/0000-00' formControlName="cnpj" maxlength="18">
+        <div class="input-group-append" *ngIf="form.get('cnpj').status === 'VALID' && form.get('nome').status !== 'VALID'">
+            <span class="input-group-text">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="sr-only">Pesquisando...</span>
+                </div>
+            </span>
+        </div>
+    </div>
+    <small id="cnpjHelp" class="form-text text-muted">A partir do CNPJ digitado, será pesquisado os dados da empresa junto à Receita Federal.</small>
+  </div>
+  <div *ngIf="form.get('cnpj').status === 'VALID' && form.get('nome').status === 'VALID'">
+       <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" id="nome" formControlName="nome" readonly>
+        </div>
+        <div class="form-group">
+            <div class="form-group form-row">
+                <div class="col">
+                    <label for="municipio">Município</label>
+                    <input type="text" class="form-control" id="municipio" formControlName="municipio" readonly>
+                  </div>
+                  <div class="col-1">
+                      <label for="uf">UF</label>
+                      <input type="text" class="form-control" id="uf" formControlName="uf" readonly>
+                  </div>
+                  <div class="col">
+                      <label for="bairro">Bairro</label>
+                      <input type="text" class="form-control" id="bairro" formControlName="bairro" readonly>
+                  </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-2">
+                    <label for="cep">CEP</label>
+                    <input type="text" class="form-control" id="cep" mask='00000-000' formControlName="cep" readonly>
+                </div>
+                <div class="col">
+                    <label for="logradouro">Endereço</label>
+                    <input type="text" class="form-control" id="logradouro" formControlName="logradouro" readonly>
+                </div>
+                <div class="col">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" class="form-control" id="complemento" formControlName="complemento">
+                </div>
+            </div>
+        </div>
+  </div>
+  
+<div style="margin-top: 20px">
+    <button type="submit" class="btn btn-primary mr-3" >
+        {{ btnSubmit }}
+    </button>
+    <button type="submit" class="btn btn-dark" (click)="onCancel()">
+        Cancelar
+    </button>
+</div>
+
+  <!-- <debug-form [form]="form"></debug-form> -->
+</form>

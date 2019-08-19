@@ -1,0 +1,16 @@
+/* Dropdown section headers */
+.search-header {
+    background-color: antiquewhite !important;
+    text-align: center;
+}
+
+.text-resume {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#btn-load-more:hover {
+    font-weight: bold;
+}

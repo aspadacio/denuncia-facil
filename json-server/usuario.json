@@ -1,0 +1,52 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "cpf": "06626540998",
+      "nome": "Amauri Pereira Spadacio",
+      "email": "amaurispadacio@gmail.com",
+      "confirmarEmail": "amaurispadacio@gmail.com",
+      "endereco": {
+        "cep": "72110340",
+        "numero": "54",
+        "complemento": "Perto da farmácia do Fabrício",
+        "logradouro": "Rua Princesa Isabel",
+        "bairro": "Não sei",
+        "municipio": "Astorga",
+        "estado": "PR"
+      }
+    },
+    {
+      "cpf": "33651418553",
+      "nome": "ABDORA COUTINHO OLIVEIRA ",
+      "email": "abdora.oliveira@tre-se.jus.br",
+      "confirmarEmail": "abdora.oliveira@tre-se.jus.br",
+      "endereco": {
+        "cep": "72225330",
+        "numero": 50,
+        "complemento": "",
+        "logradouro": "QNN 33",
+        "bairro": "Ceilândia Norte (Ceilândia)",
+        "municipio": "Brasília",
+        "estado": "DF"
+      },
+      "id": 2
+    },
+    {
+      "id": 3,
+      "cpf": "26010852153",
+      "nome": "ABGAIL VILARINS DA ROCHA SANTOS ",
+      "email": "abgail.santos@tre-to.jus.br",
+      "confirmarEmail": "abgail.santos@tre-to.jus.br",
+      "endereco": {
+        "cep": "77808582",
+        "numero": 50,
+        "complemento": "park shopping",
+        "logradouro": "Rua Norte Sul",
+        "bairro": "Setor Tiuba",
+        "municipio": "Araguaína",
+        "estado": "TO"
+      }
+    }
+  ]
+}

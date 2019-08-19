@@ -1,0 +1,164 @@
+{
+    "objetos": [
+        {
+            "atividade_principal": [
+              {
+                "text": "Suporte técnico, manutenção e outros serviços em tecnologia da informação",
+                "code": "62.09-1-00"
+              }
+            ],
+            "data_situacao": "22/04/2005",
+            "nome": "MIG INFORMATICA E SISTEMAS LTDA",
+            "uf": "DF",
+            "qsa": [
+              {
+                "qual": "49-Sócio-Administrador",
+                "nome": "FERNANDO FELISBERTO DA SILVA"
+              },
+              {
+                "qual": "22-Sócio",
+                "nome": "MARCELO DA SILVA E SANTOS"
+              }
+            ],
+            "situacao": "ATIVA",
+            "bairro": "TAGUATINGA NORTE",
+            "logradouro": "QNL 13, CONJUNTO G, CASA",
+            "numero": "15",
+            "cep": "72.151-307",
+            "municipio": "BRASILIA",
+            "porte": "MICRO EMPRESA",
+            "abertura": "22/04/2005",
+            "natureza_juridica": "206-2 - Sociedade Empresária Limitada",
+            "fantasia": "MIG INFORMATICA E SISTEMAS",
+            "cnpj": "07.341.488/0001-60",
+            "ultima_atualizacao": "2019-02-05T22:27:56.689Z",
+            "status": "OK",
+            "tipo": "MATRIZ",
+            "complemento": "",
+            "email": "",
+            "telefone": "",
+            "efr": "",
+            "motivo_situacao": "",
+            "situacao_especial": "",
+            "data_situacao_especial": "",
+            "atividades_secundarias": [
+              {
+                "code": "00.00-0-00",
+                "text": "Não informada"
+              }
+            ],
+            "capital_social": "10000.00",
+            "extra": {},
+            "billing": {
+              "free": true,
+              "database": true
+            }
+          },
+          {
+            "atividade_principal": [
+              {
+                "text": "Atividades de televisão aberta",
+                "code": "60.21-7-00"
+              }
+            ],
+            "data_situacao": "03/11/2005",
+            "nome": "GLOBO COMUNICACAO E PARTICIPACOES S/A",
+            "uf": "RJ",
+            "telefone": "(21) 2155-4551 / (21) 2155-4552",
+            "atividades_secundarias": [
+              {
+                "text": "Reprodução de vídeo em qualquer suporte",
+                "code": "18.30-0-02"
+              },
+              {
+                "text": "Portais, provedores de conteúdo e outros serviços de informação na internet",
+                "code": "63.19-4-00"
+              },
+              {
+                "text": "Agenciamento de espaços para publicidade, exceto em veículos de comunicação",
+                "code": "73.12-2-00"
+              },
+              {
+                "text": "Programadoras",
+                "code": "60.22-5-01"
+              }
+            ],
+            "qsa": [
+              {
+                "qual": "10-Diretor",
+                "nome": "CARLOS HENRIQUE SCHRODER"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "JORGE LUIZ DE BARROS NOBREGA"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "ROSSANA FONTENELE BERTO"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "ALI AHAMAD KAMEL ALI HARFOUCHE"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "SERGIO LOURENCO MARQUES"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "MARCELO LUIS MENDES SOARES DA SILVA"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "ANTONIO CLAUDIO FERREIRA NETTO"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "CRISTIANE DELECRODE LOPES SUT RIBEIRO"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "WANDERLEY BACCALA JUNIOR"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "JOAO CARLOS FERRO FERRAZ DE MESQUITA"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "MAURICIO GONZALEZ PINTO"
+              },
+              {
+                "qual": "10-Diretor",
+                "nome": "EDUARDO GAMA SCHAEFFER"
+              }
+            ],
+            "situacao": "ATIVA",
+            "bairro": "JARDIM BOTANICO",
+            "logradouro": "R LOPES QUINTAS",
+            "numero": "303",
+            "cep": "22.460-901",
+            "municipio": "RIO DE JANEIRO",
+            "porte": "DEMAIS",
+            "abertura": "31/01/1986",
+            "natureza_juridica": "205-4 - Sociedade Anônima Fechada",
+            "fantasia": "GCP,TV GLOBO, REDE GLOBO, GLOBO.COM, SOM LIVRE",
+            "cnpj": "27.865.757/0001-02",
+            "ultima_atualizacao": "2019-06-19T12:03:49.235Z",
+            "status": "OK",
+            "tipo": "MATRIZ",
+            "complemento": "",
+            "email": "",
+            "efr": "",
+            "motivo_situacao": "",
+            "situacao_especial": "",
+            "data_situacao_especial": "",
+            "capital_social": "6453568523.86",
+            "extra": {},
+            "billing": {
+              "free": true,
+              "database": true
+            }
+          }
+    ]
+}

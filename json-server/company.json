@@ -1,0 +1,305 @@
+{
+  "empresas": [
+    {
+      "id": 1,
+      "atividade_principal": [
+        {
+          "text": "Suporte técnico, manutenção e outros serviços em tecnologia da informação",
+          "code": "62.09-1-00"
+        }
+      ],
+      "data_situacao": "22/04/2005",
+      "nome": "MIG INFORMATICA E SISTEMAS LTDA",
+      "uf": "DF",
+      "qsa": [
+        {
+          "qual": "49-Sócio-Administrador",
+          "nome": "FERNANDO FELISBERTO DA SILVA"
+        },
+        {
+          "qual": "22-Sócio",
+          "nome": "MARCELO DA SILVA E SANTOS"
+        }
+      ],
+      "situacao": "ATIVA",
+      "bairro": "TAGUATINGA NORTE",
+      "logradouro": "QNL 13, CONJUNTO G, CASA",
+      "numero": "15",
+      "cep": "72.151-307",
+      "municipio": "BRASILIA",
+      "porte": "MICRO EMPRESA",
+      "abertura": "22/04/2005",
+      "natureza_juridica": "206-2 - Sociedade Empresária Limitada",
+      "fantasia": "MIG INFORMATICA E SISTEMAS",
+      "cnpj": "07.341.488/0001-60",
+      "ultima_atualizacao": "2019-02-05T22:27:56.689Z",
+      "status": "OK",
+      "tipo": "MATRIZ",
+      "complemento": "",
+      "email": "",
+      "telefone": "",
+      "efr": "",
+      "motivo_situacao": "",
+      "situacao_especial": "",
+      "data_situacao_especial": "",
+      "atividades_secundarias": [
+        {
+          "code": "00.00-0-00",
+          "text": "Não informada"
+        }
+      ],
+      "capital_social": "10000.00",
+      "extra": {},
+      "billing": {
+        "free": true,
+        "database": true
+      }
+    },
+    {
+      "id": 2,
+      "atividade_principal": [
+        {
+          "text": "Atividades de televisão aberta",
+          "code": "60.21-7-00"
+        }
+      ],
+      "data_situacao": "03/11/2005",
+      "nome": "GLOBO COMUNICACAO E PARTICIPACOES S/A",
+      "uf": "RJ",
+      "telefone": "(21) 2155-4551 / (21) 2155-4552",
+      "atividades_secundarias": [
+        {
+          "text": "Reprodução de vídeo em qualquer suporte",
+          "code": "18.30-0-02"
+        },
+        {
+          "text": "Portais, provedores de conteúdo e outros serviços de informação na internet",
+          "code": "63.19-4-00"
+        },
+        {
+          "text": "Agenciamento de espaços para publicidade, exceto em veículos de comunicação",
+          "code": "73.12-2-00"
+        },
+        {
+          "text": "Programadoras",
+          "code": "60.22-5-01"
+        }
+      ],
+      "qsa": [
+        {
+          "qual": "10-Diretor",
+          "nome": "CARLOS HENRIQUE SCHRODER"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "JORGE LUIZ DE BARROS NOBREGA"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "ROSSANA FONTENELE BERTO"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "ALI AHAMAD KAMEL ALI HARFOUCHE"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "SERGIO LOURENCO MARQUES"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "MARCELO LUIS MENDES SOARES DA SILVA"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "ANTONIO CLAUDIO FERREIRA NETTO"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "CRISTIANE DELECRODE LOPES SUT RIBEIRO"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "WANDERLEY BACCALA JUNIOR"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "JOAO CARLOS FERRO FERRAZ DE MESQUITA"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "MAURICIO GONZALEZ PINTO"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "EDUARDO GAMA SCHAEFFER"
+        }
+      ],
+      "situacao": "ATIVA",
+      "bairro": "JARDIM BOTANICO",
+      "logradouro": "R LOPES QUINTAS",
+      "numero": "303",
+      "cep": "22.460-901",
+      "municipio": "RIO DE JANEIRO",
+      "porte": "DEMAIS",
+      "abertura": "31/01/1986",
+      "natureza_juridica": "205-4 - Sociedade Anônima Fechada",
+      "fantasia": "GCP,TV GLOBO, REDE GLOBO, GLOBO.COM, SOM LIVRE",
+      "cnpj": "27.865.757/0001-02",
+      "ultima_atualizacao": "2019-06-24T22:44:16.125Z",
+      "status": "OK",
+      "tipo": "MATRIZ",
+      "complemento": "",
+      "email": "",
+      "efr": "",
+      "motivo_situacao": "",
+      "situacao_especial": "",
+      "data_situacao_especial": "",
+      "capital_social": "6453568523.86",
+      "extra": {},
+      "billing": {
+        "free": true,
+        "database": true
+      }
+    },
+    {
+      "id": 3,
+      "atividade_principal": [
+        {
+          "text": "Comércio varejista de outros produtos não especificados anteriormente",
+          "code": "47.89-0-99"
+        }
+      ],
+      "data_situacao": "14/03/2007",
+      "complemento": "PARTE",
+      "nome": "B2W COMPANHIA DIGITAL",
+      "uf": "RJ",
+      "telefone": "(21) 4003-4848",
+      "email": "fiscal.nfe@b2wdigital.com",
+      "atividades_secundarias": [
+        {
+          "text": "Comércio varejista de doces, balas, bombons e semelhantes",
+          "code": "47.21-1-04"
+        },
+        {
+          "text": "Comércio varejista de livros",
+          "code": "47.61-0-01"
+        },
+        {
+          "text": "Comércio varejista de jornais e revistas",
+          "code": "47.61-0-02"
+        },
+        {
+          "text": "Comércio varejista de artigos de papelaria",
+          "code": "47.61-0-03"
+        },
+        {
+          "text": "Comércio varejista de discos, CDs, DVDs e fitas",
+          "code": "47.62-8-00"
+        },
+        {
+          "text": "Comércio atacadista de outros equipamentos e artigos de uso pessoal e doméstico não especificados anteriormente",
+          "code": "46.49-4-99"
+        },
+        {
+          "text": "Programadoras",
+          "code": "60.22-5-01"
+        }
+      ],
+      "qsa": [
+        {
+          "qual": "10-Diretor",
+          "nome": "JOSE TIMOTHEO DE BARROS"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "ANNA CHRISTINA RAMOS SAICALI"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "CARLOS EDUARDO ROSALBA PADILHA"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "FABIO DA SILVA ABRATE"
+        },
+        {
+          "qual": "16-Presidente",
+          "nome": "MARCIO CRUZ MEIRELLES"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "THIAGO MENDES BARREIRA"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "CARLOS HENRIQUE DE LUCCA FORTES GATTO"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "JEAN PIERRE LESSA E SANTOS FERREIRA"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "MARCELO DA SILVA NUNES"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "ANNA CHRISTINA DA SILVA SOTERO"
+        },
+        {
+          "qual": "10-Diretor",
+          "nome": "JOSE MAURO ROCHA DE BARROS"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "CELSO ALVES FERREIRA LOURO"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "JORGE FELIPE LEMANN"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "MIGUEL GOMES PEREIRA SARMIENTO GUTIERREZ"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "LUIZ CARLOS DI SESSA FILIPPETTI"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "MAURO MURATORIO NOT"
+        },
+        {
+          "qual": "08-Conselheiro de Administração",
+          "nome": "PAULO ANTUNES VERAS"
+        }
+      ],
+      "situacao": "ATIVA",
+      "bairro": "SAUDE",
+      "logradouro": "R SACADURA CABRAL",
+      "numero": "102",
+      "cep": "20.081-902",
+      "municipio": "RIO DE JANEIRO",
+      "porte": "DEMAIS",
+      "abertura": "14/03/2007",
+      "natureza_juridica": "204-6 - Sociedade Anônima Aberta",
+      "cnpj": "00.776.574/0006-60",
+      "ultima_atualizacao": "2019-06-26T15:42:53.025Z",
+      "status": "OK",
+      "tipo": "FILIAL",
+      "fantasia": "",
+      "efr": "",
+      "motivo_situacao": "",
+      "situacao_especial": "",
+      "data_situacao_especial": "",
+      "capital_social": "5709151097.92",
+      "extra": {},
+      "billing": {
+        "free": true,
+        "database": true
+      }
+    }
+  ]
+}

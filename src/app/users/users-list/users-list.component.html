@@ -1,0 +1,75 @@
+<div class="card mt-3">
+    <div class="card-header">
+      <div class="float-left">
+          <h4>Usuários</h4>
+      </div>
+      <div class="float-right">
+          <button type="button" class="btn btn-primary" [routerLink]="['new']">Novo Usuário</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped" *ngIf="users$ | async as users; else loading">
+          <thead class="thead-light">
+              <tr>
+                <th scope="col">CPF</th>
+                <th scope="col">Nome</th>
+                <th scope="col" class="text-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.cpf | mask: '000.000.000-99' }}</td>
+                <td>{{ user.nome }}</td>
+                <td>
+                  <span style="display: table; margin: auto">
+                    <button class="btn mb-1 mr-2 btn-sm">
+                      <fa-icon [icon]="['fas', 'eye']" size="fa-sm" (click)="onView(user)"></fa-icon>
+                    </button>
+                    <button class="btn btn-outline-warning mb-1 mr-2 btn-sm" (click)="onEdit(user.id)">Editar</button>
+                    <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(user)">Remover</button>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+      </table>
+    
+      <ng-template #loading> 
+        <div class="d-flex align-items-center">
+            <strong>Carregando...</strong>
+            <div class="spinner-border text-warning ml-auto" role="status" aria-hidden="true"></div>
+          </div>
+      </ng-template>
+    </div>
+
+    <!-- Details -->
+  <ng-template #modalDetail>
+      <div class="alert">
+          <div class="modal-header">
+              <h4 class="modal-title pull-left">Detalhes</h4>
+              <button type="button" class="close" aria-label="Close" (click)="onModalClose()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="position: relative; overflow-y: scroll; max-height: 450px;" *ngIf="userSelected as u">
+              <div class="row">
+                <div class="card text-white bg-info col-12">
+                  <div class="card-body">
+                    <h4 class="card-title">CPF</h4>
+                    <p class="card-text">{{ u.cpf | mask: '000.000.000-00' }}</p>
+                    <h4 class="card-title">Nome</h4>
+                    <p class="card-text">{{ u.nome }}</p>
+                    <h4 class="card-title">E-mail</h4>
+                    <p class="card-text">{{ u.email }}</p>
+                    <h4 class="card-title">Endereço</h4>
+                    <p class="card-text">{{ u.endereco.estado }} - {{ u.endereco.municipio }} - {{ u.endereco.bairro }} - {{ u.endereco.logradouro }} - {{ u.endereco.numero }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="onModalClose()">Fechar</button>
+            </div>
+      </div>
+    </ng-template>
+
+  </div>

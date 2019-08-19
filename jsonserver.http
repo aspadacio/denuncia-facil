@@ -1,0 +1,54 @@
+ http://localhost:3000/empresas
+
+###
+http://www.receitaws.com.br/v1/cnpj/07341488000160
+
+###
+http://localhost:3002/objetos
+
+###
+http://localhost:3002/objetos?cnpj=07.341.488/0001-60
+
+### - USUARIOS
+POST http://localhost:3000/usuarios HTTP/1.1
+content-type: application/json
+
+{
+            "nome": "Abraão Teixeira da Silva",
+            "cpf": "05584578779",
+            "endereco": [
+                {
+                    "uf": "GO",
+                    "cep": "82334185",
+                    "municipio": "Belo Horizonte",
+                    "logradouro": "Travessa Ponte Nova",
+                    "numero": "4558",
+                    "complemento": ""
+                }
+            ],
+            "telefone": [
+                {
+                    "tipo": "fixo",
+                    "ddd": "65",
+                    "numero": "35489697"
+                },
+                {
+                    "tipo": "celular",
+                    "ddd": "61",
+                    "numero": "987542515"
+                }
+            ]
+}
+
+### - TESTs
+POST http://localhost:3000/comments HTTP/1.1
+content-type: application/json
+
+   {
+      "body": "changee teste comment",
+      "postId": 2
+    }
+
+### - Denuncias
+GET http://localhost:3000/delacoes?idEmpresa=1&idUsuario=2
+

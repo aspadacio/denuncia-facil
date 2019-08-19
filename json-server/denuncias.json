@@ -1,0 +1,152 @@
+{
+    "delacoes": [
+        {
+            "id": 1,
+            "idEmpresa": 1,
+            "idUsuario": 1,
+            "dsHistoria": [
+              {
+                  "idHistoria": 1,
+                  "dsTitulo": "SABONETE DOVE BABY CAMOMILA HORRÍVEL",
+                  "dsHistoria": "Eu comprei uma camisa polo na zattini já faz um mês e chegou rápido quando fui provar ,vi que tinha ficado apertada solicitei a troca no site e depois de alguns dias me liberaram o vale compras no valor que paguei,só que o vale compras não é descontado quando seleciona a nova compra apenas da algum tipo de erro no site",
+                  "tsHistoria": "2019-05-21 10:22:25"
+              },
+              {
+                "idHistoria": 2,
+                "dsTitulo": "Resolvido o problema",
+                "dsHistoria": "Após o contato da empresa e auxílio, consegui resolver. obrigado.",
+                "tsHistoria": "2019-05-24 15:18:25"
+            }
+            ],
+            "dsResposta": [
+                {
+                    "idResposta": 1,
+                    "dsResposta": "Olá Randerson, bom dia! Primeiramente pedimos desculpas por qualquer transtorno causado. Conforme contato realizado via telefone, você já conseguiu simular uma compra pelo site utilizando o vale compras. Agradecemos sua atenção e estamos à disposição sempre que precisar. Caso não haja mais nenhuma pendencia quanto a esta reclamação, peço por gentileza, que faça a consideração final no site do reclame aqui, classificando uma nota ao meu atendimento no Reclame Aqui. Atenciosamente, ZATTINI",
+                    "tsResposta": "2019-05-22 08:10:25"
+                },
+                {
+                    "idResposta": 2,
+                    "dsResposta": "Olá Randerson, bom dia! Conforme conversamos ao telefone, passamos todas as dúvidas à limpo. Obrigado(a).",
+                    "tsResposta": "2019-05-23 15:42:25"
+                }
+            ],
+            "tsReclamacao": "2019-05-21 10:22:25"
+        },
+        {
+            "id": 2,
+            "idEmpresa": 3,
+            "idUsuario": 2,
+            "dsHistoria": [
+              {
+                  "idHistoria": 1,
+                  "dsTitulo": "OMO MULTIAÇAO EM VEZ DE REMOVER , MANCHA NOSSAS ROUPAS! ",
+                  "dsHistoria": "OMO TOTAL REMOVE AS MANCHAS + DIFICES DE PRIMEIRA, É O QUE ELES PROMETEM FAZER. COMPREI UMA SERIE DE CUECAS BOX, TODAS BRANCAS, VENHO LAVANDO AS MESMAS COM O SABÃO OMO QUE É O MAS CARO, QUE AGENTE VÊ SEMPRE NA MÍDIA AS GRANDES PROPAGANDAS, PROMETENDO MUNDOS E FUNDOS. GASTAM UMA FORTUNA COM PROPAGANDAS [Editado pelo Reclame Aqui]. DEVERIAM FAZER O QUE PROMETEM, E NÃO O CONTRARIO. ENFIM, JÁ PERDI 4 CUECAS TODAS MANCHADAS, VOU ENVIAR A FOTO PARA VOCÊS VEREM SÃO MAS DE R$ 100,00 REAIS PERDIDOS , R$ 29.90 CADA CUECA. TENHO UMA SUGESTÃO PARA PRÓXIMA CAMPANHA DO SABÃO NA TV: OMO MULTIAÇAO APLICA MANCHAS RAPIDINHO!",
+                  "tsHistoria": "2018-12-02 18:45:12"
+              }  
+            ],
+            "dsResposta": [
+                {
+                    "idResposta": 1,
+                    "dsResposta": "Olá, Mauro. Conforme contato telefônico, o SAC OMO já está ciente de sua notificação. Suas observações serão enviadas ao conhecimento das áreas responsáveis. Tenha certeza de que sua opinião nos incentiva a aprimorar cada vez mais o nosso trabalho. Nossa central permanece à disposição para quaisquer esclarecimentos. Atenciosamente, Unilever Brasil 0800-707-3553 sac@atendimentounilever.com.br ",
+                    "tsResposta": "2018-12-04 04:05:52"
+                }  
+            ],
+            "tsReclamacao": "2018-12-02 18:45:12"
+        },
+        {
+            "id": 3,
+            "idEmpresa": 2,
+            "idUsuario": 2,
+            "dsHistoria": [
+              {
+                  "idHistoria": 1,
+                  "dsTitulo": "Esponja laranja horrível",
+                  "dsHistoria": "Eu comprei uma camisa polo na zattini já faz um mês e chegou rápido quando fui provar ,vi que tinha ficado apertada solicitei a troca no site e depois de alguns dias me liberaram o vale compras no valor que paguei,só que o vale compras não é descontado quando seleciona a nova compra apenas da algum tipo de erro no site",
+                  "tsHistoria": "2019-01-20 14:58:12"
+              }  
+            ],
+            "dsResposta": [
+                {
+                    "idResposta": 1,
+                    "dsResposta": "Olá Randerson, bom dia! Primeiramente pedimos desculpas por qualquer transtorno causado. Conforme contato realizado via telefone, você já conseguiu simular uma compra pelo site utilizando o vale compras. Agradecemos sua atenção e estamos à disposição sempre que precisar. Caso não haja mais nenhuma pendencia quanto a esta reclamação, peço por gentileza, que faça a consideração final no site do reclame aqui, classificando uma nota ao meu atendimento no Reclame Aqui. Atenciosamente, ZATTINI",
+                    "tsResposta": "2019-01-23 09:05:12"
+                }  
+            ],
+            "tsReclamacao": "2019-01-20 14:58:12"
+        },
+        {
+            "id": 4,
+            "idEmpresa": 3,
+            "idUsuario": 1,
+            "dsHistoria": [
+              {
+                  "idHistoria": 1,
+                  "dsTitulo": "Sorvete cor-de-rosa",
+                  "dsHistoria": "Eu comprei uma camisa polo na zattini já faz um mês e chegou rápido quando fui provar ,vi que tinha ficado apertada solicitei a troca no site e depois de alguns dias me liberaram o vale compras no valor que paguei,só que o vale compras não é descontado quando seleciona a nova compra apenas da algum tipo de erro no site",
+                  "tsHistoria": "2019-04-14 09:15:32"
+              }  
+            ],
+            "dsResposta": [
+                {
+                    "idResposta": 1,
+                    "dsResposta": "Olá Randerson, bom dia! Primeiramente pedimos desculpas por qualquer transtorno causado. Conforme contato realizado via telefone, você já conseguiu simular uma compra pelo site utilizando o vale compras. Agradecemos sua atenção e estamos à disposição sempre que precisar. Caso não haja mais nenhuma pendencia quanto a esta reclamação, peço por gentileza, que faça a consideração final no site do reclame aqui, classificando uma nota ao meu atendimento no Reclame Aqui. Atenciosamente, ZATTINI",
+                    "tsResposta": "2019-04-14 17:38:52"
+                }  
+            ],
+            "tsReclamacao": "2019-04-14 09:15:32"
+        },
+        {
+            "id": 1,
+            "idEmpresa": 1,
+            "idUsuario": 2,
+            "dsHistoria": [
+              {
+                  "idHistoria": 1,
+                  "dsTitulo": "SABONETE DOVE BABY CAMOMILA HORRÍVEL",
+                  "dsHistoria": "Eu comprei uma camisa polo na zattini já faz um mês e chegou rápido quando fui provar ,vi que tinha ficado apertada solicitei a troca no site e depois de alguns dias me liberaram o vale compras no valor que paguei,só que o vale compras não é descontado quando seleciona a nova compra apenas da algum tipo de erro no site",
+                  "tsHistoria": "2019-05-21 10:22:25"
+              },
+              {
+                "idHistoria": 2,
+                "dsTitulo": "Resolvido o problema",
+                "dsHistoria": "Após o contato da empresa e auxílio, consegui resolver. obrigado.",
+                "tsHistoria": "2019-05-24 15:18:25"
+            }
+            ],
+            "dsResposta": [
+                {
+                    "idResposta": 1,
+                    "dsResposta": "Olá Randerson, bom dia! Primeiramente pedimos desculpas por qualquer transtorno causado. Conforme contato realizado via telefone, você já conseguiu simular uma compra pelo site utilizando o vale compras. Agradecemos sua atenção e estamos à disposição sempre que precisar. Caso não haja mais nenhuma pendencia quanto a esta reclamação, peço por gentileza, que faça a consideração final no site do reclame aqui, classificando uma nota ao meu atendimento no Reclame Aqui. Atenciosamente, ZATTINI",
+                    "tsResposta": "2019-05-22 08:10:25"
+                },
+                {
+                    "idResposta": 2,
+                    "dsResposta": "Olá Randerson, bom dia! Conforme conversamos ao telefone, passamos todas as dúvidas à limpo. Obrigado(a).",
+                    "tsResposta": "2019-05-23 15:42:25"
+                }
+            ],
+            "tsReclamacao": "2019-05-21 10:22:25"
+        },
+        {
+            "id": 2,
+            "idEmpresa": 3,
+            "idUsuario": 2,
+            "dsHistoria": [
+              {
+                  "idHistoria": 1,
+                  "dsTitulo": "OMO MULTIAÇAO EM VEZ DE REMOVER , MANCHA NOSSAS ROUPAS! ",
+                  "dsHistoria": "OMO TOTAL REMOVE AS MANCHAS + DIFICES DE PRIMEIRA, É O QUE ELES PROMETEM FAZER. COMPREI UMA SERIE DE CUECAS BOX, TODAS BRANCAS, VENHO LAVANDO AS MESMAS COM O SABÃO OMO QUE É O MAS CARO, QUE AGENTE VÊ SEMPRE NA MÍDIA AS GRANDES PROPAGANDAS, PROMETENDO MUNDOS E FUNDOS. GASTAM UMA FORTUNA COM PROPAGANDAS [Editado pelo Reclame Aqui]. DEVERIAM FAZER O QUE PROMETEM, E NÃO O CONTRARIO. ENFIM, JÁ PERDI 4 CUECAS TODAS MANCHADAS, VOU ENVIAR A FOTO PARA VOCÊS VEREM SÃO MAS DE R$ 100,00 REAIS PERDIDOS , R$ 29.90 CADA CUECA. TENHO UMA SUGESTÃO PARA PRÓXIMA CAMPANHA DO SABÃO NA TV: OMO MULTIAÇAO APLICA MANCHAS RAPIDINHO!",
+                  "tsHistoria": "2018-12-02 18:45:12"
+              }  
+            ],
+            "dsResposta": [
+                {
+                    "idResposta": 1,
+                    "dsResposta": "Olá, Mauro. Conforme contato telefônico, o SAC OMO já está ciente de sua notificação. Suas observações serão enviadas ao conhecimento das áreas responsáveis. Tenha certeza de que sua opinião nos incentiva a aprimorar cada vez mais o nosso trabalho. Nossa central permanece à disposição para quaisquer esclarecimentos. Atenciosamente, Unilever Brasil 0800-707-3553 sac@atendimentounilever.com.br ",
+                    "tsResposta": "2018-12-04 04:05:52"
+                }  
+            ],
+            "tsReclamacao": "2018-12-02 18:45:12"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+<div class="container" style="margin-top: 20px" *ngIf="form">
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div>
+      <h3>Detalhes do Form</h3>
+    </div>
+    <pre>
+      <strong>Form Válido:</strong> {{ form.valid }}
+    </pre>
+    <pre>
+      <strong>Form sumetido:</strong> {{ form.submitted }}
+    </pre>
+    <pre>
+      <strong>Valores:</strong> <br> {{ form.value | json }}
+    </pre>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</div>
