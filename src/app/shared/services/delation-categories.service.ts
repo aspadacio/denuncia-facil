@@ -11,6 +11,6 @@ import { Category } from '../models/category';
 export class DelationCategoriesService extends GenericCrudService<Category> {
 
   constructor(protected http: HttpClient) {
-    super(http, `${environment.FAKE_SERVER}categorias`);
+    super(http, `${environment.BACKEND_SERVER}categorias`);
   }
 }

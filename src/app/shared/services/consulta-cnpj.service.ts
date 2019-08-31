@@ -28,7 +28,7 @@ export class ConsultaCnpjService {
             }
             //console.log(`CNPJ Formatado ${cnpjStr.replace(/^(\d{2})(\d{3})?(\d{3})?(\d{4})?(\d{2})?/, "$1.$2.$3/$4-$5")}`);
             //console.log('Chamando Serviço...');
-            return this.http.get(`${environment.FAKE_RECEITA_CNPJ_API}${SisUtil.formatCnpj(cnpjStr)}`)
+            return this.http.get(`${environment.RECEITA_CNPJ_API}${SisUtil.formatCnpj(cnpjStr)}`)
             .pipe(delay(1500),take(1));
         }
         return of({});

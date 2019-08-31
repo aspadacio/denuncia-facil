@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { delay, take } from 'rxjs/operators';
 import { Observable, EMPTY } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class GenericCrudService<T> {
 
   constructor(

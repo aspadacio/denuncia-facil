@@ -11,6 +11,6 @@ import { CategoryTpe } from '../models/categoryType';
 export class DelationCategoryTypesService extends GenericCrudService<CategoryTpe> {
 
   constructor(protected http: HttpClient) {
-    super(http, `${environment.FAKE_SERVER}categoria_tipos`);
+    super(http, `${environment.BACKEND_SERVER}categoria_tipos`);
   }
 }

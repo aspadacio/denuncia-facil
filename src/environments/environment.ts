@@ -4,9 +4,8 @@
 
 export const environment = {
   production: false,
-  FAKE_SERVER: 'http://localhost:3000/',
-  RECEITA_CNPJ_API: 'http://www.receitaws.com.br/v1/cnpj/',
-  FAKE_RECEITA_CNPJ_API: 'http://localhost:3002/objetos?cnpj='
+  BACKEND_SERVER: 'http://localhost:3000/',
+  RECEITA_CNPJ_API: 'http://localhost:3002/objetos?cnpj='
 };
 
 /*

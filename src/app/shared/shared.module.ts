@@ -29,8 +29,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
   ],
   providers: [
     ConsultaCepService,
-    ConsultaCnpjService,
-    GenericCrudService
+    ConsultaCnpjService
   ],
   entryComponents: [
     AlertModalComponent,

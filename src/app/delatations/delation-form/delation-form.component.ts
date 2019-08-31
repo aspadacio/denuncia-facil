@@ -33,9 +33,9 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
   public categoryProblems: CategoryProblem[];
 
   public idCategoryproblem: number;
-  private idCompany: number;
-  private idCategory: number;
-  private idCategorytype: number;
+  public idCompany: number;
+  public idCategory: number;
+  public idCategorytype: number;
 
   public submitted: boolean = false;
   
