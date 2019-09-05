@@ -5,9 +5,9 @@ import { Constants } from '../constants';
 @Pipe({
   name: 'dateFormat'
 })
-export class DateFormatPipe extends DatePipe implements PipeTransform {
+export class DateFormatPipeThis extends DatePipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
-    console.log('convertendo', value);
+    //console.log('convertendo', value);
     return super.transform(value, Constants.DATE_FORMAT);
   }
 }

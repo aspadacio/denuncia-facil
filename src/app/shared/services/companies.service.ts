@@ -11,7 +11,7 @@ import { GenericCrudService } from './generic-crud.service';
 export class CompaniesService extends GenericCrudService<Company> {
 
   constructor(protected http: HttpClient){
-    super(http, `${environment.BACKEND_SERVER}empresas`);
+    super(http, `${environment.BACKEND_SERVER}empresa`);
   }
 
   /**

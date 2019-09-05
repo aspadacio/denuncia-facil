@@ -4,33 +4,34 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {NgxMaskModule} from 'ngx-mask'
+
 import { DelatationsListComponent } from './delatations-list/delatations-list.component';
 import { DelatationsRoutingModule } from './delatations-routing.module';
 import { DelationsService } from './delations.service';
-import { DateFormatPipe } from '../shared/pipes/date-format.pipe';
-import { DateTimeFormatPipe } from '../shared/pipes/date-time-format.pipe';
-import { CamelCasePipe } from '../shared/pipes/camel-case.pipe';
 import { DelationFormComponent } from './delation-form/delation-form.component';
+
 import { SharedModule } from '../shared/shared.module';
+import { DateFormatPipeThis } from '../shared/pipes/date-format.pipe';
+import { DateTimeFormatPipeThis } from '../shared/pipes/date-time-format.pipe';
 
 @NgModule({
   declarations: [
     DelatationsListComponent,
     DelationFormComponent,
-    DateFormatPipe,
-    DateTimeFormatPipe,
-    CamelCasePipe
+    DateFormatPipeThis,
+    DateTimeFormatPipeThis
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgxMaskModule,
+    NgxMaskModule.forRoot(),
     DelatationsRoutingModule,
     FontAwesomeModule,
     SharedModule
   ],
   providers: [
-    DelationsService
+    DelationsService,
+    DateTimeFormatPipeThis
   ]
 })
 export class DelatationsModule { }

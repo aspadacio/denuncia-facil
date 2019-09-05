@@ -12,6 +12,6 @@ import { environment } from 'src/environments/environment';
   export class DelationsService extends GenericCrudService<Delation> {
       
     constructor(protected http: HttpClient){
-        super(http, `${environment.BACKEND_SERVER}delacoes`);
+        super(http, `${environment.BACKEND_SERVER}delacao`);
     }
   }

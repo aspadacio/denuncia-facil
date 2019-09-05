@@ -1,0 +1,7 @@
+.modal-body textarea:focus {
+    border: 0.2rem solid #ffa000;
+}
+
+.modal-body textarea:focus + fa-icon {
+    color: #ffa000;
+}

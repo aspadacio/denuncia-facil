@@ -6,93 +6,74 @@
                 <li data-target="#carouselControls" ></li>
                 <li data-target="#carouselControls" ></li>
             </ol>
-            <!-- Choice the company -->
+            <!-- Slide 1 -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="assets/images/barcelona-boardwalk.jpg" alt="Add Company">
+                    <img src="assets/images/barcelona-boardwalk.jpg">
                     <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Encontre uma empresa para reclamar</span>
-                            </h2>
+                            <h2><span>Escolha uma identificação</span></h2>
                             <br>
                             <h3 style="margin-top: 60px">
                                 <!-- <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span> -->
-                                <select *ngIf="companies else loading" (change)="onChangeSelectCompany($event)" class="col-sm-10 selectpicker btn-outline-success"
-                                    data-live-search="true" title="Pesquisar Empresa" data-header="Marque uma empresa" data-size="8"
-                                    data-liveSearchStyle="startsWith" data-noneResultsText='Nada encontarado {0}' id="selectpicker-company" formControlName="idEmpresa">
-                                    <option *ngFor="let company of companies" value="{{ company?.id }}">
-                                        {{ company?.fantasia ? company.fantasia : company?.nome }}
-                                    </option>
-                                </select>
                             </h3>
                             <br>
-                            <div class="">
-                                <!-- <a class="btn btn-theme btn-sm btn-min-block" href="#">Login</a>
-                                <a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a> -->
+                            <div class="texto-meio">
+                                <h4>Existem três formas de identificação</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="sign">Já utiliza o Denúncia Fácil?</label>
+                                    </div>
+                                    <div class="col">
+                                        <label for="onlyRegister">Apenas cadastrar</label>
+                                    </div>
+                                    <div class="col">
+                                        <label for="unknow">Não identificado</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="indentificavel card">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Já possui cadastro (usuário e senha) no Denúncia Fácil?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="onlyRegister card">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Caso prefira manter-se anônimo à empresa que vai denunciar, porém quer ter cadastro no sistema para ter uma visão panorâmica de todas as denúncias.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="unknow card">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                As denúncias registradas de maneira anônima serão acompanhadas a partir de um protocolo. 
+                                                Caso deseje acompanhar o andamento da sua denúncia via protocolo gerado, por favor informá-lo na página inicial .
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 2rem;">
+                                    <button id="sign" class="btn btn-theme btn-sm btn-min-block col" (click)="onSign()">Entrar</button>
+                                    <button id="onlyRegister" class="btn btn-theme btn-sm btn-min-block col" (click)="onRegister()">Cadastrar</button>
+                                    <button id="unknow" class="btn btn-theme btn-sm btn-min-block col" (click)="onAnonymous()">Denunciar se me identificar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-caption">
-                        <h5>Escolha uma empresa</h5>
-                        <p>Qual empresa você gostaria de denunciar?</p>
+                        <p class="alert ">
+                            <strong>ATENÇÃO</strong>: 
+                            Os seus dados pessoais de login, incluindo seu nome, serão acessados somente pela Ouvidoria para a qual você encaminhar a sua manifestação, nos termos da Lei nº 13.460, de 2017, e não será encaminhada para terceiros.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Choice the type(s) of Delation -->
+                <!-- Slide 2 -->
                 <div class="carousel-item">
-                    <img src="assets/images/barcelona-boardwalk.jpg" alt="Add Company">
-                    <div class="header-text hidden-xs">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span>Categoria da denúncia</span>
-                            </h2>
-                            <br>
-                            <div class="form-row">
-                                <label for="selectCategory" class="col">Qual é a categoria do seu problema?</label>
-                                <label for="selectType" class="col">Qual é o tipo de produto ou serviço?</label>
-                            </div>
-                            <div class="form-group">
-                                <select (change)="onChangeSelectCategory($event)" class="col-sm-6 selectpicker btn-outline-success"
-                                    data-live-search="true" title="Pesquisar categoria" data-header="Selecione uma opção" data-size="8"
-                                    data-liveSearchStyle="startsWith" data-noneResultsText='Nada encontarado {0}'
-                                    id="selectpicker-category">
-                                    <option *ngFor="let category of categories" value="{{ category?.id }}">
-                                        {{ category?.nome }}
-                                    </option>
-                                </select>
-                                <select (change)="onChangeSelectCategorytype($event)" class="col-sm-6 selectpicker btn-outline-success"
-                                    data-live-search="true" title="Pesquisar tipo" data-header="Selecione uma opção" data-size="8"
-                                    data-liveSearchStyle="startsWith" data-noneResultsText='Nada encontarado {0}'
-                                    [disabled]="!(idCategory>0)" id="selectpicker-categorytype">
-                                    <option *ngFor="let categoryType of categoryTypes" value="{{ categoryType?.id }}">
-                                        {{ categoryType?.nome }}
-                                    </option>
-                                </select>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label for="selectIssue" class="col-sm-12">Qual é o problema?</label>
-                                <select (change)="onChangeSelectCategoryProblem($event)" class="col-sm-12 selectpicker btn-outline-success"
-                                    data-live-search="true" title="Pesquisar problema" data-header="Selecione uma opção" data-size="8"
-                                    data-liveSearchStyle="startsWith" data-noneResultsText='Nada encontarado {0}'
-                                    [disabled]="!(idCategorytype>0)" id="selectpicker-problem">
-                                    <option *ngFor="let categoryProblem of categoryProblems" value="{{ categoryProblem?.id }}">
-                                        {{ categoryProblem?.nome }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-caption">
-                        <h5>Esolha a classificação da denúncia</h5>
-                        <p>Qual é a categoria da denúncia?</p>
-                    </div>
-                </div>
-
-                <!-- Add delations' details -->
-                <div class="carousel-item">
-                    <img src="assets/images/barcelona-boardwalk.jpg" alt="Add Company">
+                    <img src="assets/images/barcelona-boardwalk.jpg">
                     <div class="header-text hidden-xs">
                         <div class="col-md-12 text-center">
                             <h2>
@@ -100,11 +81,12 @@
                             </h2>
                             <div class="box-gray">
                                 <div class="form-group">
-                                    <label for="delationTitle">Título da reclamação</label>
+                                    <label for="delationTitle">Título</label>
                                     <input type="text" class="form-control" id="delationTitle" placeholder="Título da sua reclamação" formControlName="dsTitulo">
 
-                                    <label for="delationYourHistory">Conte-nos a sua história</label>
-                                    <textarea class="form-control" id="delationYourHistory" rows="3" placeholder="Escreva aqui todos os detalhes da sua história..."></textarea>
+                                    <label for="delationYourHistory">Conte a sua história</label>
+                                    <textarea class="form-control" id="delationYourHistory" rows="4" maxlength="2000" placeholder="Escreva aqui todos os detalhes da sua história..."></textarea>
+                                    <small class="text-lef text-muted">caracter(es) restante(s)</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="delationFiles">Você pode enviar até 3 imagens ou documentos para a empresa.</label>
@@ -138,7 +120,7 @@
                                         Formatos de arquivo permitidos: PNG, JPG ou PDF com até 5Mb.
                                     </small>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="phones" >Qual o telefone que a empresa pode entrar em contato?</label>
                                     <div class="row" id="phones">
                                         <div class="col-sm-6">
@@ -149,12 +131,12 @@
                                             <input type="tel" mask='(00) 0000-0000' placeholder="(00) 0000-0000" title="Residencial">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                     <div class="carousel-caption">
-                        <h5>Agora, descreva em detalhes seu problema
+                        <h5>Agora, descreva em detalhes sua história
                             <fa-icon [icon]="['far', 'thumbs-up']" size="fa-sm"></fa-icon>
                         </h5>
                         <p>Qual é a sua história?</p>

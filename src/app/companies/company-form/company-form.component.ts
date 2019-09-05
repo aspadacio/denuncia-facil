@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
 import { FormValidations } from 'src/app/shared/form-validations';
 import { ConsultaCnpjService } from 'src/app/shared/services/consulta-cnpj.service';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 
 import { CompaniesService } from 'src/app/shared/services/companies.service';
@@ -24,7 +24,7 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private companiesService: CompaniesService,
     private cnpjService: ConsultaCnpjService,
-    private alertService: AlertModalService,
+    private alertService: ModalService,
     private route: ActivatedRoute,
     private location: Location
   ) { 

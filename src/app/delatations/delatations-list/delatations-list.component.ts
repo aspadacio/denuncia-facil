@@ -1,17 +1,19 @@
-import { Component, OnInit, HostListener, AfterViewInit, Type, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 
 import { Delation } from 'src/app/shared/models/delation';
 import { DelationsService } from '../delations.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap, distinctUntilChanged, debounce, debounceTime } from 'rxjs/operators';
 import { Observable, EMPTY } from 'rxjs';
 import { Company } from 'src/app/shared/models/company';
 import { User } from 'src/app/shared/models/user';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
-import { CompaniesService } from 'src/app/shared/services/companies.service';
-import { UsersService } from 'src/app/shared/services/users.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BaseListComponent } from 'src/app/shared/base-list/base-list.component';
+import { CommentModalComponent } from 'src/app/shared/comment-modal/comment-modal.component';
+import { DateTimeFormatPipeThis } from 'src/app/shared/pipes/date-time-format.pipe';
+import { Constants } from 'src/app/shared/constants';
+import { Location } from '@angular/common';
 
 declare var $:any;
 
@@ -27,47 +29,50 @@ type ParamsValues = {
 })
 export class DelatationsListComponent extends BaseListComponent implements OnInit, AfterViewInit {
 
-  public delations$: Observable<Delation[]>;
+  @ViewChild('modalDetails', {static: false}) modalDetails: TemplateRef<any>;
+
+  private commentIserted: string = '';
+  private delatationObject: Delation;
+  public delationSelected: Delation;
+
+  public delatations$: Observable<Delation[]>;
+  public delatation$: Observable<Delation>;
   public companies$: Observable<Company[]>;
   public users$: Observable<User[]>;
 
+
+  public reqRespIndex = [];
   ctxTmpCenterDot = { $implicit: true };
   optionsSearch = [];
 
-  @ViewChild('modalDetails', {static: false}) modalDetails: TemplateRef<any>;
-  
-  public delationSelected: Delation;
-
   constructor(
     private delationsService: DelationsService,
-    private companiesService: CompaniesService,
-    private usersService: UsersService,
-    public alertService: AlertModalService,
+    private dateTimeFormt: DateTimeFormatPipeThis,
+    private modalService: ModalService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private location: Location
   ){ 
-    super(alertService, router, route);
+    super(modalService, router, route);
+
+   //To reload the self-page. RouterActive doesnt works here.
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
-    this.onRefresh();
+    this.delatationObject = this.route.snapshot.data['delation'];
+    if( this.delatationObject ){
+      this.delatationObject = this.delatationObject[0];
+      
+      //Show time-line from ONE delatation
+      this.onUpdateCurrent(this.delatationObject.id.toString());
+      this.fixNgForArrays();
+    }else {
+      this.onRefresh();
+    }
   }
 
   ngAfterViewInit(): void {
-    this.users$ = this.usersService.list()
-      .pipe(
-        catchError(err => {
-          this.handleError('Erro ao carregar Usuários. Tente novamente.');
-          return EMPTY;
-        }));
-
-    this.companies$ = this.companiesService.list()
-      .pipe(
-        catchError(err => {
-          this.handleError('Erro ao obter lista de Empresas. Tente novamente.');
-          return EMPTY;
-        }));
-
     /**
      * Bootstrap-select - @see developer.snapappointments.com/bootstrap-select/
      * After get data from async services, it's necessary, due to a bug, refresh DOM element
@@ -78,8 +83,9 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
 
   }
 
+  //Get all delation from that Company
   onRefresh() {
-    this.delations$ = this.delationsService.list()
+    this.delatations$ = this.delationsService.list()
     .pipe(
       catchError(err => {
         console.log(err);
@@ -89,70 +95,95 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
   }
 
   /**
-   * Find for Company / Squeaker
-   * @param evt 
-   */
-  onChangeSelect(evt: any){
-    let arr = [];
-    let arrSelected: Function = $('.selectpicker option:selected');
-    if( arrSelected.length > 0 && arrSelected.length <= 2 ){
-      $(arrSelected).each(function(index: number, opt: any){
-        arr.push(opt);
-      });
-      this.optionsSearch = arr;
-    }
-  }
-
-  /**
-   * FInd Squeaker with Selected options
-   */
-  onSearch(){
-    let optsSearch: ParamsValues[] = [];
-    if(this.optionsSearch && this.optionsSearch.length > 0){
-      this.optionsSearch.forEach(function(v: any, i: number, arr: any[]){
-        let value: string = $(v).val();
-        let field: string = value.substring(0,1);
-        let strId: string = value.substring(1,2);
-        
-        if( field && field === 'c' ){
-          //Company
-          optsSearch.push({key: 'idEmpresa', value: strId});
-        }else {
-          //Squeaker
-          optsSearch.push({key: 'idUsuario', value: strId});
-        }
-      });
-
-      this.delations$ = this.delationsService.findParams(optsSearch)
-      .pipe(
-        catchError(err => {
-          console.log(err);
-          return EMPTY;
-        })
-      );
-    }
-  }
-
-  /**
    * Will show a modal popup with Delation's value
    * @param delation 
    */
-  onView(delation: Delation){
-    this.delationSelected = delation;
-    this.usersService.find(this.delationSelected.idUsuario.toString())
-    .subscribe(
-      user => this.delationSelected.dsUsuario = user.nome
-    );
-    this.companiesService.find(this.delationSelected.idEmpresa.toString())
-    .subscribe(
-      company => this.delationSelected.dsEmpresa = company.nome
-    );
-    this.alertService.showDetails(this.modalDetails);
+  onView(protocol: string){
+    this.router.navigate(['/denuncias/view/', protocol], {relativeTo: this.route});
   }
 
-  limparPesquisa(){
-    $('.selectpicker').selectpicker('deselectAll');
-    this.onRefresh();
+  /**
+   * Will show a modal popup to add user's comments
+   * Used only in each delatation
+   */
+  onViewAddComment() {
+    const comment$ = this.modalService.showAddComment(CommentModalComponent, 'Por favor, insira seu comentário');
+    comment$.pipe(
+      map(comment => comment != '' ? this.commentIserted = comment : EMPTY)
+    )
+    .subscribe(
+      success => {
+       //TODO: Add Comment or Response
+       this.addComment();
+      },
+      error => {
+        this.handleError('Ocorreu um erro ao iniciar a tela de comentário.');
+      }
+    );
+  }
+
+    /**
+   * Will show a modal popup to add Lawer response
+   * Used only in each delatation
+   */
+  onViewAddResponse() {
+    const response$ = this.modalService.showAddComment(CommentModalComponent, 'Por favor, insira sua responsta');
+    response$.pipe(
+      map(resp => resp != '' ? this.commentIserted = resp : EMPTY)
+    )
+    .subscribe(
+      success => {
+        //TODO: Add Comment or Response
+        this.addResponse();
+       },
+       error => {
+         this.handleError('Ocorreu um erro ao iniciar a tela de resposta.');
+       }
+    );
+  }
+
+  //add comments to current time-line
+  private addComment() {
+    this.delatationObject.dsHistoria.push({
+      idHistoria: (this.delatationObject.dsHistoria.length + 1),
+      dsHistoria: this.commentIserted,
+      tsHistoria: this.dateTimeFormt.transform(Date.now(), Constants.DATE_TIME_TS_FORMAT)
+    });
+    this.onSaveDelatation();
+  }
+
+    //add comments to current time-line
+    private addResponse() {
+      this.delatationObject.dsResposta.push({
+        idResposta: (this.delatationObject.dsResposta.length + 1),
+        dsResposta: this.commentIserted,
+        tsResposta: this.dateTimeFormt.transform(Date.now(), Constants.DATE_TIME_TS_FORMAT)
+      });
+      this.onSaveDelatation();
+    }
+
+    //add response to current time-line
+    private onSaveDelatation(){
+      this.delationsService.save(this.delatationObject)
+      .pipe(
+        catchError((error: any) => {
+          this.handleError('Ocorreu um erro ao atualizar a denúncia');
+          return EMPTY;
+        })
+      ).subscribe(
+        success => {
+          //To reload the self-page. RouterActive doesnt works here.
+          this.router.navigate([this.router.url]);
+        },
+        error => this.handleError('Ocorreu um erro ao atualizar a denúncia')
+      );
+    }
+
+  private onUpdateCurrent(id: string): void {
+    this.delatation$ = this.delationsService.find(id);
+    this.delatation$.pipe(
+      map(delation => delation)
+    ).subscribe();
   }
 
   /**
@@ -180,11 +211,31 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
   }
 
   private handleError(msg: string){
-    this.alertService.showAlert(AlertModalComponent, msg);
+    this.modalService.showAlert(AlertModalComponent, msg);
   }
 
   refreshSelect() {
     $('.selectpicker').selectpicker('refresh');
  }
+
+ onSearch(): void {
+  throw new Error("Method not implemented.");
+}
+
+/**
+ * Workaround to correct iterat over two Arrays on ngFor
+ */
+private fixNgForArrays() {
+  for( let i=0; i<this.delatationObject.dsHistoria.length && i<this.delatationObject.dsHistoria.length; i++ ) {
+    this.reqRespIndex.push({
+      even: this.delatationObject.dsHistoria[i] ? i : 'EOF',
+      odd: this.delatationObject.dsResposta[i] ? i : 'EOF'
+    });
+    this.reqRespIndex.push({
+      even: this.delatationObject.dsHistoria[i] ? i : 'EOF',
+      odd: this.delatationObject.dsResposta[i] ? i : 'EOF'
+    });
+  }
+}
 
 }

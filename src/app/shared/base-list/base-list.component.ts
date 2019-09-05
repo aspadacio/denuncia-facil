@@ -1,10 +1,10 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertModalService } from '../services/alert-modal.service';
+import { ModalService } from '../services/modal.service';
 
 export abstract class BaseListComponent {
  
     constructor(
-        public alertService: AlertModalService,
+        public alertService: ModalService,
         public router: Router,
         public route: ActivatedRoute
     ){}

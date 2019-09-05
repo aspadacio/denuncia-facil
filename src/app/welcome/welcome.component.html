@@ -1,0 +1,39 @@
+<button class="btn btn-primary text-left" id="sign" (click)="onSign()">
+    <fa-icon [icon]="['fas', 'sign-in-alt']" size="fa-sm"></fa-icon>
+    Entrar
+</button>
+
+<div class="text-center main" *ngIf="company$ | async as c">
+    <h2>Bem-vindo ao sistema de denúncia!</h2>
+    <h6>{{ c[0].fantasia | camelCase }}</h6>
+
+    <div class="itens">
+        <button class="btn list-item" (click)="onDelation()">
+            <span class="categoria">
+            </span>
+            <span class="texto">
+                Denunciar
+            </span>
+        </button>
+        <button class="btn list-item" *ngIf="!isViewProtocol" (click)="onIsViewProtocol()">
+            <span class="categoria">
+            </span>
+            <span class="texto">
+                Meu Protocolo
+            </span>
+        </button>
+        <div class="btn list-item " *ngIf="isViewProtocol" id="protocolSearchBtn">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button type="button" id="nmProtocoloHelp" class="col-sm-1 btn btn-success dropdown-toggle-split"
+                        aria-haspopup="false" aria-expanded="false" title="Pesquisar" (click)="onViewProtocol(protocol.value)">
+                        <span class="sr-only">Pesquisar</span>
+                        <fa-icon [icon]="['fas', 'search']" size="fa-sm"></fa-icon>
+                    </button>
+                </div>
+                <input type="text" class="form-control" placeholder="Digite o protocolo" aria-label="Digite o protocolo"
+                    aria-describedby="nmProtocoloHelp" maxlength="20" #protocol>
+            </div>
+        </div>
+    </div>
+</div>

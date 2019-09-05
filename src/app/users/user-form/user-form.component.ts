@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { UsersService } from '../../shared/services/users.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class UserFormComponent extends BaseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private cepService: ConsultaCepService,
     private usersService: UsersService,
-    private alertService: AlertModalService
+    private alertService: ModalService
   ) {
     super();
    }

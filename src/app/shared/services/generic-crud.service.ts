@@ -43,16 +43,16 @@ export class GenericCrudService<T> {
    * Do a search by params sent
    * @param args ArrayMap<String, String> => key, value
    */
-  findParams(...args: any[]){
+  findParams(...args: any[]): any{
     let mountUrl = this.SERVICE_URL + '?';
-    args[0].forEach(function(v: any, i: number, arr: any[]){
+    args.forEach(function(v: any, i: number, arr: any[]){
       if( i >= 1 ){
         mountUrl += '&';
       }
       mountUrl += v.key + '=' + v.value;
     });
     // console.log(mountUrl);
-    return this.http.get<T[]>(`${mountUrl}`).pipe(take(1));
+    return this.http.get<T>(`${mountUrl}`).pipe(take(1));
   }
 
   /**

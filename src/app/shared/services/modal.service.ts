@@ -2,7 +2,6 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject, pipe, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Company } from '../models/company';
 
 //Pode-se utilizar-se de algum ENUM
 enum AlertTypes {
@@ -13,7 +12,7 @@ enum AlertTypes {
 @Injectable({
   providedIn: 'root'
 })
-export class AlertModalService {
+export class ModalService {
   bsModalRef: BsModalRef;
   constructor(private modalService: BsModalService) { }
   
@@ -76,6 +75,16 @@ export class AlertModalService {
           class: 'gray modal-lg'
         }
       ));
+  }
+
+  /**
+   * Modal usada apra inclusão de um comentário ou resposta numa denúncia já criada
+   * @retuns The comment wrote
+   */
+  showAddComment(template: any, title: string): Observable<string> {
+    this.bsModalRef = this.modalService.show(template);
+    this.bsModalRef.content.title = title;
+    return (<Subject<string>>this.bsModalRef.content.confirmResult).asObservable().pipe(take(1));
   }
 
   public close(){

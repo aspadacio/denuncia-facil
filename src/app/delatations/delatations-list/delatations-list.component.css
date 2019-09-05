@@ -14,3 +14,30 @@
 #btn-load-more:hover {
     font-weight: bold;
 }
+
+.body-text {
+    text-align: justify;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#topBarMenu .navbar-nav {
+    padding-left: 4rem;
+    margin-left: 2rem;
+}
+
+#navbarToggleExternalContent {
+    margin-top: -3rem;
+}
+
+#navbarToggleExternalContent button {
+    background: #abd9e0;
+}
+
+#navbarToggleExternalContent .dropdown-menu {
+    margin-left: 6rem;
+}

@@ -6,7 +6,7 @@ import { UsersService } from '../../shared/services/users.service';
 import { catchError, tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-users-list',
@@ -21,7 +21,7 @@ export class UsersListComponent implements OnInit {
   public userSelected: User;
 
   constructor(
-    private alertService: AlertModalService,
+    private alertService: ModalService,
     private usersService: UsersService,
     private router: Router,
     private route: ActivatedRoute

@@ -1,35 +1,96 @@
-<div class="container">
-    <div class="col-lg">
-        <button type="button" class="col-sm-5 btn btn-primary" [routerLink]="['new']">Denunciar</button>
-        <div class="col-sm-6 btn-group">
-            <select (change)="onChangeSelect($event)" class="col-sm-10 selectpicker" data-live-search="true"
-                title="Pesquisar Empresa e/ou Denunciante" data-header="Marque uma empresa e/ou um denunciante"
-                data-style="btn-outline-success" data-size="8" data-liveSearchStyle="startsWith"
-                data-noneResultsText='Nada encontarado {0}' show-tick multiple>
-                <optgroup label="Empresa" data-max-options="1">
-                    <option *ngFor="let company of companies$ | async" value="c{{ company?.id }}">
-                        {{ company?.fantasia ? company.fantasia : company?.nome }}</option>
-                </optgroup>
-                <optgroup label="Denunciante" data-max-options="1">
-                    <option *ngFor="let user of users$ | async" value="u{{ user?.id }}">{{ user?.nome | camelCase }}
-                    </option>
-                </optgroup>
-            </select>
-            <button type="button" class="col-sm-1 btn btn-success dropdown-toggle-split" aria-haspopup="false"
-                aria-expanded="false" style="margin-left: -15px" title="Pesquiasar" (click)="onSearch()">
-                <span class="sr-only">Pesquisar</span>
-                <fa-icon [icon]="['fas', 'search']" size="fa-sm"></fa-icon>
-            </button>
-            <button type="button" class="col-sm-1 btn btn-danger dropdown-toggle-split" aria-haspopup="false" aria-expanded="false"
-                title="Limpar Pesquisa" (click)="limparPesquisa()">
-                <span class="sr-only">Limpar pesquisa</span>
-                <fa-icon [icon]="['fas', 'sync-alt']" size="fa-sm"></fa-icon>
-            </button>
-        </div>
+<!-- *********************************** 
+    EXIBE APENAS UMA DENÚNCIA DETALHADA 
+**************************************** -->
+<div class="container-fluid" *ngIf="delatation$">
+    <ng-container *ngTemplateOutlet="topBarMenu"></ng-container>
+</div>
+<div class="container" *ngIf="delatation$ | async as d">
+    <h3 class="text-center">{{ d.dsTitulo | camelCase }}</h3>
+    <div class="row no-gutters py-2 mt-4 mb-4" *ngFor="let item of this.reqRespIndex; index as index; even as even; odd as odd; first as first; last as last">
+        <ng-container  *ngIf="even && d.dsHistoria[item.even]">
+            <!-- Spacer -->
+            <div class="col-sm"></div>
+            <!-- Center Dot -->
+            <ng-container *ngTemplateOutlet="centerDotFull; context: ctxTmpCenterDot"></ng-container>
+            <!-- TimeLine Body -->
+            <ng-container *ngTemplateOutlet="historyTimelineBody"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="odd && d.dsResposta[item.odd]">
+            <!-- TimeLine Body -->
+            <ng-container *ngTemplateOutlet="respTimelineBody"></ng-container>
+            <!-- Center Dot -->
+            <ng-container *ngTemplateOutlet="centerDotFull; context: ctxTmpCenterDot"></ng-container>
+            <!-- Spacer -->
+            <div class="col-sm"></div>
+        </ng-container>
+
+        <!-- Templates -->
+          <!-- Center Dot -->
+        <ng-template #centerDotFull>
+            <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
+                <div class="row h-50">
+                    <div class="col" [class.border-right]="!first">&nbsp;</div>
+                    <div class="col">&nbsp;</div>
+                </div>
+                <h5 class="m-2">
+                    <span class="badge badge-pill bg-success">&nbsp;</span>
+                    <!-- <span class="badge badge-pill bg-success">&nbsp;</span> -->
+                </h5>
+                <div class="row h-50">
+                    <div class="col" [class.border-right]="!last">&nbsp;</div>
+                    <div class="col">&nbsp;</div>
+                </div>
+            </div>
+        </ng-template>
+
+        
+    <!-- Time Line Body -->
+    <ng-template #historyTimelineBody>
+            <div class="col-sm py-2">
+                <div class="card border-success shadow">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <fa-icon [icon]="['fas', 'user']" class="fa-2x"></fa-icon>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted small text-right">
+                            {{ d.dsHistoria[item.even]?.tsHistoria | dateFormat }} às
+                            {{ d.dsHistoria[item.even]?.tsHistoria | dateTimeFormat:'hh:mm'}}</h6>
+                        <p class="card-text body-text" style="overflow-y: scroll; max-height: 150px;">
+                            {{ d.dsHistoria[item.even]?.dsHistoria }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    
+        <ng-template #respTimelineBody>
+            <div class="col-sm py-2">
+                <div class="card border-success shadow">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <fa-icon [icon]="['fas', 'user-tie']" class="fa-2x"></fa-icon>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted small text-right">
+                            {{ d.dsResposta[item.odd ]?.tsResposta | dateFormat }} às
+                            {{ d.dsResposta[item.odd ]?.tsResposta | dateTimeFormat:'hh:mm' }}</h6>
+                        <p class="card-text body-text" style="overflow-y: scroll; max-height: 150px;">
+                            {{ d.dsResposta[item.odd ]?.dsResposta }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>
-<hr>
-<div class="container py-2 mt-4 mb-4" *ngIf="delations$ | async as delations">
+
+<!-- ******************************** 
+    TODAS AS DENÚNCIAS DE UMA EMRPESA 
+************************************* -->
+<div class="container py-2 mt-4 mb-4" *ngIf="delatations$ | async as delations">
     <div class="row no-gutters"
         *ngFor="let d of delations; index as index; even as even; odd as odd; first as first; last as last">
         <ng-container *ngIf="even">
@@ -81,26 +142,18 @@
                     </div>
                     <div class="card-footer bg-transparent border-success">
                         <div class="btn-group" style="float: right">
-                            <button type="button" class="btn btn-outline-info" style="margin-right: 5px" title="Visualizar">
-                                <span class="sr-only">Visualizar</span>
-                                <fa-icon [icon]="['fas', 'eye']" size="fa-sm" (click)="onView(d)"></fa-icon>
-                            </button>
-                            <button type="button" class="btn btn-outline-success" style="margin-right: 5px" title="Editar">
-                                <span class="sr-only">Editar</span>
-                                <fa-icon [icon]="['fas', 'edit']" size="fa-sm" (click)="onEdit(d.id)"></fa-icon>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger" title="Excluir">
-                                <span class="sr-only">Excluir</span>
-                                <fa-icon [icon]="['fas', 'trash']" size="fa-sm"></fa-icon>
+                            <button type="button" class="btn btn-outline-info" style="margin-right: 5px" title="Visualizar Denúncia">
+                                <span class="sr-only">Visualizar Denúncia</span>
+                                <fa-icon [icon]="['fas', 'eye']" size="fa-sm" (click)="onView(d.protocolo)"></fa-icon>
                             </button>
                         </div>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" [attr.data-target]="'#tl-body-'+index"
-                            data-toggle="collapse">Detalhes ▼</button>
+                        <button class="btn btn-sm btn-outline-secondary" type="button"
+                            [attr.data-target]="'#tl-body-'+index" data-toggle="collapse">Detalhes ▼</button>
                         <div class="collapse border" id="tl-body-{{ index }}">
                             <div class="p-2 text-monospace">
                                 <div *ngFor="let history of d.dsHistoria" class="text-resume">
-                                    {{ history.tsHistoria | dateTimeFormat:'hh:mm' }} -
-                                    {{ history.dsHistoria | camelCase }}
+                                    <fa-icon class="fa-1x" aria-hidden="true" [icon]="['far', 'user']"></fa-icon>
+                                    {{ history.tsHistoria | dateTimeFormat:'hh:mm' }} - {{ history.dsHistoria | camelCase }}
                                 </div>
                             </div>
                         </div>
@@ -110,12 +163,10 @@
         </ng-template>
     </div>
     <hr>
-    <div class="container-fluid text-center">
+    <!-- <div class="container-fluid text-center">
         <button id="btn-load-more" type="button" class="btn btn-light">Carregar mais...</button>
-    </div>
+    </div> -->
 </div>
-
-<hr>
 
 <!-- Details -->
 <ng-template #modalDetails>
@@ -126,33 +177,39 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body" style="position: relative; overflow-y: scroll; max-height: 450px;" *ngIf="delationSelected as d">
+        <div class="modal-body" style="position: relative; overflow-y: scroll; max-height: 450px;"
+            *ngIf="delationSelected as d">
             <div class="row">
                 <div class="card col-12">
                     <div class="card-body">
-						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="box-part text-center">
-									<fa-icon class="fa-3x" aria-hidden="true" [icon]="['far', 'building']"></fa-icon>
-									<div class="title">
-										<h4>{{ delationSelected.dsEmpresa }}</h4>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="box-part text-center">
-									<fa-icon class="fa-3x" aria-hidden="true" [icon]="['fas', 'user-alt']"></fa-icon>
-									<div class="title">
-										<h4>{{ delationSelected.dsUsuario }}</h4>
-									</div>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div style="text-align: justify" class="table-striped" *ngFor="let history of delationSelected.dsHistoria; index as i">
-							<p *ngIf="history.dsHistoria"><strong>{{ history.tsHistoria | dateTimeFormat:'hh:mm' }}</strong> - {{ history.dsHistoria | camelCase }}</p>
-							<p *ngIf="delationSelected.dsResposta[i] as response"><strong>{{ response.tsResposta | dateTimeFormat:'hh:mm' }}</strong> - {{ response.dsResposta | camelCase }}</p>
-						</div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="box-part text-center">
+                                    <fa-icon class="fa-3x" aria-hidden="true" [icon]="['far', 'building']"></fa-icon>
+                                    <div class="title">
+                                        <h4>{{ delationSelected.dsEmpresa }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="box-part text-center">
+                                    <fa-icon class="fa-3x" aria-hidden="true" [icon]="['fas', 'user-alt']"></fa-icon>
+                                    <div class="title">
+                                        <h4>{{ delationSelected.dsUsuario }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div style="text-align: justify" class="table-striped"
+                            *ngFor="let history of delationSelected.dsHistoria; index as i">
+                            <p *ngIf="history.dsHistoria">
+                                <strong>{{ history.tsHistoria | dateTimeFormat:'hh:mm' }}</strong> -
+                                {{ history.dsHistoria | camelCase }}</p>
+                            <p *ngIf="delationSelected.dsResposta[i] as response">
+                                <strong>{{ response.tsResposta | dateTimeFormat:'hh:mm' }}</strong> -
+                                {{ response.dsResposta | camelCase }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,3 +220,34 @@
     </div>
 </ng-template>
 
+<!-- 
+    TOP NAV-BAR 
+-->
+<ng-template #topBarMenu>
+    <div class="pos-f-t" id="topBarMenu">
+        <nav class="navbar navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="navbar-nav">
+                <div class="nav-item dropdown">
+                    <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Advogado</a>
+                    <div class="dropdown-menu">
+                        <button href="#" class="btn btn-info dropdown-item" (click)="onViewAddResponse()">Inserir Resposta</button>
+                    </div>
+                </div>
+                <span style="padding: 1rem;"></span>
+                <div class="nav-item dropdown">
+                    <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Usuário</a>
+                    <div class="dropdown-menu">
+                        <button href="#" class="dropdown-item" (click)="onViewAddComment()">Inserir Comentário</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

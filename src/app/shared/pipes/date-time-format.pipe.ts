@@ -5,7 +5,7 @@ import { Constants } from '../constants';
 @Pipe({
   name: 'dateTimeFormat'
 })
-export class DateTimeFormatPipe extends DatePipe implements PipeTransform {
+export class DateTimeFormatPipeThis extends DatePipe implements PipeTransform {
 
   /**
    * Format a Date form the pattern format

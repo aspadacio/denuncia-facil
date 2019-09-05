@@ -4,7 +4,7 @@ import { CompaniesService } from 'src/app/shared/services/companies.service';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, pipe, EMPTY } from 'rxjs';
 import { Company } from '../../shared/models/company';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -24,7 +24,7 @@ export class CompaniesListComponent implements OnInit {
   //Constructor
   constructor(
     private companiesService: CompaniesService,
-    private alertService: AlertModalService,
+    private alertService: ModalService,
     private router: Router,
     private route: ActivatedRoute
   ) { }

@@ -1,22 +1,24 @@
 <div class="container-fluid">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 10px;">
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="['/']">Início 
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark " style="margin-top: 10px;">
+    <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
+      <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/']">Início
               <span class="sr-only">(current)</span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="['/delatations']">Denuncias</a>
           </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/companies']">Empresas</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="['/users']">Usuários</a>
-        </li>
-      </ul>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/denuncias']">Denuncias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/empresas']">Empresas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/usuarios']">Usuários</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 </div>

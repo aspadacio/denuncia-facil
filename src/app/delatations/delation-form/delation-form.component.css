@@ -224,3 +224,30 @@
     height: 50px;
     cursor: pointer;
 }
+
+.card-body, .card {
+    background-color: #768a8f;
+    padding: 0.5rem;
+}
+
+.indentificavel {
+    margin-left: 1.5rem;
+    margin-right: 1.7rem;
+}
+
+.onlyRegister {
+    margin-right: 1.7rem;
+}
+
+.unknow {
+    margin-right: 1.5rem;
+}
+
+.indentificavel, .onlyRegister, .unknow{
+    width: 20rem;
+    display: inline-table;
+}
+
+.indentificavel, .onlyRegister, .unknow p {
+    text-align: justify;
+}
