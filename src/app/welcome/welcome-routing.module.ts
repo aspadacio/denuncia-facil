@@ -1,17 +1,20 @@
 import { RouterModule, Routes } from '@angular/router';
-import { WelcomeComponent } from './welcome.component';
 import { NgModule } from '@angular/core';
+
 import { WelcomeGuard } from './welcome.guard';
+import { WelcomeHomeComponent } from './welcome-home/welcome-home.component';
+import { WelcomeSiteComponent } from './welcome-site/welcome-site.component';
 
 const routes: Routes = [
     {
       path: '', 
-      component: WelcomeComponent, 
-      canActivateChild: [
-        WelcomeGuard
-      ],
+      component: WelcomeSiteComponent,
       children: [
-        // { path: ':contexto', component: WelcomeComponent }
+        { 
+          path: ':context', 
+          component: WelcomeHomeComponent,
+          resolve: { context: WelcomeGuard }
+        }
       ]
     }
   ];

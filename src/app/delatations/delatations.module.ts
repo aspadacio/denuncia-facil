@@ -11,15 +11,12 @@ import { DelationsService } from './delations.service';
 import { DelationFormComponent } from './delation-form/delation-form.component';
 
 import { SharedModule } from '../shared/shared.module';
-import { DateFormatPipeThis } from '../shared/pipes/date-format.pipe';
 import { DateTimeFormatPipeThis } from '../shared/pipes/date-time-format.pipe';
 
 @NgModule({
   declarations: [
     DelatationsListComponent,
-    DelationFormComponent,
-    DateFormatPipeThis,
-    DateTimeFormatPipeThis
+    DelationFormComponent
   ],
   imports: [
     CommonModule,

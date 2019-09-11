@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WelcomeComponent } from './welcome.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeGuard } from './welcome.guard';
 import { SharedModule } from '../shared/shared.module';
+import { WelcomeHomeComponent } from './welcome-home/welcome-home.component';
+import { WelcomeSiteComponent } from './welcome-site/welcome-site.component';
 
 @NgModule({
   declarations: [
-    WelcomeComponent
+    WelcomeHomeComponent,
+    WelcomeSiteComponent
   ],
   imports: [
     CommonModule,

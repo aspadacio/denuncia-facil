@@ -30,7 +30,6 @@ import { WelcomeModule } from './welcome/welcome.module';
     AppComponent
   ],
   imports: [
-    WelcomeModule,
     FontAwesomeModule,
     BrowserModule,
     AppRoutingModule,

@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Router } from '@a
 import { Observable } from 'rxjs';
 import { Delation } from '../shared/models/delation';
 import { DelationsService } from './delations.service';
+import { CompaniesService } from '../shared/services/companies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +13,30 @@ export class DelationsResolverGuard implements Resolve<Delation> {
 
   constructor(
     private delationsService: DelationsService,
+    private companyService: CompaniesService,
     private router: Router
   ){}
   
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Delation | Observable<Delation> {
-    if(route.params && (route.params['id'] || route.params['protocol']) ){
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Delation | Observable<Delation> | any {
+    if( route.params ){
       if( route.params['id'] ){
-        //console.log('id...');
         return this.delationsService.find(route.params['id']);
       }else if( route.params['protocol'] ){
-        //console.log('protocolo...');
         let args = {
           'key': 'protocolo',
           'value': route.params['protocol']
         };
         return this.delationsService.findParams(args);
+      }else if( route.params['context'] ) {
+        let companyId = this.companyService.findParams({
+          'key': 'contexto',
+          'value': route.params['context']
+        });
+
+        console.log(companyId);
       }
     }else{
-      //console.log(route.params);
-      //console.log('else...');
-      //this.router.navigate(['/nao-encontrado'])
-      return <Delation>{};
+        return <Delation>{};
     }
   }
   

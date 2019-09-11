@@ -32,7 +32,7 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
   @ViewChild('modalDetails', {static: false}) modalDetails: TemplateRef<any>;
 
   private commentIserted: string = '';
-  private delatationObject: Delation;
+  private delatationObject: any;
   public delationSelected: Delation;
 
   public delatations$: Observable<Delation[]>;
@@ -99,7 +99,7 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
    * @param delation 
    */
   onView(protocol: string){
-    this.router.navigate(['/denuncias/view/', protocol], {relativeTo: this.route});
+    this.router.navigate(['detalhes/', protocol], {relativeTo: this.route});
   }
 
   /**

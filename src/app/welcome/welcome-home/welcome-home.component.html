@@ -8,7 +8,7 @@
     <h6>{{ c[0].fantasia | camelCase }}</h6>
 
     <div class="itens">
-        <button class="btn list-item" (click)="onDelation()">
+        <button class="btn btn-block list-item" (click)="onDelatation()">
             <span class="categoria">
             </span>
             <span class="texto">
@@ -26,7 +26,8 @@
             <div class="input-group">
                 <div class="input-group-prepend">
                     <button type="button" id="nmProtocoloHelp" class="col-sm-1 btn btn-success dropdown-toggle-split"
-                        aria-haspopup="false" aria-expanded="false" title="Pesquisar" (click)="onViewProtocol(protocol.value)">
+                        aria-haspopup="false" aria-expanded="false" title="Pesquisar"
+                        (click)="onViewProtocol(protocol.value)">
                         <span class="sr-only">Pesquisar</span>
                         <fa-icon [icon]="['fas', 'search']" size="fa-sm"></fa-icon>
                     </button>

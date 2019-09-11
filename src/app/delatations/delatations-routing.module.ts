@@ -11,17 +11,17 @@ const routes: Routes = [
     path: '', component: DelatationsListComponent
   },
   {
-    path: "new",
+    path: "novo",
     component: DelationFormComponent,
     resolve: { delation: DelationsResolverGuard }
   },
   {
-    path: "edit/:id",
+    path: "editar/:id",
     component: DelationFormComponent,
     resolve: { delation: DelationsResolverGuard }
   },
   {
-    path: "view/:protocol",
+    path: "detalhes/:protocol",
     component: DelatationsListComponent,
     resolve: { delation: DelationsResolverGuard }
   },

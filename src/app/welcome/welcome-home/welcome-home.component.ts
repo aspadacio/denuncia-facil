@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Globals } from '../shared/constants';
-import { CompaniesService } from '../shared/services/companies.service';
-import { Company } from '../shared/models/company';
+import { CompaniesService } from '../../shared/services/companies.service';
+import { Company } from '../../shared/models/company';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+  templateUrl: './welcome-home.component.html',
+  styleUrls: ['./welcome-home.component.css']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeHomeComponent implements OnInit {
 
   public company$: Observable<Company>;
   public isViewProtocol: boolean = false;
@@ -23,12 +22,12 @@ export class WelcomeComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    //console.log(Globals.COMPANY_CONTEXT);
-    if( Globals.COMPANY_CONTEXT !== '' ) {
+    const context = this.route.snapshot.data['context'];
+    if( context && context !== '' ) {
       this.company$ = this.companiesService.findParams(
         { 
           'key': 'contexto', 
-          'value': Globals.COMPANY_CONTEXT 
+          'value': context 
         }
       );
     }
@@ -38,13 +37,13 @@ export class WelcomeComponent implements OnInit {
     this.router.navigate(['/sign']);
   }
 
-  onDelation() {
-    this.router.navigate(['/delatations/new'])
+  onDelatation() {
+    this.router.navigate(['/denuncias/novo']);
   }
 
   //Send to Delation view time-line
   onViewProtocol(protocol: string) {
-    this.router.navigate(['/delatations/view/', protocol], {relativeTo: this.route});
+    this.router.navigate(['/denuncias/detalhes/', protocol]);
   }
 
   onIsViewProtocol(){

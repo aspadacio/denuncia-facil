@@ -12,6 +12,8 @@ import { CommentModalComponent } from './comment-modal/comment-modal.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CamelCasePipe } from './pipes/camel-case.pipe';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { DateFormatPipeThis } from './pipes/date-format.pipe';
+import { DateTimeFormatPipeThis } from './pipes/date-time-format.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     LoadingSpinnerComponent,
     CommentModalComponent,
     CamelCasePipe,
-    NotFoundComponent
+    NotFoundComponent,
+    DateFormatPipeThis,
+    DateTimeFormatPipeThis
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ConfirmModalComponent,
     LoadingSpinnerComponent,
     CommentModalComponent,
-    CamelCasePipe
+    CamelCasePipe,
+    DateFormatPipeThis,
+    DateTimeFormatPipeThis
   ],
   providers: [
     ConsultaCepService,
