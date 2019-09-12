@@ -60,8 +60,7 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
     this.form.get('cnpj').statusChanges
     .pipe(
       distinctUntilChanged(), //It's like filter, but just emits the values that are distinct from the previous
-      switchMap(status => status === 'VALID' ? this.callConsultaCNPJ() : empty()),
-      map(r => r = r[0])
+      switchMap(status => status === 'VALID' ? this.callConsultaCNPJ() : empty())
     )
     //Se o RxJS emitir um EMPTY, então, a cadeia abaixo do .subscribe([...]) não é executada
     .subscribe(
@@ -101,8 +100,7 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
     }
   }
 
-  private callConsultaCNPJ(): Observable<Object> {
-    //console.log(this.form.controls['nome']);
+  private callConsultaCNPJ(): any {
     return this.cnpjService.consultaCNPJ(this.form.controls['cnpj'].value);
   }
 

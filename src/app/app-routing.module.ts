@@ -13,8 +13,12 @@ const routes: Routes = [
 @NgModule({
   imports: [
     //To reload the self-page. RouterActive doesnt works here.
-    RouterModule.forRoot(routes, {  onSameUrlNavigation: 'reload' })
-      // {  onSameUrlNavigation: 'reload' }
+    RouterModule.forRoot(routes,
+       {  
+         onSameUrlNavigation: 'reload', 
+         //useHash: true 
+        }
+    )
   ],
   exports: [RouterModule]
 })
