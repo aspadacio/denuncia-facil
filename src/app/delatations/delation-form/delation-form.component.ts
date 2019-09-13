@@ -43,16 +43,16 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
   }
 
   ngOnInit() {
-    const delation: Delation = this.route.snapshot.data['delation'];
-    if (delation && delation.id) {
-      this.btnSubmit = 'Atualizar';
-    }
+    // const delation: Delation = this.route.snapshot.data['delation'];
+    // if (delation && delation.id) {
+    //   this.btnSubmit = 'Atualizar';
+    // }
 
     this.form = this.formBuilder.group({
-      id: [delation.id],
-      idEmpresa: [delation.idEmpresa],
-      idUsuario: [delation.idUsuario],
-      dsTitulo: [delation.dsTitulo, [Validators.required]],
+      id: [null],
+      idEmpresa: [null],
+      idUsuario: [null],
+      dsTitulo: [null, [Validators.required]],
       dsHistoria: this.formBuilder.group({
         dsHistoria: ['', [Validators.required]],
         tsHistoria: [Date.now(), [Validators.required]]
@@ -61,27 +61,20 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
         dsResposta: ['', [Validators.required]],
         tsResposta: [Date.now(), [Validators.required]]
       }),
-      tsReclamacao: [delation.tsReclamacao]
+      tsReclamacao: [null]
     });
 
     //Get Company from COMPANY_CONTEXT
     this.companiesService.list()
       .pipe(
         map(companies => companies.filter(v => v.contexto === Globals.COMPANY_CONTEXT))
-        // catchError(err => {
-        //   this.handleError('Erro ao obter lista de Empresas. Tente novamente.');
-        //   return EMPTY;
-        // })
       )
       .subscribe(
         companies => {
           this.company = companies[0];
-          console.log(this.company);
         },
-        err => console.log(err), //TODO: implement Alert Modal
-        () => {
-          this.handleBsSelectRefresh("selectpicker-company");
-        }
+        err => { this.handleError('Erro ao obter lista de Empresas. Tente novamente.'); },
+        () => { this.handleBsSelectRefresh("selectpicker-company"); }
       );
 
   }
@@ -151,11 +144,11 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
   }
 
   onSign(){
-    this.router.navigate(['/sign']);
+    this.router.navigate(['/entrar']);
   }
 
   onRegister(){
-    this.router.navigate(['/usuarios/new']);
+    this.router.navigate(['/usuarios/novo']);
   }
 
   onAnonymous(){

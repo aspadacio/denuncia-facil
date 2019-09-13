@@ -8,22 +8,25 @@ import { NotFoundComponent } from '../shared/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: '', component: DelatationsListComponent
+    path: '', 
+    component: DelatationsListComponent,
+    children: [
+      
+      {
+        path: "editar/:id",
+        component: DelationFormComponent,
+        resolve: { delation: DelationsResolverGuard }
+      },
+      {
+        path: "detalhes/:protocol",
+        component: DelatationsListComponent,
+        resolve: { delation: DelationsResolverGuard }
+      }
+    ]
   },
   {
     path: "novo",
-    component: DelationFormComponent,
-    resolve: { delation: DelationsResolverGuard }
-  },
-  {
-    path: "editar/:id",
-    component: DelationFormComponent,
-    resolve: { delation: DelationsResolverGuard }
-  },
-  {
-    path: "detalhes/:protocol",
-    component: DelatationsListComponent,
-    resolve: { delation: DelationsResolverGuard }
+    component: DelationFormComponent
   },
   {
     path: "nao-encontrado",

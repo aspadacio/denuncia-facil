@@ -34,7 +34,7 @@ export class WelcomeHomeComponent implements OnInit {
   }
 
   onSign() {
-    this.router.navigate(['/sign']);
+    this.router.navigate(['/entrar']);
   }
 
   onDelatation() {
@@ -43,7 +43,7 @@ export class WelcomeHomeComponent implements OnInit {
 
   //Send to Delation view time-line
   onViewProtocol(protocol: string) {
-    this.router.navigate(['/denuncias/detalhes/', protocol]);
+    this.router.navigate(['/denuncias/detalhes', protocol]);
   }
 
   onIsViewProtocol(){

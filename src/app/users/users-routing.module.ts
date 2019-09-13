@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '', component: UsersListComponent
   },
   {
-    path: 'new', 
+    path: 'novo', 
     component: UserFormComponent, 
     resolve: { user: UsersResolverGuard }
   },
