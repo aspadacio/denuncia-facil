@@ -11,6 +11,7 @@ import { Delation } from 'src/app/shared/models/delation';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { CompaniesService } from 'src/app/shared/services/companies.service';
 import { Globals } from 'src/app/shared/constants';
+import { SisUtil } from 'src/app/shared/sis-util';
 
 declare var $: any;
 
@@ -24,6 +25,7 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
   //Not Async
   public company: Company;
   public idCompany: number;
+  public protocol: string;
 
   public submitted: boolean = false;
 
@@ -39,7 +41,7 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
     public alertService: ModalService,
   ) {
     super();
-    this.btnSubmit = "Publicar";
+    this.btnSubmit = "Denunciar";
   }
 
   ngOnInit() {
@@ -81,9 +83,14 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
 
   ngAfterViewInit(): void { }
 
+  onBeforeSubmit() {
+    this.protocol = SisUtil.gerarProtocolo(this.form.controls['dsTitulo'].value);
+    this.onAnonymous();
+    this.submit();
+  }
+
   submit() {
     this.submitted = true;
-    console.log('ENVIANDO.....................');
   }
 
   /**

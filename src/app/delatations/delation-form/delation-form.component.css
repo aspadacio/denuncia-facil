@@ -29,8 +29,17 @@
     width: 0;
 }
 
-.carousel-control-next, .carousel-control-prev {
-    top: 10%;
+.carousel-control-next button {
+    position: absolute;
+    top: 0;
+    border-radius: 2rem;
+    width: 8rem;
+    height: 3rem;
+    margin-top: 2.6rem;   
+}
+
+.carousel-control-next button:hover {
+    font-weight: bold;  
 }
 
 .carousel-control.left,
@@ -242,4 +251,9 @@
 
 .indentificavel, .onlyRegister, .unknow p {
     text-align: justify;
+}
+
+.protocol label {
+    position: absolute;
+    left: 15px;
 }
