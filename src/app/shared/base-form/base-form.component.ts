@@ -14,6 +14,7 @@ export abstract class BaseFormComponent {
     }
 
     onSubmit(){
+        console.log('BaseFormComponent :: onSubmit() ');
        if(this.form.valid){
         this.submit();
        }

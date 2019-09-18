@@ -144,6 +144,11 @@
     display: table;
 }
 
+.box-gray small {
+    color: white !important;
+    font-weight: bold;
+}
+
 .form-control {
     margin-bottom: 30px;
 }
@@ -256,4 +261,9 @@
 .protocol label {
     position: absolute;
     left: 15px;
+}
+
+#delatationText {
+    resize: none;
+    margin-bottom: 10px;
 }

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CompaniesService } from '../../shared/services/companies.service';
 import { Company } from '../../shared/models/company';
 import { Observable } from 'rxjs';
+import { Globals } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-welcome',
@@ -37,7 +38,8 @@ export class WelcomeHomeComponent implements OnInit {
     this.router.navigate(['/entrar']);
   }
 
-  onDelatation() {
+  onDelatation(company: Company) {
+    Globals.COMPANY_ID = company.id;
     this.router.navigate(['/denuncias/novo']);
   }
 

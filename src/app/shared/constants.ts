@@ -7,4 +7,6 @@ export class Constants {
 
 export class Globals {
     static COMPANY_CONTEXT = '';
+    static COMPANY_ID = 0;
+    static USER_ID = 0;
 }

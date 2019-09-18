@@ -7,19 +7,17 @@ export interface Delation {
     dsTitulo: string,
     dsHistoria: [
         {
-            idHistoria: number,
             dsHistoria: string,
-            tsHistoria: string
+            tsHistoria: number
         }
     ],
     dsResposta: [
         {
-            idResposta: number,
             dsResposta: string,
-            tsResposta: string
+            tsResposta: number
         }
     ],
-    tsReclamacao: string,
+    tsReclamacao: number,
 
     //Transients
     dsEmpresa: string,

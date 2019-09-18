@@ -1,31 +1,31 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { map } from 'rxjs/operators';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
-import { Company } from 'src/app/shared/models/company';
-import { Delation } from 'src/app/shared/models/delation';
-import { ModalService } from 'src/app/shared/services/modal.service';
-import { CompaniesService } from 'src/app/shared/services/companies.service';
 import { Globals } from 'src/app/shared/constants';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { SisUtil } from 'src/app/shared/sis-util';
+import { DelationsService } from '../delations.service';
+import { text } from '@fortawesome/fontawesome-svg-core';
+
 
 declare var $: any;
+const MAX_CHARACTERS: number = 2000;
 
 @Component({
   selector: 'app-delation-form',
   templateUrl: './delation-form.component.html',
   styleUrls: ['./delation-form.component.css']
 })
-export class DelationFormComponent extends BaseFormComponent implements OnInit, AfterViewInit {
+export class DelationFormComponent extends BaseFormComponent implements OnInit {
 
   //Not Async
-  public company: Company;
   public idCompany: number;
+  public nmCaracters: number;
   public protocol: string;
+  public txtDelatation: string;
 
   public submitted: boolean = false;
 
@@ -37,7 +37,7 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private companiesService: CompaniesService,
+    private delatationService: DelationsService,
     public alertService: ModalService,
   ) {
     super();
@@ -45,52 +45,57 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
   }
 
   ngOnInit() {
-    // const delation: Delation = this.route.snapshot.data['delation'];
-    // if (delation && delation.id) {
-    //   this.btnSubmit = 'Atualizar';
-    // }
-
     this.form = this.formBuilder.group({
       id: [null],
-      idEmpresa: [null],
+      idEmpresa: [null, [Validators.required]],
       idUsuario: [null],
       dsTitulo: [null, [Validators.required]],
-      dsHistoria: this.formBuilder.group({
-        dsHistoria: ['', [Validators.required]],
-        tsHistoria: [Date.now(), [Validators.required]]
-      }),
-      dsResposta: this.formBuilder.group({
-        dsResposta: ['', [Validators.required]],
-        tsResposta: [Date.now(), [Validators.required]]
-      }),
-      tsReclamacao: [null]
+      dsHistoria: this.formBuilder.array([
+        this.formBuilder.group({
+          dsHistoria: ['', [Validators.required]],
+          tsHistoria: [Date.now(), [Validators.required]]
+        })
+      ]),
+      dsResposta: this.formBuilder.array([]),
+      tsReclamacao: [Date.now(), [Validators.required]],
+      protocolo: ['', [Validators.required]]
     });
-
-    //Get Company from COMPANY_CONTEXT
-    this.companiesService.list()
-      .pipe(
-        map(companies => companies.filter(v => v.contexto === Globals.COMPANY_CONTEXT))
-      )
-      .subscribe(
-        companies => {
-          this.company = companies[0];
-        },
-        err => { this.handleError('Erro ao obter lista de Empresas. Tente novamente.'); },
-        () => { this.handleBsSelectRefresh("selectpicker-company"); }
-      );
-
   }
 
-  ngAfterViewInit(): void { }
-
-  onBeforeSubmit() {
+  onBeforeSubmit(txtDenuncia: string) {
     this.protocol = SisUtil.gerarProtocolo(this.form.controls['dsTitulo'].value);
-    this.onAnonymous();
+    this.form.controls['protocolo'].setValue(this.protocol);
+
+    if( Globals.COMPANY_ID !== 0){
+      this.form.controls['idEmpresa'].setValue(Globals.COMPANY_ID);
+    }
+
+    if( txtDenuncia ){
+      let controlDsHistoria = <FormArray>this.form.controls['dsHistoria'];
+      (<FormGroup>controlDsHistoria.controls[0]).controls['dsHistoria'].setValue(txtDenuncia);
+    }
+
+    this.slideForward();
     this.submit();
   }
-
+  
   submit() {
-    this.submitted = true;
+    let fromToSend = Object.assign({}, this.form.value);
+    console.log(fromToSend);
+    this.delatationService.save(fromToSend)
+    .subscribe(
+      success => {
+        this.handleError('Denúncia feita com sucesso!')
+       },
+      error => {
+        this.handleError('Erro ao salvar a denúncia.')
+      }
+    );
+  }
+
+  //Show counter characters
+  onChangeText(event: any) {
+    this.nmCaracters = MAX_CHARACTERS - (<string>event.srcElement.value).length;
   }
 
   /**
@@ -158,7 +163,7 @@ export class DelationFormComponent extends BaseFormComponent implements OnInit, 
     this.router.navigate(['/usuarios/novo']);
   }
 
-  onAnonymous(){
+  slideForward(){
     $('.selectpicker').selectpicker('refresh');
     $('.carousel').carousel('next');
   }

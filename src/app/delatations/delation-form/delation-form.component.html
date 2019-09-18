@@ -58,7 +58,7 @@
                                 <div class="row" style="margin-top: 2rem;">
                                     <button id="sign" class="btn btn-theme btn-sm btn-min-block col" (click)="onSign()">Entrar</button>
                                     <button id="onlyRegister" class="btn btn-theme btn-sm btn-min-block col" (click)="onRegister()">Cadastrar</button>
-                                    <button id="unknow" class="btn btn-theme btn-sm btn-min-block col" (click)="onAnonymous()">Denunciar se me identificar</button>
+                                    <button id="unknow" class="btn btn-theme btn-sm btn-min-block col" (click)="slideForward()">Denunciar se me identificar</button>
                                 </div>
                             </div>
                         </div>
@@ -82,11 +82,12 @@
                             <div class="box-gray">
                                 <div class="form-group">
                                     <label for="delationTitle">Título</label>
-                                    <input type="text" class="form-control" id="delationTitle" placeholder="Título da sua reclamação" formControlName="dsTitulo">
-
-                                    <label for="delationYourHistory">Conte a sua história</label>
-                                    <textarea class="form-control" id="delationYourHistory" rows="4" maxlength="2000" placeholder="Escreva aqui todos os detalhes da sua história..."></textarea>
-                                    <small class="text-lef text-muted">caracter(es) restante(s)</small>
+                                    <input type="text" class="form-control" id="delationTitle" placeholder="Título da sua reclamação"
+                                        formControlName="dsTitulo">
+                                    <label for="delatationText">Conte a sua história</label>
+                                    <textarea class="form-control" id="delatationText" rows="4" maxlength="2000" (keyup)="onChangeText($event)"
+                                        placeholder="Escreva aqui todos os detalhes da sua história..." #delatationText></textarea>
+                                    <small class="text-muted" *ngIf="nmCaracters > 0">{{ nmCaracters }} caracter(es) restante(s)</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="delationFiles">Você pode enviar até 3 imagens ou documentos para a empresa.</label>
@@ -143,7 +144,7 @@
                     </div>
                     <!-- Publish -->
                     <div class="carousel-control-next">
-                        <button type="submit" class="btn btn-warning" (click)="onBeforeSubmit()">
+                        <button type="submit" class="btn btn-warning" (click)="onBeforeSubmit(delatationText.value)">
                             <fa-icon [icon]="['fas', 'bullhorn']" size="fa-sm"></fa-icon>
                             {{ btnSubmit }}
                         </button>

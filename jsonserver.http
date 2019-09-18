@@ -55,4 +55,5 @@ GET http://localhost:3000/delacoes?idEmpresa=1&idUsuario=2
 ###
 GET http://localhost:3000/delacao?protocolo=ApoihEh34H
 
-
+###
+GET http://localhost:3000/delacao?protocolo=202064657461616D

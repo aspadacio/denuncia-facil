@@ -60,7 +60,7 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
   }
 
   ngOnInit(): void {
-    this.delatationObject = this.route.snapshot.data['delation'];
+    this.delatationObject = this.route.snapshot.data['delatation'];
     if( this.delatationObject ){
       this.delatationObject = this.delatationObject[0];
       
@@ -223,10 +223,10 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
 }
 
 /**
- * Workaround to correct iterat over two Arrays on ngFor
+ * Workaround to correct iterate over two Arrays on ngFor
  */
 private fixNgForArrays() {
-  for( let i=0; i<this.delatationObject.dsHistoria.length && i<this.delatationObject.dsHistoria.length; i++ ) {
+  for( let i=0; i<this.delatationObject.dsHistoria.length; i++ ) {
     this.reqRespIndex.push({
       even: this.delatationObject.dsHistoria[i] ? i : 'EOF',
       odd: this.delatationObject.dsResposta[i] ? i : 'EOF'
