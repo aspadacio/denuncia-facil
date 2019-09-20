@@ -32,6 +32,7 @@ export class DelationsResolverGuard implements Resolve<Delation> {
           'key': 'contexto',
           'value': route.params['context']
         });
+        console.log(companyId);
       }
     }else{
         return <Delation>{};

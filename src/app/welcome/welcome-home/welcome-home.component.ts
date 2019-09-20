@@ -40,12 +40,12 @@ export class WelcomeHomeComponent implements OnInit {
 
   onDelatation(company: Company) {
     Globals.COMPANY_ID = company.id;
-    this.router.navigate(['/denuncias/novo']);
+    this.router.navigate(['denunciar'], { relativeTo: this.route });
   }
 
   //Send to Delation view time-line
   onViewProtocol(protocol: string) {
-    this.router.navigate(['/denuncias/detalhes', protocol]);
+    this.router.navigate(['denuncia/', protocol], { relativeTo: this.route });
   }
 
   onIsViewProtocol(){

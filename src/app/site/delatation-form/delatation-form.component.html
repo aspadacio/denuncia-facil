@@ -1,0 +1,191 @@
+<form [formGroup]="form">
+    <div class="container">
+        <div id="carouselControls" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselControls" class="active"></li>
+                <li data-target="#carouselControls" ></li>
+                <li data-target="#carouselControls" ></li>
+            </ol>
+            <!-- Slide 1 -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="assets/images/bsb-igreja.jpg">
+                    <div class="header-text hidden-xs">
+                        <div class="col-md-12 text-center">
+                            <h2><span>Escolha uma identificação</span></h2>
+                            <br>
+                            <h3 style="margin-top: 60px">
+                                <!-- <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span> -->
+                            </h3>
+                            <br>
+                            <div class="texto-meio">
+                                <h4>Existem três formas de identificação</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="sign">Já utiliza o Denúncia Fácil?</label>
+                                    </div>
+                                    <div class="col">
+                                        <label for="onlyRegister">Apenas cadastrar</label>
+                                    </div>
+                                    <div class="col">
+                                        <label for="unknow">Não identificado</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="indentificavel card">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Já possui cadastro (usuário e senha) no Denúncia Fácil?
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="onlyRegister card">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Caso prefira manter-se anônimo à empresa que vai denunciar, porém quer ter cadastro no sistema para ter uma visão panorâmica de todas as denúncias.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="unknow card">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                As denúncias registradas de maneira anônima serão acompanhadas a partir de um protocolo. 
+                                                Caso deseje acompanhar o andamento da sua denúncia via protocolo gerado, por favor informá-lo na página inicial .
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 2rem;">
+                                    <button id="sign" class="btn btn-theme btn-sm btn-min-block col" (click)="onSign()">Entrar</button>
+                                    <button id="onlyRegister" class="btn btn-theme btn-sm btn-min-block col" (click)="onRegister()">Cadastrar</button>
+                                    <button id="unknow" class="btn btn-theme btn-sm btn-min-block col" (click)="slideForward()">Denunciar se me identificar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-caption">
+                        <p class="alert ">
+                            <strong>ATENÇÃO</strong>: 
+                            Os seus dados pessoais de login, incluindo seu nome, serão acessados somente pela Ouvidoria para a qual você encaminhar a sua manifestação, nos termos da Lei nº 13.460, de 2017, e não será encaminhada para terceiros.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <img src="assets/images/bsb-igreja.jpg">
+                    <div class="header-text hidden-xs">
+                        <div class="col-md-12 text-center">
+                            <h2>
+                                <span>Detalhes da denúncia</span>
+                            </h2>
+                            <div class="box-gray">
+                                <div class="form-group">
+                                    <label for="delationTitle">Título</label>
+                                    <input type="text" class="form-control" id="delationTitle" placeholder="Título da sua reclamação"
+                                        formControlName="dsTitulo">
+                                    <label for="delatationText">Conte a sua história</label>
+                                    <textarea class="form-control" id="delatationText" rows="4" maxlength="2000" (keyup)="onChangeText($event)"
+                                        placeholder="Escreva aqui todos os detalhes da sua história..." #delatationText></textarea>
+                                    <small class="text-muted" *ngIf="nmCaracters > 0">{{ nmCaracters }} caracter(es) restante(s)</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="delationFiles">Você pode enviar até 3 imagens ou documentos para a empresa.</label>
+                                    <div class="attached-files">
+                                        <div class="choose-file">
+                                            <span>
+                                                <fa-icon [icon]="['fas', 'cloud-upload-alt']" size="fa-sm"></fa-icon> Enviar um arquivo
+                                                <input type="file" class="custom-file-input" id="customFile" (change)="onChangeFileUpload($event)" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div id="chosen-files" [style.display]="files.length > 0 ? 'inline-flex' : 'none'">
+                                        <!-- Showing the files -->
+                                        <div class="thumb col" *ngFor="let file of files">
+                                            <div *ngIf="file?.type === 'pdf'">
+                                                <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
+                                            </div>
+                                            <div *ngIf="file?.type !== 'pdf'">
+                                                <fa-icon [icon]="['fas', 'image']" size="fa-sm"></fa-icon>
+                                            </div>
+                                            <p>{{ file.name }}. {{ file.type }}</p>
+                                            <fa-icon [icon]="['fas', 'times']" size="fa-sm" title="Remover arquivo" id="remove-file" (click)="onRemoveFile(file.id)"></fa-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group upload-alert">
+                                    <small id="delationFilesHelp">
+                                        <fa-icon [icon]="['fas', 'info-circle']" size="fa-sm" style="margin-right: 8px; display: inline-block"></fa-icon>
+                                        Fique tranquilo, só a empresa poderá ver o seu anexo. Nada que você anexar aqui é público.
+                                        <br class="visible-lg">
+                                        Formatos de arquivo permitidos: PNG, JPG ou PDF com até 5Mb.
+                                    </small>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="phones" >Qual o telefone que a empresa pode entrar em contato?</label>
+                                    <div class="row" id="phones">
+                                        <div class="col-sm-6">
+                                            <input type="tel" mask='(00) 00000-0000' placeholder="(61) 00000-0000" title="Celular">
+                                        </div>
+                                        <div class="form-group visible-xs"></div>
+                                        <div class="col-sm-6">
+                                            <input type="tel" mask='(00) 0000-0000' placeholder="(00) 0000-0000" title="Residencial">
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-caption">
+                        <h5>Agora, descreva em detalhes sua história
+                            <fa-icon [icon]="['far', 'thumbs-up']" size="fa-sm"></fa-icon>
+                        </h5>
+                        <p>Qual é a sua história?</p>
+                    </div>
+                    <!-- Publish -->
+                    <div class="carousel-control-next">
+                        <button type="submit" class="btn btn-warning" (click)="onBeforeSubmit(delatationText.value)">
+                            <fa-icon [icon]="['fas', 'bullhorn']" size="fa-sm"></fa-icon>
+                            {{ btnSubmit }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="carousel-item">
+                    <img src="assets/images/bsb-igreja.jpg">
+                    <div class="header-text hidden-xs">
+                        <div class="col-md-12 text-center">
+                            <h2><span>Denúncia enviada com sucesso !</span></h2>
+                            <br>
+                            <h3 style="margin-top: 60px">
+                               Por favor, anote seu protocolo
+                            </h3>
+                            <br>
+                            <div class="texto-meio text-center protocol">
+                                <div id="protocol" class="alert alert-dark" role="alert">
+                                    {{ protocol }}
+                                </div>
+                                <label for="protocol">*Utilizando esse número de protocolo é possível acompanhar sua reclamação.</label>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="carousel-caption">
+                        <h5>Tudo certo!
+                            <fa-icon [icon]="['far', 'thumbs-up']" size="fa-sm"></fa-icon>
+                        </h5>
+                        <p>Não se esqueça de anotar seu protocolo</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr>
+
+<ng-template #loading>
+    <loading-spinner></loading-spinner>
+</ng-template>

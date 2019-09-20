@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: 'empresas', loadChildren: './companies/companies.module#CompaniesModule' },
   { path: 'usuarios', loadChildren: './users/users.module#UsersModule' },
-  { path: 'denuncias', loadChildren: './delatations/delatations.module#DelatationsModule' },
+  // { path: 'denuncias', loadChildren: './delatations/delatations.module#DelatationsModule' },
   { path: 'entrar', loadChildren: './sign/sign.module#SignModule' },
   { path: 'site', loadChildren: './welcome/welcome.module#WelcomeModule' },
   { path: '', pathMatch: 'full', redirectTo: 'site' }
@@ -15,7 +15,8 @@ const routes: Routes = [
     //To reload the self-page. RouterActive doesnt works here.
     RouterModule.forRoot(routes,
        {  
-         onSameUrlNavigation: 'reload', 
+         onSameUrlNavigation: 'reload',
+         //enableTracing: true
          //useHash: true 
         }
     )

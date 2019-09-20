@@ -23,7 +23,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { Globals } from './shared/constants';
 import { SharedModule } from './shared/shared.module';
-import { WelcomeModule } from './welcome/welcome.module';
 
 @NgModule({
   declarations: [
