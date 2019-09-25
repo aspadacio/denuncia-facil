@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { Delation } from '../shared/models/delation';
+import { Delatation } from '../shared/models/delatation';
 import { DelationsService } from './delations.service';
 import { CompaniesService } from '../shared/services/companies.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DelationsResolverGuard implements Resolve<Delation> {
+export class DelationsResolverGuard implements Resolve<Delatation> {
 
   constructor(
     private delationsService: DelationsService,
@@ -17,7 +17,7 @@ export class DelationsResolverGuard implements Resolve<Delation> {
     private router: Router
   ){}
   
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Delation | Observable<Delation> | any {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Delatation | Observable<Delatation> | any {
     if( route.params ){
       if( route.params['id'] ){
         return this.delationsService.find(route.params['id']);
@@ -35,7 +35,7 @@ export class DelationsResolverGuard implements Resolve<Delation> {
         console.log(companyId);
       }
     }else{
-        return <Delation>{};
+        return <Delatation>{};
     }
   }
   

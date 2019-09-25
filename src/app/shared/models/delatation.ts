@@ -1,5 +1,4 @@
-
-export interface Delation {
+export interface Delatation {
     id: number,
     protocolo: string,
     idEmpresa: number,
@@ -7,13 +6,17 @@ export interface Delation {
     dsTitulo: string,
     dsHistoria: [
         {
+            id: number,
             dsHistoria: string,
-            tsHistoria: number
+            dsNomeAnexo: string[],
+            tsHistoria: number,
         }
     ],
     dsResposta: [
         {
+            id: number,
             dsResposta: string,
+            dsNomeAnexo: string[],
             tsResposta: number
         }
     ],

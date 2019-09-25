@@ -25,4 +25,22 @@ export abstract class SisUtil {
         }
         return protocol;
     }
+
+    /**
+     * Return Files names separated by comma as String
+     * @param res ResponseBody
+     * @returns "F8Q-veFcv6prkORTASSYYbWY.png,U64MX8rws1558Fua3gMh-nvv.docx,pb6a_yaHrgDX319w0mLOmBHD.xlsx"
+     */
+    static formatFilesName(res: any){
+        let dsNomeAnexo = "";
+        if( res.names.hasOwnProperty('length') ){
+          for( let i=0; i < res.names.length; i++ ){
+            dsNomeAnexo = dsNomeAnexo.concat(res.names[i] + ",")
+          }
+          dsNomeAnexo = dsNomeAnexo.substring(0, dsNomeAnexo.length-1);
+        } else{
+          dsNomeAnexo = res.names;
+        }
+        return dsNomeAnexo;
+    }
 }

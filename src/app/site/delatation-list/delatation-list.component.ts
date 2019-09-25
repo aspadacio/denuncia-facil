@@ -2,17 +2,19 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { EMPTY, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 
 import { DelationsService } from 'src/app/delatations/delations.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { BaseListComponent } from 'src/app/shared/base-list/base-list.component';
 import { CommentModalComponent } from 'src/app/shared/comment-modal/comment-modal.component';
 import { Company } from 'src/app/shared/models/company';
-import { Delation } from 'src/app/shared/models/delation';
+import { Delatation } from 'src/app/shared/models/delatation';
 import { User } from 'src/app/shared/models/user';
 import { DateTimeFormatPipeThis } from 'src/app/shared/pipes/date-time-format.pipe';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { SisUtil } from 'src/app/shared/sis-util';
+import { FileService } from 'src/app/shared/services/file.service';
 
 declare var $:any;
 
@@ -28,17 +30,14 @@ type ParamsValues = {
 })
 export class DelatationListComponent extends BaseListComponent implements OnInit {
 
-  private commentIserted: string = '';
-  private delatation: any;
-  private company: any;
-
-  public delationSelected: Delation;
-
-  public delatations$: Observable<Delation[]>;
-  public delatation$: Observable<Delation>;
+  public delationSelected: Delatation;
+  public delatations$: Observable<Delatation[]>;
+  public delatation$: Observable<Delatation>;
   public companies$: Observable<Company[]>;
   public users$: Observable<User[]>;
 
+  private delatation: any;
+  private company: any;
 
   public reqRespIndex = [];
   ctxTmpCenterDot = { $implicit: true };
@@ -48,6 +47,7 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
     private delationsService: DelationsService,
     private dateTimeFormt: DateTimeFormatPipeThis,
     private modalService: ModalService,
+    private fileService: FileService,
     public router: Router,
     public route: ActivatedRoute,
     private location: Location
@@ -117,12 +117,11 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   onViewAddComment() {
     const comment$ = this.modalService.showAddComment(CommentModalComponent, 'Por favor, insira seu comentário');
     comment$.pipe(
-      map(comment => comment != '' ? this.commentIserted = comment : EMPTY)
+      //map(comment => comment != '' ? this.commentIserted = comment : EMPTY)
     )
       .subscribe(
         success => {
-          //TODO: Add Comment or Response
-          this.addComment();
+          this.addComment(success);
         },
         error => {
           this.handleError('Ocorreu um erro ao iniciar a tela de comentário.');
@@ -137,12 +136,12 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   onViewAddResponse() {
     const response$ = this.modalService.showAddComment(CommentModalComponent, 'Por favor, insira sua resposta');
     response$.pipe(
-      map(resp => resp != '' ? this.commentIserted = resp : EMPTY)
+      //map(resp => resp != '' ? this.commentIserted = resp : EMPTY)
     )
       .subscribe(
         success => {
           //TODO: Add Comment or Response
-          this.addResponse();
+          this.addResponse(success);
         },
         error => {
           this.handleError('Ocorreu um erro ao iniciar a tela de resposta.');
@@ -151,23 +150,43 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   }
 
   //add comments to current time-line
-  private addComment() {
-    this.delatation.dsHistoria.push({
-      idHistoria: (this.delatation.dsHistoria.length + 1),
-      dsHistoria: this.commentIserted,
-      tsHistoria: Date.now()
-    });
-    this.onSaveDelatation();
+  private addComment(success: any) {
+    if( success.files && success.files.length > 0 ){
+      let dsAttachments = "";
+      this.fileService.uploadDenunciaAnexos(this.upload(success.files))
+      .pipe(
+        tap((res: any) => {
+          dsAttachments = SisUtil.formatFilesName(res);
+          this.pushDsHistory(success.comment, dsAttachments);
+          this.onSaveDelatation();
+        })
+      )
+      .toPromise();
+    }
+    else if( success.comment !== "" ){
+      this.pushDsHistory(success.comment);
+      this.onSaveDelatation();
+    }
   }
 
   //add comments to current time-line
-  private addResponse() {
-    this.delatation.dsResposta.push({
-      idResposta: (this.delatation.dsResposta.length + 1),
-      dsResposta: this.commentIserted,
-      tsResposta: Date.now()
-    });
-    this.onSaveDelatation();
+  private addResponse(success: any) {
+    if( success.files && success.files.length > 0 ){
+      let dsAttachments = "";
+      this.fileService.uploadDenunciaAnexos(this.upload(success.files))
+      .pipe(
+        tap((res: any) => {
+          dsAttachments = SisUtil.formatFilesName(res);
+          this.pushDsResponse(success.comment, dsAttachments);
+          this.onSaveDelatation();
+        })
+      )
+      .toPromise();
+    }
+    else if( success.comment !== "" ){
+      this.pushDsResponse(success.comment);
+      this.onSaveDelatation();
+    }
   }
 
   //add response to current time-line
@@ -185,6 +204,36 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
         },
         error => this.handleError('Ocorreu um erro ao atualizar a denúncia')
       );
+  }
+
+  private pushDsResponse(comment: string, dsAttachments?: string){
+    this.delatation.dsResposta.push({
+      id: (this.delatation.dsResposta.length + 1),
+      dsResposta: comment,
+      dsNomeAnexo: dsAttachments ? dsAttachments : null,
+      tsResposta: Date.now()
+    });
+  }
+
+  private pushDsHistory(comment: string, dsAttachments?: string){
+    this.delatation.dsHistoria.push({
+      id: (this.delatation.dsHistoria.length + 1),
+      dsHistoria: comment,
+      dsNomeAnexo: dsAttachments ? dsAttachments : null,
+      tsHistoria: Date.now()
+    });
+  }
+
+   /**
+   * Add Files names uploaded to the Delatation
+   * @returns Attachments names
+   */
+  private upload(fileList: FileList): Set<File> {
+    let files = new Set<File>();
+    for( let i=0; i<fileList.length; i++ ){
+      files.add(fileList[i]);
+    }
+    return files;
   }
 
   private onUpdateCurrent(id: string): void {

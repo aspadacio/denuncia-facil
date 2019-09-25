@@ -8,6 +8,8 @@ import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component'
 import { Globals } from 'src/app/shared/constants';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { SisUtil } from 'src/app/shared/sis-util';
+import { FileService } from 'src/app/shared/services/file.service';
+import { tap, map } from 'rxjs/operators';
 
 declare var $: any;
 const MAX_CHARACTERS: number = 2000;
@@ -27,7 +29,7 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
 
   public submitted: boolean = false;
 
-  private numberFiles: number = 1;
+  private filesToUpload: FileList;
   private filesUploadNames: string[] = [];
   public files = []; //To convey File' name & type (pdf, png, jpg)
 
@@ -36,7 +38,8 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
     private router: Router,
     private formBuilder: FormBuilder,
     private delatationService: DelationsService,
-    public alertService: ModalService,
+    private fileSerive: FileService,
+    private alertService: ModalService,
   ) {
     super();
     this.btnSubmit = "Denunciar";
@@ -50,7 +53,9 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
       dsTitulo: [null, [Validators.required]],
       dsHistoria: this.formBuilder.array([
         this.formBuilder.group({
+          id: [1],
           dsHistoria: ['', [Validators.required]],
+          dsNomeAnexo: [''],
           tsHistoria: [Date.now(), [Validators.required]]
         })
       ]),
@@ -74,16 +79,15 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
     }
 
     this.slideForward();
-    this.submit();
+    this.upload(); //Save the attachments 
   }
   
   submit() {
     let fromToSend = Object.assign({}, this.form.value);
-    console.log(fromToSend);
     this.delatationService.save(fromToSend)
     .subscribe(
       success => {
-        this.handleError('Denúncia feita com sucesso!')
+        this.handleError('Denúncia feita com sucesso!');
        },
       error => {
         this.handleError('Erro ao salvar a denúncia.')
@@ -101,12 +105,12 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
    * @param event 
    */
   onChangeFileUpload(event: any) {
-    const selectedFiles = <FileList>event.srcElement.files;
-    if (this.numberFiles <= 3) {
-      for (let i = 0; i < selectedFiles.length; i++) {
-        this.numberFiles++;
-        this.filesUploadNames.push(selectedFiles[i].name);
-        let fileStrg = selectedFiles[i].name.split('.');
+    this.files = [];
+    this.filesToUpload = <FileList>event.srcElement.files;
+    if (this.filesToUpload.length <= 3) {
+      for (let i = 0; i < this.filesToUpload.length; i++) {
+        this.filesUploadNames.push(this.filesToUpload[i].name);
+        let fileStrg = this.filesToUpload[i].name.split('.');
         //Name that contains more than one dot
         if (fileStrg.length > 2) {
           let fullName = "";
@@ -129,17 +133,30 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
         }
       }
     } else {
-      //Show message error
+      this.handleError('Só é permitido no máximo três arquivos como anexo.');
     }
-    //console.log(this.files);
-    //this.upload(selectedFiles);
   }
 
-  private upload(files: FileList) {
-    let formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append('arquivos', files[i], files[i].name);
+  /**
+   * Add Files names uploaded to the Delatation
+   * files: FileList
+   */
+  private upload() {
+    let files = new Set<File>();
+
+    for( let i=0; i<this.filesToUpload.length; i++ ){
+      files.add(this.filesToUpload[i]);
     }
+
+    this.fileSerive.uploadDenunciaAnexos(files)
+    .pipe(
+      tap((res: any) => {
+        let controlDsHistoria = <FormArray>this.form.controls['dsHistoria'];
+        const dsNomeAnexo = SisUtil.formatFilesName(res);
+        (<FormGroup>controlDsHistoria.controls[0]).controls['dsNomeAnexo'].setValue(dsNomeAnexo);
+      })
+    )
+    .subscribe(res =>  this.submit());
   }
 
   /**
@@ -150,7 +167,6 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
     this.files = this.files.filter((v, i, arr) => {
       return v.id != id;
     });
-    this.numberFiles = this.files.length;
   }
 
   onSign(){

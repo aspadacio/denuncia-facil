@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, AfterViewInit, ViewChild, TemplateRef } from '@angular/core';
 
-import { Delation } from 'src/app/shared/models/delation';
+import { Delatation } from 'src/app/shared/models/delatation';
 import { DelationsService } from '../delations.service';
 import { catchError, map, tap, switchMap, distinctUntilChanged, debounce, debounceTime } from 'rxjs/operators';
 import { Observable, EMPTY } from 'rxjs';
@@ -33,10 +33,10 @@ export class DelatationsListComponent extends BaseListComponent implements OnIni
 
   private commentIserted: string = '';
   private delatationObject: any;
-  public delationSelected: Delation;
+  public delationSelected: Delatation;
 
-  public delatations$: Observable<Delation[]>;
-  public delatation$: Observable<Delation>;
+  public delatations$: Observable<Delatation[]>;
+  public delatation$: Observable<Delatation>;
   public companies$: Observable<Company[]>;
   public users$: Observable<User[]>;
 

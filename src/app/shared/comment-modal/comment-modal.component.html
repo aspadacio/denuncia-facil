@@ -10,8 +10,32 @@
         </button>
     </div>
     <div class="modal-body">
-        <textarea maxlength="2000" rows="10" style="width: -webkit-fill-available;" placeholder="{{ txtAreaPH }}" #comment></textarea>
+        <textarea maxlength="2000" rows="10" style="width: -webkit-fill-available;" placeholder="{{ txtAreaPH }}" (onkeyup)="onInsertText(comment)" #comment></textarea>
         <fa-icon [icon]="['fas', 'pencil-alt']" class="fa-2x"></fa-icon>
+        <div class="attached-files">
+            <div class="choose-file">
+                <span>
+                    <fa-icon [icon]="['fas', 'cloud-upload-alt']" size="fa-sm"></fa-icon> Enviar arquivo(s)
+                    <input type="file" class="custom-file-input" id="customFile" (change)="onChangeFileUpload($event)" multiple #filesToUpload/>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <!-- Showing the files -->
+            <div id="chosen-files" [style.display]="files.length > 0 ? 'inline-flex' : 'none'">
+                <div class="thumb col" *ngFor="let file of files">
+                    <div *ngIf="file?.type === 'pdf'">
+                        <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
+                    </div>
+                    <div *ngIf="file?.type !== 'pdf'">
+                        <fa-icon [icon]="['fas', 'image']" size="fa-sm"></fa-icon>
+                    </div>
+                    <p>{{ file.name }}. {{ file.type }}</p>
+                    <fa-icon [icon]="['fas', 'times']" size="fa-sm" title="Remover arquivo" id="remove-file" (click)="onRemoveFile(file.id)"></fa-icon>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">
