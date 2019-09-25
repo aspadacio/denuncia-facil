@@ -68,16 +68,22 @@
                             <div class="p-2 text-monospace">
                                 <div *ngFor="let anexo of (d.dsHistoria[item.even]?.dsNomeAnexo | split: ',')" class="text-resume">
                                     <div *ngIf="(anexo | split: '.')[1] == 'pdf'">
+                                        <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off">
                                             <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
                                             {{ anexo }}
+                                        </button>
                                     </div>
                                     <div *ngIf="(anexo | split: '.')[1] == 'png'">
+                                        <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off" (click)="downloadAttachment(anexo)">
                                             <fa-icon [icon]="['fas', 'file-image']" size="fa-sm"></fa-icon>
-                                            {{ anexo }}
+                                             {{ anexo }}
+                                        </button>
                                     </div>
                                     <div *ngIf="(anexo | split: '.')[1] == 'docx'">
+                                        <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off">
                                             <fa-icon [icon]="['fas', 'file-word']" size="fa-sm"></fa-icon>
                                             {{ anexo }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -110,16 +116,23 @@
                             <div class="p-2 text-monospace">
                                 <div *ngFor="let anexo of (d.dsResposta[item.odd]?.dsNomeAnexo | split: ',')" class="text-resume">
                                     <div *ngIf="(anexo | split: '.')[1] == 'pdf'">
-                                        <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
-                                        {{ anexo }}
+                                        <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off">
+                                            <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
+                                            {{ anexo }}
+                                        </button>
                                     </div>
                                     <div *ngIf="(anexo | split: '.')[1] == 'png'">
-                                        <fa-icon [icon]="['fas', 'file-image']" size="fa-sm"></fa-icon>
-                                        {{ anexo }}
+                                        <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off">
+                                            <fa-icon [icon]="['fas', 'file-image']" size="fa-sm"></fa-icon>
+                                            {{ anexo }}
+                                        </button>
+                        
                                     </div>
                                     <div *ngIf="(anexo | split: '.')[1] == 'docx'">
-                                        <fa-icon [icon]="['fas', 'file-word']" size="fa-sm"></fa-icon>
-                                        {{ anexo }}
+                                        <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off" (click)="downloadAttachment(anexo)">
+                                            <fa-icon [icon]="['fas', 'file-word']" size="fa-sm"></fa-icon>
+                                            {{ anexo }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

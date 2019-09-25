@@ -243,6 +243,13 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
     ).subscribe();
   }
 
+  downloadAttachment(name: string){
+    this.fileService.downloadAttachment(name)
+    .subscribe((res: any) => {
+      this.fileService.handleFile(res, name);
+    })
+  }
+
   /**
    * Listen a scroll event
    * Método responsável por show/hide a marca das Timelines conforme o usuário dá o scroll.

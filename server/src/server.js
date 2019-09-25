@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
     res.send('ExpressJS Server Working!');
 });
 
-//./static/docs
+//./static/denuncia
 //Retorna os nomes criados dos arquivos
 app.post('/denuncia', multipartMiddleware, (req, res) => {
     let names = [];
@@ -60,12 +60,10 @@ app.post('/denuncia', multipartMiddleware, (req, res) => {
     });
 });
 
-app.get('/downloadExcel', (req, res) => {
-    res.download('./uploads/mRpXKI308Uz6FWYkcJQKkbms.xlsx');
-});
-
-app.get('/downloadPDF', (req, res) => {
-    res.download('./uploads/zoB49xSOEqCBp9o7n3ZxRFg3.pdf');
+//./static/denuncia
+//Retorna os arquivos solicitados do System File
+app.get('/denuncia/download', (req, res) => {
+    res.download('./static/denuncia/' + req.query.name);
 });
 
 /**
