@@ -59,7 +59,29 @@
                             {{ d.dsHistoria[item.even]?.dsHistoria }}
                         </p>
                     </div>
-                    <div class="card-footer bg-transparent border-success">
+                    <!-- Show Attachments -->
+                    <div class="card-footer bg-transparent border-success" *ngIf="d.dsHistoria[item.even]?.dsNomeAnexo">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" [attr.data-target]="'#tl-body-'+index"
+                            data-toggle="collapse">Anexo(s) ▼
+                        </button>
+                        <div class="collapse border" id="tl-body-{{ index }}">
+                            <div class="p-2 text-monospace">
+                                <div *ngFor="let anexo of (d.dsHistoria[item.even]?.dsNomeAnexo | split: ',')" class="text-resume">
+                                    <div *ngIf="(anexo | split: '.')[1] == 'pdf'">
+                                            <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
+                                            {{ anexo }}
+                                    </div>
+                                    <div *ngIf="(anexo | split: '.')[1] == 'png'">
+                                            <fa-icon [icon]="['fas', 'file-image']" size="fa-sm"></fa-icon>
+                                            {{ anexo }}
+                                    </div>
+                                    <div *ngIf="(anexo | split: '.')[1] == 'docx'">
+                                            <fa-icon [icon]="['fas', 'file-word']" size="fa-sm"></fa-icon>
+                                            {{ anexo }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,7 +101,29 @@
                             {{ d.dsResposta[item.odd ]?.dsResposta }}
                         </p>
                     </div>
-                    <div class="card-footer bg-transparent border-success">
+                    <!-- Show Attachments -->
+                    <div class="card-footer bg-transparent border-success" *ngIf="d.dsResposta[item.odd]?.dsNomeAnexo">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" [attr.data-target]="'#tl-body-'+index"
+                            data-toggle="collapse">Anexo(s) ▼
+                        </button>
+                        <div class="collapse border" id="tl-body-{{ index }}">
+                            <div class="p-2 text-monospace">
+                                <div *ngFor="let anexo of (d.dsResposta[item.odd]?.dsNomeAnexo | split: ',')" class="text-resume">
+                                    <div *ngIf="(anexo | split: '.')[1] == 'pdf'">
+                                        <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
+                                        {{ anexo }}
+                                    </div>
+                                    <div *ngIf="(anexo | split: '.')[1] == 'png'">
+                                        <fa-icon [icon]="['fas', 'file-image']" size="fa-sm"></fa-icon>
+                                        {{ anexo }}
+                                    </div>
+                                    <div *ngIf="(anexo | split: '.')[1] == 'docx'">
+                                        <fa-icon [icon]="['fas', 'file-word']" size="fa-sm"></fa-icon>
+                                        {{ anexo }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

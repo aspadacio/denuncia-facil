@@ -15,6 +15,7 @@ import { DateTimeFormatPipeThis } from './pipes/date-time-format.pipe';
 import { ConsultaCepService } from './services/consulta-cep.service';
 import { ConsultaCnpjService } from './services/consulta-cnpj.service';
 import { HttpClientJsonpModule } from '@angular/common/http';
+import { SplitPipe } from './pipes/split.pipe';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HttpClientJsonpModule } from '@angular/common/http';
     CamelCasePipe,
     NotFoundComponent,
     DateFormatPipeThis,
-    DateTimeFormatPipeThis
+    DateTimeFormatPipeThis,
+    SplitPipe
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { HttpClientJsonpModule } from '@angular/common/http';
     CommentModalComponent,
     CamelCasePipe,
     DateFormatPipeThis,
-    DateTimeFormatPipeThis
+    DateTimeFormatPipeThis,
+    SplitPipe
   ],
   providers: [
     ConsultaCepService,
