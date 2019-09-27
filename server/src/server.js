@@ -36,6 +36,10 @@ let multipartMiddleware = multipart({ uploadDir: './static/denuncia/' });
 /**
  * BEGIN - HTTP Calss
  */
+
+ //Inject Routings
+app.use('/user', require('./routing/user-routing'));
+
 app.get('/', (req, res) => { 
     res.send('ExpressJS Server Working!');
 });

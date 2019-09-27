@@ -1,11 +1,10 @@
   body {
-    background: linear-gradient(to right, rgb(232, 234, 236), rgb(197, 199, 201));
+    /* background: linear-gradient(to right, rgb(232, 234, 236), rgb(197, 199, 201)); */
   }
   
   .card-signin {
-    border: 0;
     border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 11px 1rem 1rem 3px rgba(0, 0, 0, 0.1);
   }
   
   .card-signin .card-title {
@@ -133,4 +132,59 @@
       color: #777;
     }
   }
-  
+
+  /* Improve Styles
+  ----------------------------------------------------*/
+  .form-signin .btn-primary {
+    background-color: #3b88c3;
+    border-color: #007bff;
+  }
+
+  .panel-compact>.panel-heading {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #d2d2d2;
+    color: #fff;
+    display: table;
+    width: 100%;
+    min-height: 60px;
+  }
+  .panel-heading {
+      padding: 10px 15px;
+      border-bottom: 1px solid transparent;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+  }
+
+  .panel-compact>.panel-heading .heading-container {
+    display: table-cell;
+    vertical-align: middle;
+  }
+ 
+  .panel-compact .panel-heading img.logo {
+    max-width: 115px;
+    max-height: 50px;
+}
+
+.btn-home-register {
+  background-color: #3b88c3cc;
+  color: #fff;
+}
+
+.btn-home-login {
+  color: #000;
+  font-weight: bold;
+  background-color: transparent;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-style: solid;
+  border-color: #0a0a0aba;
+}
+
+.btn-home-login:hover {
+  background-color: #3b88c3;
+  border-style: none;
+  color: white;
+}

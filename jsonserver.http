@@ -1,4 +1,4 @@
- http://localhost:3000/empresas
+ http://localhost:3000/empresa
 
 ###
 http://www.receitaws.com.br/v1/cnpj/07341488000160
@@ -57,3 +57,6 @@ GET http://localhost:3000/delacao?protocolo=ApoihEh34H
 
 ###
 GET http://localhost:3000/delacao?protocolo=202064657461616D
+
+###
+GET http://localhost:3000/usuario?cpf=06626540998

@@ -67,7 +67,9 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
     } else if (this.route.snapshot.data['company']) {
       this.company = this.route.snapshot.data['company'][0];
       this.onFromCompany(this.company.id);
-    } else {
+    }else if (this.route.snapshot.data['user']) {
+      this.onFromUser(this.route.snapshot.data['user'][0].id);
+    }else {
       this.onRefresh();
     }
   }
@@ -99,6 +101,13 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
       .pipe(
         map(delatations => delatations.filter(delatation => delatation.idEmpresa === id))
       );
+  }
+
+  onFromUser(id: number) {
+    this.delatations$ = this.delationsService.list()
+    .pipe(
+      map(delatations => delatations.filter(delatation => delatation.idUsuario === id))
+    );
   }
 
   /**

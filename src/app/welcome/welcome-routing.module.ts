@@ -23,6 +23,11 @@ const routes: Routes = [
           resolve: { company: DelatationGuard }
         },
         {
+          path: ':context/denuncias/:cpf', 
+          component: DelatationListComponent, 
+          resolve: { user: DelatationGuard }
+        },
+        {
           path: ':context/denuncia/:protocol', 
           component: DelatationListComponent, 
           resolve: { delatation: DelatationGuard }
