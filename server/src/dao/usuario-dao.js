@@ -29,9 +29,9 @@ module.exports = {
             const cpf = req.body['cpf'];
             let isEquals = null;
 
-//          await database.query(`SELECT * FROM TABLE WHERE *** ${req.body['cpf']};`), (err, result) =>{};
+            //`http://localhost:3000/usuario?cpf=${cpf}`
             await Promise.all([
-                http.get(`http://localhost:3000/usuario?cpf=${cpf}`, (resp2) => {
+                http.get(`http://denunciafacil.com.br:3000/usuario?cpf=${cpf}`, (resp2) => {
                     let data = '';
                     // A chunk of data has been recieved.
                     resp2.on('data', (chunk) => {
