@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   BACKEND_SERVER: 'http://localhost:3000/', //JSON-SERVER
   RECEITA_CNPJ_API: 'http://www.receitaws.com.br/v1/cnpj/',
-  SERVER: 'http://localhost:8000/'
+  SERVER: 'http://localhost:8000/' //NodeJS
 };
 
 /*

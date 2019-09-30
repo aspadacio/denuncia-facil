@@ -7,6 +7,7 @@ import { WelcomeSiteComponent } from './welcome-site/welcome-site.component';
 import { DelatationListComponent } from '../site/delatation-list/delatation-list.component';
 import { DelatationGuard } from '../site/delatation.guard';
 import { DelatationFormComponent } from '../site/delatation-form/delatation-form.component';
+import { SignComponent } from '../sign/sign.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,10 @@ const routes: Routes = [
           path: ':context/denuncia/:protocol', 
           component: DelatationListComponent, 
           resolve: { delatation: DelatationGuard }
+        },
+        {
+          path: ':context/entrar', 
+          loadChildren: '../sign/sign.module#SignModule'
         },
         {
           path: ':context', 

@@ -30,13 +30,19 @@ export class SignComponent extends BaseFormComponent implements OnInit {
     private usersService: UsersService,
     private alertService: ModalService,
     private location: Location,
-    private router: Router
+    private router: Router,
+    public route: ActivatedRoute
   ) {
     super();
    }
 
   ngOnInit() {
-    this.isForLogin = true;
+    if (this.route.snapshot.data['toApply'] && this.route.snapshot.data['toApply'] === "true" ) {
+      this.isForLogin = false;
+    }else{
+      this.isForLogin = true;
+    }
+
     this.form = this.formBuilder.group({
       id: [null],
       cpf: [null, [Validators.required, FormValidations.cpfValidator, Validators.minLength(11), Validators.maxLength(14)]],

@@ -170,11 +170,15 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
   }
 
   onSign(){
-    this.router.navigate(['/entrar']);
+    //this.router.navigate(['/entrar']);
+    const isApply = false;
+    this.router.navigate(['../entrar', isApply], { relativeTo: this.route });
   }
 
   onRegister(){
-    this.router.navigate(['/usuarios/novo']);
+    //this.router.navigate(['/usuarios/novo']);
+    const isApply = true;
+    this.router.navigate(['../entrar', isApply], { relativeTo: this.route });
   }
 
   slideForward(){
