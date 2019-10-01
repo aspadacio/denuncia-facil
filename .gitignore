@@ -48,9 +48,9 @@ Thumbs.db
 # Json-server DB
 /json-server/db.json
 
-/server/static
-/server/node_modules
 /server/.env
-
+/server/node_modules
+/server/static
+/server/src/util/server-util.js
 
 /package-lock.json

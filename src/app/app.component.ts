@@ -12,10 +12,15 @@ export class AppComponent {
   title = 'Denúncia Fácil';
 
   public context: string;
+  public hasSite: boolean;
 
   constructor(
     private location: Location
   ){
-    this.context =  this.location.path().split('/')[2] ? this.location.path().split('/')[2] : "unknow";
+    this.context =  this.location.path().split('/')[2];
+    this.hasSite = true;
+    if(!this.context){
+      this.hasSite = false;
+    }
    }
 }

@@ -18,3 +18,19 @@ footer {
     width: 100%;
     line-height: 40px;
 }
+
+.btn-sign {
+    line-height: 1;
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
+.btn-sign:hover {
+    color: #fff;
+    border-color: #fff;
+    background-color: transparent;
+}
+
+#navbarNavDropdown {
+    padding-left: 90px !important;
+}

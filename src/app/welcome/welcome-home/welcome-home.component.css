@@ -1,6 +1,13 @@
 .main {
     background-color: #f8f8f8;
-    padding-top: 5rem;
+    min-height: -webkit-calc(100vh - 100px);
+    height: -o-calc(100vh - 100px); /* opera */
+    height: -webkit-calc(100vh - 100px); /* google, safari */
+    height: -moz-calc(100vh - 100px); /* firefox */
+}
+
+.main-content {
+    min-height: 50vh;
 }
 
 #sign {
@@ -25,13 +32,13 @@ fa-icon {
     justify-content: space-between;
 }
 
-.itens button:hover {
+button:hover {
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, rgb(44, 49, 119), rgb(28, 33, 99));
 }
 
-.itens button:hover span {
+button:hover span {
    color: white;
 }
 
@@ -53,20 +60,10 @@ fa-icon {
     font-size: x-large;
 }
 
-.categoria {
-    display: block;
-    margin-bottom: 25px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #555;
-}
-
 #protocolSearchBtn button {
-    padding-right: 1.6rem;
     border-radius: 0.3rem;
 }
 
 #protocolSearchBtn input {
-    margin-left: -1.4rem;
     text-align: center;
 }

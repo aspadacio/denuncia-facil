@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark " style="margin-top: 10px;">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="margin-top: 10px;">
     <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
       <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
         <ul class="navbar-nav">
@@ -22,6 +22,10 @@
         </ul>
       </div>
     </div>
+    <button *ngIf="hasSite" class="btn btn-sign text-left" id="sign" [routerLink]="'/site/' + context + '/entrar'">
+        <fa-icon [icon]="['fas', 'sign-in-alt']" size="fa-sm"></fa-icon>
+        Entrar
+    </button>
   </nav>
 </div>
 

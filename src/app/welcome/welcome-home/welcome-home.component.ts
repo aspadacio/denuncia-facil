@@ -34,10 +34,6 @@ export class WelcomeHomeComponent implements OnInit {
     }
   }
 
-  onSign() {
-    this.router.navigate(['/entrar']);
-  }
-
   onDelatation(company: Company) {
     Globals.COMPANY_ID = company.id;
     this.router.navigate(['denunciar'], { relativeTo: this.route });
