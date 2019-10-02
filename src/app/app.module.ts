@@ -21,12 +21,14 @@ import { ModalModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { Globals } from './shared/constants';
+import { GlobalConstants } from './shared/constants';
 import { SharedModule } from './shared/shared.module';
+import { TopnavbarComponent } from './navbar/topnavbar/topnavbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TopnavbarComponent
   ],
   imports: [
     FontAwesomeModule,
@@ -46,7 +48,7 @@ import { SharedModule } from './shared/shared.module';
        deps: [SettingsService],
        useFactory: (settingsService: SettingsService) => settingsService.getLocale()
      },
-     Globals //Globals vars
+     GlobalConstants //Globals vars
   ],
   bootstrap: [AppComponent]
 })

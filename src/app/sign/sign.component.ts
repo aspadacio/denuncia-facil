@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '../shared/base-form/base-form.component';
 import { FormValidations } from '../shared/form-validations';
@@ -9,10 +9,10 @@ import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component
 import { Location } from '@angular/common';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Globals } from '../shared/constants';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
-  selector: 'app-sign',
+  selector: 'sign',
   templateUrl: './sign.component.html',
   styleUrls: ['./sign.component.css']
 })
@@ -85,7 +85,9 @@ export class SignComponent extends BaseFormComponent implements OnInit {
       .subscribe(
         (success: any) => { 
           if(success.isEquals){
-            this.router.navigate([`/site/${Globals.COMPANY_CONTEXT}/denuncias/${this.form.controls['cpf'].value}`]);
+            //this.router.navigate([`/site/${Globals.COMPANY_CONTEXT}/denuncias/${this.form.controls['cpf'].value}`]);
+            GlobalConstants.USER_LOGGED_CPF = this.form.controls['cpf'].value;
+            this.router.navigate([`/site/${GlobalConstants.COMPANY_CONTEXT}`], this.form.controls['cpf'].value);
           }else{
             this.handleAlert("Senha incorreta! Tente novamente.");
           }  

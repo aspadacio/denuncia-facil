@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CompaniesService } from '../../shared/services/companies.service';
 import { Company } from '../../shared/models/company';
 import { Observable } from 'rxjs';
-import { Globals } from 'src/app/shared/constants';
+import { GlobalConstants } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-welcome',
@@ -35,7 +35,7 @@ export class WelcomeHomeComponent implements OnInit {
   }
 
   onDelatation(company: Company) {
-    Globals.COMPANY_ID = company.id;
+    GlobalConstants.COMPANY_ID = company.id;
     this.router.navigate(['denunciar'], { relativeTo: this.route });
   }
 

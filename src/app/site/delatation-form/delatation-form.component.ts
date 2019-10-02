@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DelationsService } from 'src/app/delatations/delations.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { BaseFormComponent } from 'src/app/shared/base-form/base-form.component';
-import { Globals } from 'src/app/shared/constants';
+import { GlobalConstants } from 'src/app/shared/constants';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { SisUtil } from 'src/app/shared/sis-util';
 import { FileService } from 'src/app/shared/services/file.service';
@@ -69,8 +69,8 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
     this.protocol = SisUtil.gerarProtocolo(this.form.controls['dsTitulo'].value);
     this.form.controls['protocolo'].setValue(this.protocol);
 
-    if( Globals.COMPANY_ID !== 0){
-      this.form.controls['idEmpresa'].setValue(Globals.COMPANY_ID);
+    if( GlobalConstants.COMPANY_ID !== 0){
+      this.form.controls['idEmpresa'].setValue(GlobalConstants.COMPANY_ID);
     }
 
     if( txtDenuncia ){

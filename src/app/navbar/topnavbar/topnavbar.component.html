@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="margin-top: 10px;">
+    <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
+      <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="'/site/' + context">
+                Início
+                <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="'/site/' + context + '/denuncias'">Denuncias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/empresas']">Empresas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/usuarios']">Usuários</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <button *ngIf="hasSite" class="btn btn-sign text-left" id="sign" [routerLink]="'/site/' + context + '/entrar'">
+        <fa-icon [icon]="['fas', 'sign-in-alt']" size="fa-sm"></fa-icon>
+        Entrar
+    </button>
+  </nav>
+</div>

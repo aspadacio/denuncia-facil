@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 
 export class Constants {
     static readonly DATE_FORMAT = 'dd/MM/yy';
@@ -5,8 +6,12 @@ export class Constants {
     static readonly DATE_TIME_TS_FORMAT = 'yyyy-LL-dd hh:mm:ss'; //Padrão do banco de dados
 }
 
-export class Globals {
-    static COMPANY_CONTEXT = '';
-    static COMPANY_ID = 0;
-    static USER_ID = 0;
+@Injectable({
+    providedIn: 'root',
+  })
+export class GlobalConstants {
+    static COMPANY_CONTEXT = null;
+    static COMPANY_ID = null;
+    static USER_LOGGED_NAME = null;
+    static USER_LOGGED_CPF = null;
 }

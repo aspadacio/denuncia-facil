@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterStateSnapshot, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -18,9 +17,5 @@ export class AppComponent {
     private location: Location
   ){
     this.context =  this.location.path().split('/')[2];
-    this.hasSite = true;
-    if(!this.context){
-      this.hasSite = false;
-    }
    }
 }
