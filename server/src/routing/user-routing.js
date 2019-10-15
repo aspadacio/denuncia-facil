@@ -12,4 +12,7 @@ router.post('/doEncrypt', dao.doEncrypt);
 //A partir do Hash e a Semente, retorna a Senha
 router.post('/doDecrypt', dao.doDecrypt);
 
+//Insert
+router.post('/', dao.add);
+
 module.exports = router;

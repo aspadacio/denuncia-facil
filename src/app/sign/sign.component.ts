@@ -24,6 +24,8 @@ export class SignComponent extends BaseFormComponent implements OnInit {
   public userName: string;
   public userLastName: string;
 
+  public context: string;
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -37,10 +39,10 @@ export class SignComponent extends BaseFormComponent implements OnInit {
    }
 
   ngOnInit() {
-    if (this.route.snapshot.data['toApply'] && this.route.snapshot.data['toApply'] === "true" ) {
-      this.isForLogin = false;
-    }else{
-      this.isForLogin = true;
+    this.isForLogin = true;
+    if (this.route.snapshot.data['opts']) {
+      this.context = this.route.snapshot.data['opts'].context;
+      this.isForLogin = this.route.snapshot.data['opts'].toApply ? false : true;
     }
 
     this.form = this.formBuilder.group({
@@ -86,13 +88,15 @@ export class SignComponent extends BaseFormComponent implements OnInit {
         (success: any) => { 
           if(success.isEquals){
             //this.router.navigate([`/site/${Globals.COMPANY_CONTEXT}/denuncias/${this.form.controls['cpf'].value}`]);
+            //this.router.navigate([`/site/${GlobalConstants.COMPANY_CONTEXT}/${this.form.controls['cpf'].value}`]);
             GlobalConstants.USER_LOGGED_CPF = this.form.controls['cpf'].value;
-            this.router.navigate([`/site/${GlobalConstants.COMPANY_CONTEXT}`], this.form.controls['cpf'].value);
+            this.location.back();
           }else{
             this.handleAlert("Senha incorreta! Tente novamente.");
           }  
         },
         error => {
+          console.log(`Senha: ${this.password} | Cpf: ${this.form.controls['cpf'].value}`);
           this.handleAlert("Erro ao logar. Contate o administrador.");
         }
       );

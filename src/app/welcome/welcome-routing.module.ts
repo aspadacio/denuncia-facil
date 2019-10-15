@@ -8,6 +8,7 @@ import { DelatationListComponent } from '../site/delatation-list/delatation-list
 import { DelatationGuard } from '../site/delatation.guard';
 import { DelatationFormComponent } from '../site/delatation-form/delatation-form.component';
 import { SignComponent } from '../sign/sign.component';
+import { DelatationLoggedGuard } from '../site/delatation-logged.guard';
 
 const routes: Routes = [
     {
@@ -17,6 +18,13 @@ const routes: Routes = [
         {
           path: ':context/denunciar', 
           component: DelatationFormComponent
+        },
+        {
+          path: ':context/denunciar/:cpf', 
+          component: DelatationFormComponent,
+          resolve: { 
+            opts: DelatationLoggedGuard
+          }
         },
         {
           path: ':context/denuncias', 
@@ -36,6 +44,10 @@ const routes: Routes = [
         {
           path: ':context/entrar', 
           loadChildren: '../sign/sign.module#SignModule'
+        },
+        {
+          path: ':context/:cpf',
+          component: WelcomeHomeComponent
         },
         {
           path: ':context', 

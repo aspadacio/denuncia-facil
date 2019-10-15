@@ -6,6 +6,7 @@ import { SignComponent } from './sign.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [SignComponent],
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     SignRoutingModule,
     NgxMaskModule.forRoot(),
+    FontAwesomeModule
   ]
 })
 export class SignModule { }

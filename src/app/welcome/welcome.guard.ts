@@ -12,6 +12,12 @@ export class WelcomeGuard implements CanActivateChild, Resolve<string> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): string | Observable<string> | Promise<string> {
     //Get Company context
     GlobalConstants.COMPANY_CONTEXT = state.url.split('/')[2] ? state.url.split('/')[2] : '';
+    if( route.params['context'] ){
+      GlobalConstants.COMPANY_CONTEXT = route.params['context'];
+    }
+    if( route.params['cpf'] ){
+      GlobalConstants.USER_LOGGED_CPF = route.params['cpf'];
+    }
     return GlobalConstants.COMPANY_CONTEXT;
   }
   

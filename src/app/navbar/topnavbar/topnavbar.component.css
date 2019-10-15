@@ -1,3 +1,7 @@
+:root {
+    --itensNavPadding: 80px;
+}
+
 .bg-dark {
     background: linear-gradient(to left, rgb(89, 150, 198), rgba(59, 136, 195, 0.75));
 }
@@ -31,6 +35,17 @@ footer {
     background-color: transparent;
 }
 
+#div-user {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    padding: 6px;
+    margin-right: 2px;
+}
+
 #navbarNavDropdown {
-    padding-left: 90px !important;
+    padding-left: 90px;
+}
+
+.nav-item a {
+    cursor: pointer !important;
 }

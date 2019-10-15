@@ -14,8 +14,10 @@ import { DateFormatPipeThis } from './pipes/date-format.pipe';
 import { DateTimeFormatPipeThis } from './pipes/date-time-format.pipe';
 import { ConsultaCepService } from './services/consulta-cep.service';
 import { ConsultaCnpjService } from './services/consulta-cnpj.service';
-import { HttpClientJsonpModule } from '@angular/common/http';
 import { SplitPipe } from './pipes/split.pipe';
+import { TopnavbarComponent } from '../navbar/topnavbar/topnavbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientJsonpModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -30,11 +32,13 @@ import { SplitPipe } from './pipes/split.pipe';
     NotFoundComponent,
     DateFormatPipeThis,
     DateTimeFormatPipeThis,
-    SplitPipe
+    SplitPipe,
+    TopnavbarComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
+    ReactiveFormsModule,
     HttpClientJsonpModule
   ],
   exports: [
@@ -46,7 +50,8 @@ import { SplitPipe } from './pipes/split.pipe';
     CamelCasePipe,
     DateFormatPipeThis,
     DateTimeFormatPipeThis,
-    SplitPipe
+    SplitPipe,
+    TopnavbarComponent
   ],
   providers: [
     ConsultaCepService,

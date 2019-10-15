@@ -194,3 +194,8 @@
   border-style: none;
   color: white;
 }
+
+.form-input-password button {
+  position: absolute;
+  right: 0;
+}

@@ -10,10 +10,10 @@ import { take } from 'rxjs/operators';
 })
 export class UsersService extends GenericCrudService<User> {
 
-  private url = `${environment.SERVER}user`;
+  private url = `${environment.BACKEND_SERVER}user`;
 
   constructor(protected http: HttpClient) {
-    super(http, `${environment.BACKEND_SERVER}usuario`);
+    super(http, `${environment.BACKEND_SERVER}user`);
    }
 
    public register(password: string){

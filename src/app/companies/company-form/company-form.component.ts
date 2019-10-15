@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -10,8 +10,9 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 
 import { CompaniesService } from 'src/app/shared/services/companies.service';
-import { distinctUntilChanged, switchMap, tap, map } from 'rxjs/operators';
-import { empty, Observable } from 'rxjs';
+import { distinctUntilChanged, switchMap, tap, map, filter, debounceTime } from 'rxjs/operators';
+import { empty, Observable, EMPTY } from 'rxjs';
+import { SisUtil } from 'src/app/shared/sis-util';
 
 @Component({
   selector: 'app-company-form',
@@ -19,6 +20,9 @@ import { empty, Observable } from 'rxjs';
   styleUrls: ['./company-form.component.css']
 })
 export class CompanyFormComponent extends BaseFormComponent implements OnInit {
+
+  contextField = new FormControl();
+  hasSameContext: boolean = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -49,11 +53,8 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
       cep: [company.cep, [Validators.required, FormValidations.cepValidator]],
       logradouro: [company.logradouro, [Validators.required]],
       complemento: [company.complemento],
-      atividadePrincipal: [company.atividade_principal],
-      atividadesSecundarias: [company.atividades_secundarias],
-      billing: [company.billing],
-      extra: [company.extra],
-      qsa: [company.qsa]
+      contexto: [company.contexto, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+      numero: [company.numero]
     });
 
     //Escutando a Alteração do campo CNPJ
@@ -65,9 +66,36 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
     //Se o RxJS emitir um EMPTY, então, a cadeia abaixo do .subscribe([...]) não é executada
     .subscribe(
       r => this.fillForm(r),
-      err => this.handleError("Erro ao pesquisar CNPJ."),
+      err => this.handleError("Erro ao pesquisar CNPJ. " + err),
       () => {}
     );
+
+    //Nome do Site
+    this.contextField.valueChanges
+    .pipe(
+      map((v: string) => v.trim().toLowerCase()),
+      filter(v => v.length > 3 && v.length <= 25),
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap((context: string) => 
+        this.companiesService.findParams({
+          'key': 'contexto', 
+          'value': context
+        })
+      ),
+      map((x: any) => x = x.result[0]),
+      tap((x: any) => {
+        if(x && x.CONTEXTO){
+          this.hasSameContext = true;
+        }else{
+          this.hasSameContext = false;
+          this.form.get('contexto').setValue(this.contextField.value.trim().toLowerCase());
+        }
+      })
+    )
+    .subscribe();
+    //.subscribe((res: any) => res ? this.handleError('Já existe esse contexto!') : console.log('Nome de site permitido!!!'));
+
   }
 
   submit() {
@@ -86,14 +114,16 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
   fillForm(data: any): void{
     if(data !== undefined){
       this.form.patchValue({
-        cnpj: data.cnpj,
+        cnpj: SisUtil.replaceStr(data.cnpj),
         nome: data.nome,
         municipio: data.municipio,
         uf: data.uf,
         bairro: data.bairro,
-        cep: data.cep,
+        cep: SisUtil.replaceStr(data.cep),
         logradouro: data.logradouro,
-        complemento: data.complemento
+        complemento: data.complemento,
+        numero: data.numero,
+        fantasia: data.fantasia
       });
     }else{
       this.form.reset();
@@ -107,6 +137,14 @@ export class CompanyFormComponent extends BaseFormComponent implements OnInit {
   onCancel(){
     this.form.reset();
     this.location.back();
+  }
+
+  /**
+   * Formata o nome do site para não haver espaços e caixa alta
+   * @param event Nome do site inserido
+   */
+  public onSetLowerCase(event: any){
+    event.target.value = (<string>event.srcElement.value).toLowerCase().trim();
   }
 
   private handleError(msg: string){

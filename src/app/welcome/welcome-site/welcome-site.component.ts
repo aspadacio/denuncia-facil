@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeSiteComponent implements OnInit {
 
+  public context: string;
+  public userName: string;
+
   constructor() { }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
   <div class="form-group">
     <label for="cnpj">CNPJ</label>
     <div class="input-group">
@@ -15,9 +15,19 @@
     <small id="cnpjHelp" class="form-text text-muted">A partir do CNPJ digitado, será pesquisado os dados da empresa junto à Receita Federal.</small>
   </div>
   <div *ngIf="form.get('cnpj').status === 'VALID' && form.get('nome').status === 'VALID'">
-       <div class="form-group">
-          <label for="nome">Nome</label>
-          <input type="text" class="form-control" id="nome" formControlName="nome" readonly>
+       <div class="form-group form-row">
+           <div class="col-6">
+               <label for="nome">Nome</label>
+               <input type="text" class="form-control" id="nome" formControlName="nome" readonly>
+           </div>
+           <div class="col-6">
+                <label for="nome-site">Nome do Site</label>
+                <input type="text" class="form-control" id="nome-site" [formControl]="contextField" 
+                    placeholder="Esse nome será o que o usuário irá acessar" (keyup)="onSetLowerCase($event)" maxlength="25">
+                <div *ngIf='hasSameContext' class="text-left alert alert-danger" role="alert">
+                    *Esse nome de site já está sendo usado.
+                </div>
+           </div>
         </div>
         <div class="form-group">
             <div class="form-group form-row">

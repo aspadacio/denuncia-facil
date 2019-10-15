@@ -1,6 +1,9 @@
-//const database = require('../util/db-conf');
+const config = require('../util/config');
 const Util = require('../util/server-util');
 const http = require('http');
+
+const MongoClient = require('mongodb').MongoClient;
+const COLLECTION_NAME = "USUARIO";
 
 module.exports = {
 
@@ -51,4 +54,27 @@ module.exports = {
             ]);
         }
     },
+
+    add: async (req, resp) => {
+        console.log('Inserindo usuário...');
+        await Promise.all([
+            MongoClient.connect(`mongodb://${config.DB_HOST}:${config.DB_PORT}`, (err, client) => {
+                if (err) {
+                    throw err;
+                }
+                let db = client.db(`${config.DB_NAME}`);
+                db.collection(COLLECTION_NAME).insertOne({
+                    CPF:   req.body["cpf"],
+                    NOME:  req.body["nome"],
+                    EMAIL: req.body["email"],
+                    HASH:  req.body["hash"],
+                    SEED:  req.body["seed"]
+                })
+                .then(result => {
+                    console.log('Usuário inserido id:' + result.insertedId);
+                    resp.json({  isOk: 'OK' })
+                })
+            })
+        ]);
+    }
 }

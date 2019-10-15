@@ -39,6 +39,8 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   private delatation: any;
   private company: any;
 
+  public context: string;
+  public userName: string;
   public reqRespIndex = [];
   ctxTmpCenterDot = { $implicit: true };
   optionsSearch = [];
@@ -59,6 +61,8 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   }
 
   ngOnInit(): void {
+    this.context = this.route.snapshot.params['context'];
+
     if (this.route.snapshot.data['delatation']) {
       this.delatation = this.route.snapshot.data['delatation'][0];
       //Show time-line from ONE delatation

@@ -1,3 +1,5 @@
+<topnavbar [context]="context" [isForLogin]="true"></topnavbar>
+
 <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
 <body>
   <div class="container">
@@ -25,10 +27,22 @@
                   <input type="text" class="form-control" id="cpf" mask='000.000.000-00' maxlength="14" formControlName="cpf" />
                   <label for="cpf">CPF</label>
               </div>
+              <!-- <div class="input-group form-input-password">
+                <div class="form-label-group">
+                  <label for="inputPassword">Digite sua senha</label>
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Digite sua senha" (blur)="onAddPwd(password.value)" #password required>
+                </div>
+                  <div class="input-group-prepend">
+                    <button type="button" class="btn btn-inline btn-light" aria-haspopup="false" aria-expanded="false" title="Mostrar senha">
+                      <span class="sr-only">Mostrar senha</span>
+                      <fa-icon [icon]="['fas', 'eye-slash']" size="fa-sm"></fa-icon>
+                    </button>
+                  </div>
+              </div> -->
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Digite sua senha" (blur)="onAddPwd(password.value)" #password required>
-                <label for="inputPassword">Digite sua senha</label>
-              </div>
+                  <input type="password" id="inputPassword" class="form-control" placeholder="Digite sua senha" (blur)="onAddPwd(password.value)" #password required>
+                  <label for="inputPassword">Digite sua senha</label>
+               </div>
               <div class="custom-control custom-checkbox mb-3">
                 <label class="custom-control-label" for="customCheck1">Lembrar senha</label>
                 <input type="checkbox" class="custom-control-input" id="customCheck1">

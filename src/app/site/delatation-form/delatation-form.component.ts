@@ -10,6 +10,7 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { SisUtil } from 'src/app/shared/sis-util';
 import { FileService } from 'src/app/shared/services/file.service';
 import { tap, map } from 'rxjs/operators';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 declare var $: any;
 const MAX_CHARACTERS: number = 2000;
@@ -26,8 +27,10 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
   public nmCaracters: number;
   public protocol: string;
   public txtDelatation: string;
+  public context: string;
 
   public submitted: boolean = false;
+  public hasUserLogged: boolean = false;
 
   private filesToUpload: FileList;
   private filesUploadNames: string[] = [];
@@ -38,6 +41,7 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
     private router: Router,
     private formBuilder: FormBuilder,
     private delatationService: DelationsService,
+    private userService: UsersService,
     private fileSerive: FileService,
     private alertService: ModalService,
   ) {
@@ -51,6 +55,7 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
       idEmpresa: [null, [Validators.required]],
       idUsuario: [null],
       dsTitulo: [null, [Validators.required]],
+      tsVisivel: [0],
       dsHistoria: this.formBuilder.array([
         this.formBuilder.group({
           id: [1],
@@ -63,6 +68,34 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
       tsReclamacao: [Date.now(), [Validators.required]],
       protocolo: ['', [Validators.required]]
     });
+
+    if (this.route.snapshot.data['opts'] && this.route.snapshot.data['opts'].cpf) {
+      const user = this.userService.findParams({
+        'cpf': this.route.snapshot.data['opts'].cpf
+      });
+      user.subscribe(
+        (success: any) => {
+          this.form.controls['idUsuario'].setValue(success[0].id);
+          this.hasUserLogged = true;
+         },
+        (error: any) => {
+          this.handleError('Erro ao buscar usuário.')
+        }
+      );
+    }else if(GlobalConstants.USER_LOGGED_CPF){
+      const user = this.userService.findParams({
+        'cpf': GlobalConstants.USER_LOGGED_CPF
+      });
+      user.subscribe(
+        (success: any) => {
+          this.form.controls['idUsuario'].setValue(success[0].id);
+          this.hasUserLogged = true;
+         },
+        (error: any) => {
+          this.handleError('Erro ao buscar usuário.')
+        }
+      );
+    }
   }
 
   onBeforeSubmit(txtDenuncia: string) {
@@ -181,7 +214,18 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
     this.router.navigate(['../entrar', isApply], { relativeTo: this.route });
   }
 
-  slideForward(){
+  /**
+   * Forward to the next slide
+   * @param isToIdentify if true then set user at form
+   */
+  slideForward(isToIdentify?: boolean){
+    if( isToIdentify === true ){
+      if (this.form.controls['idUsuario'].value){
+        this.form.controls['tsVisivel'].setValue(1);
+      }
+    }else if( isToIdentify === false ){
+      this.form.controls['tsVisivel'].setValue(0);
+    }
     $('.selectpicker').selectpicker('refresh');
     $('.carousel').carousel('next');
   }

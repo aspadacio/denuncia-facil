@@ -13,6 +13,7 @@
         <thead>
             <tr>
               <th scope="col">Empresa</th>
+              <th scope="col">Site</th>
               <th scope="col">CNPJ</th>
               <th scope="col">UF</th>
               <th scope="col">Cidade</th>
@@ -22,11 +23,12 @@
           </thead>
           <tbody>
             <tr *ngFor="let c of companies">
-              <td>{{ c.fantasia ? c.fantasia : c.nome }}</td>
-              <td>{{ c.cnpj | mask: '00.000.000/0000-00' }}</td>
-              <td>{{ c.uf }}</td>
-              <td>{{ c.municipio }}</td>
-              <td>{{ c.bairro }}</td>
+              <td>{{ c.FANTASIA ? c.FANTASIA : c.NOME }}</td>
+              <td>{{ c.CONTEXTO }}</td>
+              <td>{{ c.CNPJ | mask: '00.000.000/0000-00' }}</td>
+              <td>{{ c.UF }}</td>
+              <td>{{ c.MUNICIPIO }}</td>
+              <td>{{ c.BAIRRO }}</td>
               <td>
                 <span style="display: table; margin: auto">
                   <button class="btn mb-1 mr-2 btn-sm">
@@ -66,19 +68,19 @@
               <div class="card text-white bg-info col-12">
                 <div class="card-body">
                   <h4 class="card-title">CNPJ</h4>
-                  <p class="card-text">{{ c.cnpj | mask: '00.000.000/0000-00' }}</p>
+                  <p class="card-text">{{ c.CNPJ | mask: '00.000.000/0000-00' }}</p>
                   <h4 class="card-title">Nome</h4>
-                  <p class="card-text">{{ c.nome }}</p>
+                  <p class="card-text">{{ c.NOME }}</p>
                   <div *ngIf="c.fantasia" style="padding-bottom: 15px;">
                     <h4 class="card-title">Nome Fantasia</h4>
-                    <p class="card-text">{{ c.fantasia }}</p>
+                    <p class="card-text">{{ c.FANTASIA }}</p>
                   </div>
                   <div *ngIf="c.telefone" style="padding-bottom: 15px;">
                     <h4 class="card-title">Telefone(s)</h4>
-                    <p class="card-text">{{ c.telefone }}</p>
+                    <p class="card-text">{{ c.TELEFONE }}</p>
                   </div>
                   <h4 class="card-title">Endereço</h4>
-                  <p class="card-text">{{ c.uf }} - {{ c.municipio }} - {{ c.bairro }} - {{ c.logradouro }} - {{ c.numero }}</p>
+                  <p class="card-text">{{ c.UF }} - {{ c.MUNICIPIO }} - {{ c.BAIRRO }} - {{ c.LOGRADOURO }} - {{ c.NUMERO }}</p>
                   <div *ngIf="c.atividade_principal" style="padding-bottom: 15px;">
                     <h4 class="card-title">Atividade Principal</h4>
                     <p class="card-text">{{ c.atividade_principal[0].text }}</p>

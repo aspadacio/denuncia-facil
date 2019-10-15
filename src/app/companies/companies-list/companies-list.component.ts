@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 
 import { CompaniesService } from 'src/app/shared/services/companies.service';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { Observable, pipe, EMPTY } from 'rxjs';
 import { Company } from '../../shared/models/company';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -39,7 +39,8 @@ export class CompaniesListComponent implements OnInit {
   onRefresh() {
     this.companies$ = this.companiesService.list()
     .pipe(
-//      tap(x => console.log(x)),
+      map((result: any) => result = result.result),
+      //tap(x => console.log(x)),
       catchError(err => {
         this.alertService.showAlert(AlertModalComponent, 'Erro ao obter lista de Empresas');
         return EMPTY;

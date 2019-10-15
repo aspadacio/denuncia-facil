@@ -1,7 +1,11 @@
+<topnavbar [context]="context" [userName]="userName"></topnavbar>
+
 <div class="container-fluid text-center main" *ngIf="company$ | async as c">
     <div>
         <h2>Bem-vindo ao sistema de denúncia!</h2>
-        <h6>{{ c[0].fantasia | camelCase }}</h6>
+        <div class="text-center d-flex flex-column justify-content-center">
+            <h4>{{ c[0].fantasia | camelCase }}</h4>
+        </div>
     </div>
     <div class="text-center d-flex flex-column justify-content-center main-content">
         <div class="row justify-content-center">

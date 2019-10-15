@@ -1,3 +1,4 @@
+const config = require('./util/config');
 const express = require('express');
 const cors = require('cors');
 
@@ -39,6 +40,7 @@ let multipartMiddleware = multipart({ uploadDir: './static/denuncia/' });
 
  //Inject Routings
 app.use('/user', require('./routing/user-routing'));
+app.use('/empresa', require('./routing/empresa-routing'));
 
 app.get('/', (req, res) => { 
     res.send('ExpressJS Server Working!');
@@ -67,6 +69,7 @@ app.post('/denuncia', multipartMiddleware, (req, res) => {
 //./static/denuncia
 //Retorna os arquivos solicitados do System File
 app.get('/denuncia/download', (req, res) => {
+    console.log(`Download doc: ${req.query.name}`);
     res.download('./static/denuncia/' + req.query.name);
 });
 
@@ -78,6 +81,6 @@ app.use((err, req, res, next) => {
     res.json({ error: err.message });
 });
 
-app.listen(8000, () => {
-    console.log('Servidor ExpressJs/NodeJs na porta 8000')
+app.listen(config.PORT, () => {
+    console.log(`Servidor ExpressJs/NodeJs na porta ${config.PORT}`)
 });

@@ -23,12 +23,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { GlobalConstants } from './shared/constants';
 import { SharedModule } from './shared/shared.module';
-import { TopnavbarComponent } from './navbar/topnavbar/topnavbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TopnavbarComponent
+    AppComponent
   ],
   imports: [
     FontAwesomeModule,

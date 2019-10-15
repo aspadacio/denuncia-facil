@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FileService {
 
-  private url: string = `${environment.SERVER}`;
+  private url: string = `${environment.BACKEND_SERVER}`;
 
   constructor( private http: HttpClient ) { }
 

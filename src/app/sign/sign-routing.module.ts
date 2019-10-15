@@ -4,11 +4,15 @@ import { SignComponent } from './sign.component';
 import { SignGuard } from './sign.guard';
 
 const routes: Routes = [
-  { path: '',  component: SignComponent },
+  { 
+    path: '',  
+    component: SignComponent,
+    resolve: { opts: SignGuard }
+  },
   {
     path: ':toApply',
     component: SignComponent,
-    resolve: { toApply: SignGuard }
+    resolve: { opts: SignGuard }
   }
 ];
 

@@ -1,3 +1,5 @@
+<topnavbar [context]="context"></topnavbar>
+
 <form [formGroup]="form">
     <div class="container">
         <div id="carouselControls" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
@@ -14,51 +16,60 @@
                         <div class="col-md-12 text-center">
                             <h2><span>Escolha uma identificação</span></h2>
                             <br>
-                            <h3 style="margin-top: 60px">
+                            <h3 style="margin-top: 40px">
                                 <!-- <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span> -->
                             </h3>
                             <br>
                             <div class="texto-meio">
-                                <h4>Existem três formas de identificação</h4>
-                                <div class="row">
-                                    <div class="col">
+                                <h4>Escolha a forma de denuncia</h4>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col" *ngIf="!hasUserLogged">
                                         <label for="sign">Já utiliza o Denúncia Fácil?</label>
                                     </div>
                                     <div class="col">
-                                        <label for="onlyRegister">Apenas cadastrar</label>
+                                        <label for="onlyRegister" *ngIf="!hasUserLogged">Apenas cadastrar</label>
+                                        <label for="onlyRegister" *ngIf="hasUserLogged">Identificavél</label>
                                     </div>
                                     <div class="col">
                                         <label for="unknow">Não identificado</label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="indentificavel card">
+                                    <div class="indentificavel card col" *ngIf="!hasUserLogged">
                                         <div class="card-body">
                                             <p class="card-text">
                                                 Já possui cadastro (usuário e senha) no Denúncia Fácil?
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="onlyRegister card">
+                                    <div class="onlyRegister card col">
                                         <div class="card-body">
-                                            <p class="card-text">
+                                            <p class="card-text" *ngIf="!hasUserLogged">
                                                 Caso prefira manter-se anônimo à empresa que vai denunciar, porém quer ter cadastro no sistema para ter uma visão panorâmica de todas as denúncias.
+                                            </p>
+                                            <p class="card-text" *ngIf="hasUserLogged">
+                                                Caso prefira que a empresa saiba quem é o denunciante.
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="unknow card">
+                                    <div class="unknow card col">
                                         <div class="card-body">
-                                            <p class="card-text">
+                                            <p class="card-text" *ngIf="!hasUserLogged">
                                                 As denúncias registradas de maneira anônima serão acompanhadas a partir de um protocolo. 
-                                                Caso deseje acompanhar o andamento da sua denúncia via protocolo gerado, por favor informá-lo na página inicial .
+                                                Caso deseje acompanhar o andamento da sua denúncia via protocolo gerado, por favor informá-lo na página inicial da empresa.
+                                            </p>
+                                            <p class="card-text" *ngIf="hasUserLogged">
+                                                As denúncias registradas de maneira anônima serão acompanhadas a partir de um protocolo ou através da sua área de usuário.
+                                                Nessa modalidade a empresa não saberá quem é o denunciante.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 2rem;">
-                                    <button id="sign" class="btn btn-theme btn-sm btn-min-block col" (click)="onSign()">Entrar</button>
-                                    <button id="onlyRegister" class="btn btn-theme btn-sm btn-min-block col" (click)="onRegister()">Cadastrar</button>
-                                    <button id="unknow" class="btn btn-theme btn-sm btn-min-block col" (click)="slideForward()">Denunciar se me identificar</button>
+                                    <button id="sign" *ngIf="!hasUserLogged" class="btn btn-theme btn-sm btn-min-block col" (click)="onSign()">Entrar</button>
+                                    <button id="onlyRegister" *ngIf="!hasUserLogged"class="btn btn-theme btn-sm btn-min-block col" (click)="onRegister()">Cadastrar</button>
+                                    <button id="onlyRegister" *ngIf="hasUserLogged"class="btn btn-theme btn-sm btn-min-block col" (click)="slideForward(true)">Denunciar</button>
+                                    <button id="unknow" class="btn btn-theme btn-sm btn-min-block col" (click)="slideForward(false)">Denunciar sem me identificar</button>
                                 </div>
                             </div>
                         </div>
