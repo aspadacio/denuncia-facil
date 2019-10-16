@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { GlobalConstants } from 'src/app/shared/constants';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { User } from 'src/app/shared/models/user';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-welcome',
@@ -15,7 +16,7 @@ import { User } from 'src/app/shared/models/user';
 })
 export class WelcomeHomeComponent implements OnInit {
 
-  public company$: Observable<Company>;
+  public company$: Observable<any>;
   public userName$: Observable<User>;
   public isViewProtocol: boolean = false;
   public context: string;
@@ -54,7 +55,7 @@ export class WelcomeHomeComponent implements OnInit {
   }
 
   onDelatation(company: Company) {
-    GlobalConstants.COMPANY_ID = company.id;
+    GlobalConstants.COMPANY_ID = company._id;
     if( GlobalConstants.USER_LOGGED_CPF ){
       this.router.navigate([`/site/${this.context}/denunciar/${GlobalConstants.USER_LOGGED_CPF}`]);
     }else {

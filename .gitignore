@@ -46,7 +46,7 @@ testem.log
 Thumbs.db
 
 # Json-server DB
-/json-server/db.json
+/json-server
 
 /server/.env
 /server/node_modules

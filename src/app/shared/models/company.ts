@@ -1,6 +1,6 @@
 export interface Company {
     contexto: string;
-    id: number;
+    _id: string;
     cnpj: string;
     nome: string;
     fantasia: string;

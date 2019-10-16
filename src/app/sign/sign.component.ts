@@ -1,15 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component';
 import { BaseFormComponent } from '../shared/base-form/base-form.component';
+import { GlobalConstants } from '../shared/constants';
 import { FormValidations } from '../shared/form-validations';
 import { ModalService } from '../shared/services/modal.service';
 import { UsersService } from '../shared/services/users.service';
-import { AlertModalComponent } from '../shared/alert-modal/alert-modal.component';
-import { Location } from '@angular/common';
-import { tap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'sign',
@@ -27,12 +25,10 @@ export class SignComponent extends BaseFormComponent implements OnInit {
   public context: string;
 
   constructor(
-    private http: HttpClient,
     private formBuilder: FormBuilder,
     private usersService: UsersService,
     private alertService: ModalService,
     private location: Location,
-    private router: Router,
     public route: ActivatedRoute
   ) {
     super();
@@ -86,17 +82,15 @@ export class SignComponent extends BaseFormComponent implements OnInit {
       this.usersService.validate(this.password, this.form.controls['cpf'].value)
       .subscribe(
         (success: any) => { 
-          if(success.isEquals){
-            //this.router.navigate([`/site/${Globals.COMPANY_CONTEXT}/denuncias/${this.form.controls['cpf'].value}`]);
-            //this.router.navigate([`/site/${GlobalConstants.COMPANY_CONTEXT}/${this.form.controls['cpf'].value}`]);
+          if(success.data){
             GlobalConstants.USER_LOGGED_CPF = this.form.controls['cpf'].value;
             this.location.back();
           }else{
-            this.handleAlert("Senha incorreta! Tente novamente.");
+            this.handleAlert(success.message);
           }  
         },
         error => {
-          console.log(`Senha: ${this.password} | Cpf: ${this.form.controls['cpf'].value}`);
+          //console.log(`Senha: ${this.password} | Cpf: ${this.form.controls['cpf'].value}`);
           this.handleAlert("Erro ao logar. Contate o administrador.");
         }
       );
