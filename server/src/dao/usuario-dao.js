@@ -26,32 +26,56 @@ module.exports = {
      * From the Hash & Seed, it returns the password
      *  Returns: Password
      **************************************************************************/
-     doDecrypt: async (req, resp1) => {
-        if( req.body['password'], req.body['cpf'] ){
+     doDecrypt: async (req, resp) => {
+         if( req.body['password'], req.body['cpf'] ){
             //Find at DB Hash & Seed
             const cpf = req.body['cpf'];
-            let isEquals = null;
+            const pass = req.body['password'];
 
-            //`http://localhost:3000/usuario?cpf=${cpf}`
-            await Promise.all([
-                http.get(`http://denunciafacil.com.br:3000/usuario?cpf=${cpf}`, (resp2) => {
-                    let data = '';
-                    // A chunk of data has been recieved.
-                    resp2.on('data', (chunk) => {
-                        data += chunk;
-                    });
-                    resp2.on('end', () => {
-                        let user = JSON.parse(data)[0];
-                        const hash = Util.doEncrypt(req.body['password'], user.seed);
-                        isEquals = user.hash === hash;
-                        resp1.json({
-                            isEquals: isEquals
-                        })
-                    });
-                }).on("error", (err) => {
-                    console.log("Error: " + err.message);
-                })
-            ]);
+             await Promise.all([
+                 //Catching Hash & Seed from db
+                 MongoClient.connect(`mongodb://${config.DB_HOST}:${config.DB_PORT}`, (err, client) => {
+                     if (err) {
+                         resp.json({
+                             status: "error",
+                             message: err
+                         })
+                     }
+
+                     let db = client.db(`${config.DB_NAME}`);
+                     if (!db) {
+                         console.log("Error connectiong data base");
+                     }
+
+                     db.collection(COLLECTION_NAME).findOne(
+                         { CPF: cpf },
+                         { _id: 0, HASH: 1, SEED: 1 },
+                         (err, document) => {
+                             if (err) {
+                                 resp.json({
+                                     status: "error",
+                                     message: err
+                                 })
+                             }
+
+                             if (!document) {
+                                 resp.json({
+                                     status: "error",
+                                     message: 'Usuário não cadastrado'
+                                 })
+                             } else {
+                                 const hash = Util.doEncrypt(pass, document.SEED);
+                                 const isEquals = document.HASH === hash;
+                                 resp.json({
+                                     status: "success",
+                                     message: isEquals ? "Senha correta" : "Senha incorreta",
+                                     data: isEquals
+                                 })
+                             }
+                         }
+                    );
+                 })
+             ]);
         }
     },
 
@@ -59,10 +83,18 @@ module.exports = {
         console.log('Inserindo usuário...');
         await Promise.all([
             MongoClient.connect(`mongodb://${config.DB_HOST}:${config.DB_PORT}`, (err, client) => {
-                if (err) {
-                    throw err;
+                if(err){
+                    resp.json({
+                        status: "error",
+                        message: err
+                    }) 
                 }
+
                 let db = client.db(`${config.DB_NAME}`);
+                if(!db){
+                    console.log("Error connectiong data base");
+                }
+
                 db.collection(COLLECTION_NAME).insertOne({
                     CPF:   req.body["cpf"],
                     NOME:  req.body["nome"],
@@ -72,7 +104,11 @@ module.exports = {
                 })
                 .then(result => {
                     console.log('Usuário inserido id:' + result.insertedId);
-                    resp.json({  isOk: 'OK' })
+                    resp.json({ 
+                        status: "success",
+                        message: "Usuario criado com sucesso",
+                        data: result
+                     })
                 })
             })
         ]);

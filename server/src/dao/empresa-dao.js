@@ -7,7 +7,7 @@ const COLLECTION_NAME = "EMPRESA";
 
 module.exports = {
     list: async (req, resp) => {
-        console.log('Listando Empresas...');
+        //console.log('Listando Empresas...');
         let query = {};
 
         //Query String
@@ -19,13 +19,31 @@ module.exports = {
 
         await Promise.all([
             MongoClient.connect(`mongodb://${config.DB_HOST}:${config.DB_PORT}`, (err, client) => {
-                if (err) { throw err; }
+                if(err){
+                    resp.json({
+                        status: "error",
+                        message: err
+                    }) 
+                }
+                
                 let db = client.db(`${config.DB_NAME}`);
+                if(!db){
+                    console.log("Error connectiong data base");
+                }
+
                 db.collection(COLLECTION_NAME).find(query)
                 .sort({ CONTEXTO: 1 })
                 .toArray( (err, result) => {
+                    if(err){
+                        resp.json({
+                            status: "error",
+                            message: err
+                        }) 
+                    }
                     resp.json({
-                        result
+                        status: "success",
+                        message: "Empresas listadas com sucesso",
+                        data: result
                     })
                 });
             })
@@ -40,8 +58,19 @@ module.exports = {
         console.log('Inserindo Empresa...');
         await Promise.all([
             MongoClient.connect(`mongodb://${config.DB_HOST}:${config.DB_PORT}`, (err, client) => {
-                if (err) { throw err; }
+                if(err){
+                    resp.json({
+                        status: "error",
+                        message: err
+                    }) 
+                }
+
                 let db = client.db(`${config.DB_NAME}`);
+
+                if(!db){
+                    console.log("Error connectiong data base");
+                }
+
                 db.collection(COLLECTION_NAME).insertOne({
                     CNPJ: req.body["cnpj"],
                     CONTEXTO:  req.body["contexto"],
@@ -57,7 +86,11 @@ module.exports = {
                 })
                 .then(result => {
                     console.log('Empresa inserida id:' + result.insertedId);
-                    resp.json({  isOk: 'OK' })
+                    resp.json({
+                        status: "success",
+                        message: "Empresas criada com sucesso",
+                        data: result
+                     })
                 })
             })
         ]);
