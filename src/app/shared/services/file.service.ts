@@ -26,7 +26,7 @@ export class FileService {
   //Se não passar as options no GET, por padrão o Angular retorna um JSON.
   //Nosso caso, queremos arquivos
   downloadAttachment(name: string) {
-    return this.http.get(`${this.url}denuncia/download`, {
+    return this.http.get(`${this.url}denuncia/anexo`, {
       params: { name: name },
       responseType: 'blob' as 'json'
     });

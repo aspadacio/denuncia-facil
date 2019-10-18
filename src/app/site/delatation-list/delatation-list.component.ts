@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, tap, switchMap } from 'rxjs/operators';
 
 import { DelationsService } from 'src/app/delatations/delations.service';
@@ -63,16 +63,16 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   ngOnInit(): void {
     this.context = this.route.snapshot.params['context'];
 
-    if (this.route.snapshot.data['delatation']) {
-      this.delatation = this.route.snapshot.data['delatation'][0];
+    if (this.route.snapshot.data['delatation'] && this.route.snapshot.data['delatation'].data) {
       //Show time-line from ONE delatation
-      this.onUpdateCurrent(this.delatation.id.toString());
+      this.delatation = this.route.snapshot.data['delatation'].data[0];
+      this.delatation$ = of(this.delatation);
       this.fixNgForArrays();
-    } else if (this.route.snapshot.data['company'] && this.route.snapshot.data['company'].data.length > 0) {
+    } else if (this.route.snapshot.data['company'] && this.route.snapshot.data['company'].data) {
       this.company = this.route.snapshot.data['company'].data[0];
-      this.onFromCompany(this.company.id);
-    } else if (this.route.snapshot.data['user']) {
-      this.onFromUser(this.route.snapshot.data['user'][0].id);
+      this.onFromCompany(this.company._id);
+    } else if (this.route.snapshot.data['user'] && this.route.snapshot.data['user'].data) {
+      this.onFromUser(this.route.snapshot.data['user'].data[0]._id);
     } else {
       this.onRefresh();
     }
@@ -103,7 +103,8 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
   onFromCompany(id: string){
     this.delatations$ = this.delationsService.list()
       .pipe(
-        map(delatations => delatations.filter(delatation => delatation.EMPRESA_ID === id))
+        map((result: any) => result = result.data),
+        map((delatations: any) => delatations.filter((delatation: Delatation) => delatation.EMPRESA_ID === id))
       );
   }
 
@@ -171,14 +172,14 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
         tap((res: any) => {
           dsAttachments = SisUtil.formatFilesName(res);
           this.pushDsHistory(success.comment, dsAttachments);
-          this.onSaveDelatation();
+          this.onSaveDelatation(0);
         })
       )
       .toPromise();
     }
     else if( success.comment !== "" ){
       this.pushDsHistory(success.comment);
-      this.onSaveDelatation();
+      this.onSaveDelatation(0);
     }
   }
 
@@ -191,49 +192,49 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
         tap((res: any) => {
           dsAttachments = SisUtil.formatFilesName(res);
           this.pushDsResponse(success.comment, dsAttachments);
-          this.onSaveDelatation();
+          this.onSaveDelatation(1);
         })
       )
       .toPromise();
     }
     else if( success.comment !== "" ){
       this.pushDsResponse(success.comment);
-      this.onSaveDelatation();
+      this.onSaveDelatation(1);
     }
   }
 
-  //add response to current time-line
-  private onSaveDelatation() {
+  /**
+   * Add response to current time-line
+   * @param type 0 - Coments ; 1 - Response
+   */
+  private onSaveDelatation(type: number) {
+    this.delatation.type = type;
     this.delationsService.save(this.delatation)
-      .pipe(
-        catchError((error: any) => {
-          this.handleError('Ocorreu um erro ao atualizar a denúncia');
-          return EMPTY;
-        })
-      ).subscribe(
+    .pipe()
+    .subscribe(
         success => {
           //To reload the self-page. RouterActive doesnt works here.
           this.router.navigate([this.router.url]);
         },
-        error => this.handleError('Ocorreu um erro ao atualizar a denúncia')
+        error => this.handleError('Ocorreu um erro ao atualizar a denúncia ')
       );
   }
 
   private pushDsResponse(comment: string, dsAttachments?: string){
-    this.delatation.dsResposta.push({
-      id: (this.delatation.dsResposta.length + 1),
-      dsResposta: comment,
-      dsNomeAnexo: dsAttachments ? dsAttachments : null,
-      tsResposta: Date.now()
+    this.delatation.DS_RESPOSTA.push({
+      id: (this.delatation.DS_RESPOSTA.length + 1),
+      DS_RESPOSTA: comment,
+      DS_NOME_ANEXO: dsAttachments ? dsAttachments : null,
+      TS_RESPOSTA: Date.now().toString()
     });
   }
 
   private pushDsHistory(comment: string, dsAttachments?: string){
-    this.delatation.dsHistoria.push({
-      id: (this.delatation.dsHistoria.length + 1),
-      dsHistoria: comment,
-      dsNomeAnexo: dsAttachments ? dsAttachments : null,
-      tsHistoria: Date.now()
+    this.delatation.DS_HISTORIA.push({
+      id: (this.delatation.DS_HISTORIA.length + 1),
+      DS_HISTORIA: comment,
+      DS_NOME_ANEXO: dsAttachments ? dsAttachments : null,
+      TS_RESPOSTA: Date.now().toString()
     });
   }
 
@@ -247,13 +248,6 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
       files.add(fileList[i]);
     }
     return files;
-  }
-
-  private onUpdateCurrent(id: string): void {
-    this.delatation$ = this.delationsService.find(id);
-    this.delatation$.pipe(
-      map(delation => delation)
-    ).subscribe();
   }
 
   downloadAttachment(name: string){
@@ -303,17 +297,17 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
    * Workaround to correct iterate over two Arrays on ngFor
    */
   private fixNgForArrays() {
-    const dsHistoriaArray = this.delatation.dsHistoria.length;
-    const dsRespostaArray = this.delatation.dsResposta.length;
+    const dsHistoriaArray = this.delatation.DS_HISTORIA.length;
+    const dsRespostaArray = this.delatation.DS_RESPOSTA.length;
     const loopCounter = dsHistoriaArray >= dsRespostaArray ? dsHistoriaArray : dsRespostaArray;
     for (let i = 0; i < loopCounter; i++) {
       this.reqRespIndex.push({
-        even: this.delatation.dsHistoria[i] ? i : 'EOF',
-        odd: this.delatation.dsResposta[i] ? i : 'EOF'
+        even: this.delatation.DS_HISTORIA[i] ? i : 'EOF',
+        odd: this.delatation.DS_RESPOSTA[i] ? i : 'EOF'
       });
       this.reqRespIndex.push({
-        even: this.delatation.dsHistoria[i] ? i : 'EOF',
-        odd: this.delatation.dsResposta[i] ? i : 'EOF'
+        even: this.delatation.DS_HISTORIA[i] ? i : 'EOF',
+        odd: this.delatation.DS_RESPOSTA[i] ? i : 'EOF'
       });
     }
   }

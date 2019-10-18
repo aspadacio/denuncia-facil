@@ -19,6 +19,9 @@ router.get('/', dao.list);
 //Insert
 router.post('/', dao.add);
 
+//Update
+router.put('/', dao.update);
+
 //Find
 //router.post('/find', dao.find);
 

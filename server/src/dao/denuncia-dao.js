@@ -3,16 +3,17 @@ const Util = require('../util/server-util');
 const http = require('http');
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const COLLECTION_NAME = "DENUNCIA";
 
 module.exports = {
     list: async (req, resp) => {
         let query = {};
-
+        
         //Query String
         if(Object.keys(req.query).length !== 0){
-            if(req.query){
-                
+            if(req.query.protocolo){
+                query.PROTOCOLO = req.query.protocolo;
             }
         }
 
@@ -64,17 +65,17 @@ module.exports = {
                 let db = client.db(`${config.DB_NAME}`);
 
                 if(!db){
-                    console.log("Error connectiong data base");
+                    console.log("Error connecting data base");
                 }
 
                 db.collection(COLLECTION_NAME).insertOne({
-                    DS_HISTORIA: req.body["dsHistoria"],
-                    DS_RESPOSTA:  req.body["dsResposta"],
-                    DS_TITULO: req.body["dsTitulo"],
-                    EMPRESA_ID: req.body["idEmpresa"],
-                    USUARIO_ID: req.body["idUsuario"],
-                    PROTOCOLO: req.body["protocolo"],
-                    TS_DENUNCIA: req.body["tsReclamacao"]
+                    DS_HISTORIA: req.body["DS_HISTORIA"],
+                    DS_RESPOSTA:  req.body["DS_RESPOSTA"],
+                    DS_TITULO: req.body["DS_TITULO"],
+                    EMPRESA_ID: req.body["EMPRESA_ID"],
+                    USUARIO_ID: req.body["USUARIO_ID"],
+                    PROTOCOLO: req.body["PROTOCOLO"],
+                    TS_DENUNCIA: req.body["TS_DENUNCIA"]
                 })
                 .then(result => {
                     console.log('Denuncia inserida id:' + result.insertedId);
@@ -86,6 +87,48 @@ module.exports = {
                 })
             })
         ]);
+    },
+
+    update: async (req, resp) => {
+        console.log('Atualizando Denuncia...');
+
+        if( req.body["_id"] ){
+            await Promise.all([
+                MongoClient.connect(`mongodb://${config.DB_HOST}:${config.DB_PORT}`, (err, client) => {
+                    if(err){
+                        resp.json({
+                            status: "error",
+                            message: err
+                        }) 
+                    }
+    
+                    let db = client.db(`${config.DB_NAME}`);
+    
+                    if(!db){
+                        console.log("Error connecting data base");
+                    }
+
+                    let query = {  _id: ObjectID(req.body["_id"]) };
+                    let fields = {};
+
+                    if( req.body["type"] === 0 ){
+                        fields = { $set: { DS_HISTORIA:  req.body["DS_HISTORIA"] }};
+                    }else{
+                        fields = { $set: { DS_RESPOSTA:  req.body["DS_RESPOSTA"] }};
+                    }
+    
+                    db.collection(COLLECTION_NAME).updateOne(query, fields)
+                    .then(result => {
+                        if(result){
+                            resp.json({
+                                status: "success",
+                                message: "Denuncia inserida com sucesso"
+                            }) 
+                        }
+                    });
+                })
+            ]);
+        }
     },
 
     addAnexo: async (req, resp) => {

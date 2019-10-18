@@ -20,7 +20,7 @@ export class GenericCrudService<T> {
   }
 
   save(record: T): Observable<Object> {
-    if(record['id']){
+    if(record['_id']){
       return this.update(record);
     }else {
       return this.create(record);
@@ -36,7 +36,7 @@ export class GenericCrudService<T> {
   }
 
   private update(record: T){
-    return this.http.put(`${this.SERVICE_URL}/${record['id']}`, record).pipe(take(1));
+    return this.http.put(`${this.SERVICE_URL}`, record).pipe(take(1));
   }
 
   /**

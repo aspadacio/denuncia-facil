@@ -7,9 +7,9 @@
     <ng-container *ngTemplateOutlet="topBarMenu"></ng-container>
 </div>
 <div class="container" *ngIf="delatation$ | async as d">
-    <h3 class="text-center">{{ d.dsTitulo | camelCase }}</h3>
+    <h3 class="text-center">{{ d.DS_TITULO | camelCase }}</h3>
     <div class="row no-gutters py-2 mt-4 mb-4" *ngFor="let item of this.reqRespIndex; index as index; even as even; odd as odd; first as first; last as last">
-        <ng-container  *ngIf="even && d.dsHistoria[item.even]">
+        <ng-container  *ngIf="even && d.DS_HISTORIA[item.even]">
             <!-- Spacer -->
             <div class="col-sm"></div>
             <!-- Center Dot -->
@@ -17,7 +17,7 @@
             <!-- TimeLine Body -->
             <ng-container *ngTemplateOutlet="historyTimelineBody"></ng-container>
         </ng-container>
-        <ng-container *ngIf="odd && d.dsResposta[item.odd]">
+        <ng-container *ngIf="odd && d.DS_RESPOSTA[item.odd]">
             <!-- TimeLine Body -->
             <ng-container *ngTemplateOutlet="respTimelineBody"></ng-container>
             <!-- Center Dot -->
@@ -55,20 +55,20 @@
                             <fa-icon [icon]="['fas', 'user']" class="fa-2x"></fa-icon>
                         </div>
                         <h6 class="card-subtitle mb-2 text-muted small text-right">
-                            {{ d.dsHistoria[item.even]?.tsHistoria | dateFormat }} às
-                            {{ d.dsHistoria[item.even]?.tsHistoria | dateTimeFormat:'hh:mm'}}</h6>
+                            {{ d.DS_HISTORIA[item.even]?.TS_HISTORIA | dateFormat }} às
+                            {{ d.DS_HISTORIA[item.even]?.TS_HISTORIA | dateTimeFormat:'hh:mm'}}</h6>
                         <p class="card-text body-text" style="overflow-y: scroll; max-height: 150px;">
-                            {{ d.dsHistoria[item.even]?.dsHistoria }}
+                            {{ d.DS_HISTORIA[item.even]?.DS_HISTORIA }}
                         </p>
                     </div>
                     <!-- Show Attachments -->
-                    <div class="card-footer bg-transparent border-success" *ngIf="d.dsHistoria[item.even]?.dsNomeAnexo">
+                    <div class="card-footer bg-transparent border-success" *ngIf="d.DS_HISTORIA[item.even]?.DS_NOME_ANEXO">
                         <button class="btn btn-sm btn-outline-secondary" type="button" [attr.data-target]="'#tl-body-'+index"
                             data-toggle="collapse">Anexo(s) ▼
                         </button>
                         <div class="collapse border" id="tl-body-{{ index }}">
                             <div class="p-2 text-monospace">
-                                <div *ngFor="let anexo of (d.dsHistoria[item.even]?.dsNomeAnexo | split: ',')" class="text-resume">
+                                <div *ngFor="let anexo of (d.DS_HISTORIA[item.even]?.DS_NOME_ANEXO | split: ',')" class="text-resume">
                                     <div>
                                         <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off" (click)="downloadAttachment(anexo)">
                                             <fa-icon *ngIf="(anexo | split: '.')[1] == 'docx'" [icon]="['fas', 'file-word']" size="fa-sm"></fa-icon>
@@ -93,20 +93,20 @@
                             <fa-icon [icon]="['fas', 'user-tie']" class="fa-2x"></fa-icon>
                         </div>
                         <h6 class="card-subtitle mb-2 text-muted small text-right">
-                            {{ d.dsResposta[item.odd ]?.tsResposta | dateFormat }} às
-                            {{ d.dsResposta[item.odd ]?.tsResposta | dateTimeFormat:'hh:mm' }}</h6>
+                            {{ d.DS_RESPOSTA[item.odd ]?.TS_RESPOSTA | dateFormat }} às
+                            {{ d.DS_RESPOSTA[item.odd ]?.TS_RESPOSTA | dateTimeFormat:'hh:mm' }}</h6>
                         <p class="card-text body-text" style="overflow-y: scroll; max-height: 150px;">
-                            {{ d.dsResposta[item.odd ]?.dsResposta }}
+                            {{ d.DS_RESPOSTA[item.odd ]?.DS_RESPOSTA }}
                         </p>
                     </div>
                     <!-- Show Attachments -->
-                    <div class="card-footer bg-transparent border-success" *ngIf="d.dsResposta[item.odd]?.dsNomeAnexo">
+                    <div class="card-footer bg-transparent border-success" *ngIf="d.DS_RESPOSTA[item.odd]?.DS_NOME_ANEXO">
                         <button class="btn btn-sm btn-outline-secondary" type="button" [attr.data-target]="'#tl-body-'+index"
                             data-toggle="collapse">Anexo(s) ▼
                         </button>
                         <div class="collapse border" id="tl-body-{{ index }}">
                             <div class="p-2 text-monospace">
-                                <div *ngFor="let anexo of (d.dsResposta[item.odd]?.dsNomeAnexo | split: ',')" class="text-resume">
+                                <div *ngFor="let anexo of (d.DS_RESPOSTA[item.odd]?.DS_NOME_ANEXO | split: ',')" class="text-resume">
                                     <div *ngIf="(anexo | split: '.')[1] == 'pdf'">
                                         <button type="button" class="btn btn-light" aria-pressed="false" autocomplete="off">
                                             <fa-icon [icon]="['fas', 'file-pdf']" size="fa-sm"></fa-icon>
@@ -183,26 +183,26 @@
             <div class="col-sm py-2">
                 <div class="card border-success shadow">
                     <div class="card-body">
-                        <h5 class="card-title text-success">{{ d.dsTitulo | camelCase }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted small text-right">{{ d.tsReclamacao | dateTimeFormat }}</h6>
+                        <h5 class="card-title text-success">{{ d.DS_TITULO | camelCase }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted small text-right">{{ d.TS_DENUNCIA | dateTimeFormat }}</h6>
                         <p class="card-text" style="overflow-y: scroll; max-height: 100px;">
-                            {{ d.dsHistoria[0]?.dsHistoria }}
+                            {{ d.DS_HISTORIA[0]?.DS_HISTORIA }}
                         </p>
                     </div>
                     <div class="card-footer bg-transparent border-success">
                         <div class="btn-group" style="float: right">
                             <button type="button" class="btn btn-outline-info" style="margin-right: 5px" title="Visualizar Denúncia">
                                 <span class="sr-only">Visualizar Denúncia</span>
-                                <fa-icon [icon]="['fas', 'eye']" size="fa-sm" (click)="onView(d.protocolo)"></fa-icon>
+                                <fa-icon [icon]="['fas', 'eye']" size="fa-sm" (click)="onView(d.PROTOCOLO)"></fa-icon>
                             </button>
                         </div>
                         <button class="btn btn-sm btn-outline-secondary" type="button"
                             [attr.data-target]="'#tl-body-'+index" data-toggle="collapse">Detalhes ▼</button>
                         <div class="collapse border" id="tl-body-{{ index }}">
                             <div class="p-2 text-monospace">
-                                <div *ngFor="let history of d.dsHistoria" class="text-resume">
+                                <div *ngFor="let history of d.DS_HISTORIA" class="text-resume">
                                     <fa-icon class="fa-1x" aria-hidden="true" [icon]="['far', 'user']"></fa-icon>
-                                    {{ history.tsHistoria | dateTimeFormat:'hh:mm' }} - {{ history.dsHistoria | camelCase }}
+                                    {{ history.TS_HISTORIA | dateTimeFormat:'hh:mm' }} - {{ history.DS_HISTORIA | camelCase }}
                                 </div>
                             </div>
                         </div>
