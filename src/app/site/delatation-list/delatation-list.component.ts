@@ -68,12 +68,12 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
       //Show time-line from ONE delatation
       this.onUpdateCurrent(this.delatation.id.toString());
       this.fixNgForArrays();
-    } else if (this.route.snapshot.data['company']) {
-      this.company = this.route.snapshot.data['company'][0];
+    } else if (this.route.snapshot.data['company'] && this.route.snapshot.data['company'].data.length > 0) {
+      this.company = this.route.snapshot.data['company'].data[0];
       this.onFromCompany(this.company.id);
-    }else if (this.route.snapshot.data['user']) {
+    } else if (this.route.snapshot.data['user']) {
       this.onFromUser(this.route.snapshot.data['user'][0].id);
-    }else {
+    } else {
       this.onRefresh();
     }
   }
@@ -100,17 +100,17 @@ export class DelatationListComponent extends BaseListComponent implements OnInit
       );
   }
 
-  onFromCompany(id: number){
+  onFromCompany(id: string){
     this.delatations$ = this.delationsService.list()
       .pipe(
-        map(delatations => delatations.filter(delatation => delatation.idEmpresa === id))
+        map(delatations => delatations.filter(delatation => delatation.EMPRESA_ID === id))
       );
   }
 
-  onFromUser(id: number) {
+  onFromUser(id: string) {
     this.delatations$ = this.delationsService.list()
     .pipe(
-      map(delatations => delatations.filter(delatation => delatation.idUsuario === id))
+      map(delatations => delatations.filter(delatation => delatation.USUARIO_ID === id))
     );
   }
 
