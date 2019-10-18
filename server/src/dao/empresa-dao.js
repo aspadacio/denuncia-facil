@@ -28,7 +28,7 @@ module.exports = {
                 
                 let db = client.db(`${config.DB_NAME}`);
                 if(!db){
-                    console.log("Error connectiong data base");
+                    console.log("Error connecting data base");
                 }
 
                 db.collection(COLLECTION_NAME).find(query)
