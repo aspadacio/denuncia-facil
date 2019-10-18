@@ -41,20 +41,11 @@ export class UserFormComponent extends BaseFormComponent implements OnInit {
 
     //Form Driven
     this.form = this.formBuilder.group({
-      id: [user.id],
-      cpf: [user.cpf, [Validators.required, FormValidations.cpfValidator, Validators.minLength(11), Validators.maxLength(14)]],
-      nome: [user.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
-      email: [user.email, [Validators.required, Validators.email]],
-      confirmarEmail: [user.email, [Validators.required, FormValidations.equalsTo('email')]],
-      endereco: this.formBuilder.group({
-        cep: [user.endereco ? user.endereco.cep : null, [Validators.required, FormValidations.cepValidator, Validators.minLength(8), Validators.maxLength(9)]],
-        numero: [user.endereco ? user.endereco.numero : null, [Validators.required, FormValidations.numberValidator]],
-        complemento: [user.endereco ? user.endereco.complemento : null, [Validators.maxLength(60)]],
-        logradouro: [user.endereco ? user.endereco.logradouro : null, Validators.required],
-        bairro: [user.endereco ? user.endereco.bairro : null, Validators.required],
-        municipio: [user.endereco ? user.endereco.municipio : null, Validators.required],
-        estado: [user.endereco ? user.endereco.estado : null, Validators.required]
-      })
+      CPF: [user.cpf, [Validators.required, FormValidations.cpfValidator, Validators.minLength(11), Validators.maxLength(14)]],
+      NOME: [user.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
+      EMAIL: [user.email, [Validators.required, Validators.email]],
+      HASH: [null],
+      SEED: [null]
     });
 
     this.form.get('endereco.cep').statusChanges

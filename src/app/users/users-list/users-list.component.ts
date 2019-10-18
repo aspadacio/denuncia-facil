@@ -50,7 +50,7 @@ export class UsersListComponent implements OnInit {
   }
 
   private onConfimrDelete(){
-    this.usersService.remove(this.userSelected.id)
+    this.usersService.remove(this.userSelected._id)
     .subscribe(
       success => {
         this.onRefresh();

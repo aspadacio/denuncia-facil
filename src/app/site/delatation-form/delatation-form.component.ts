@@ -51,22 +51,21 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      id: [null],
-      idEmpresa: [null, [Validators.required]],
-      idUsuario: [null],
-      dsTitulo: [null, [Validators.required]],
-      tsVisivel: [0],
-      dsHistoria: this.formBuilder.array([
+      EMPRESA_ID: [null, [Validators.required]],
+      USUARIO_ID: [null],
+      DS_TITULO: [null, [Validators.required]],
+      TS_VISIVEL: [0],
+      DS_HISTORIA: this.formBuilder.array([
         this.formBuilder.group({
           id: [1],
-          dsHistoria: ['', [Validators.required]],
-          dsNomeAnexo: [''],
-          tsHistoria: [Date.now(), [Validators.required]]
+          DS_HISTORIA: ['', [Validators.required]],
+          DS_NOME_ANEXO: [''],
+          TS_HISTORIA: [Date.now().toString(), [Validators.required]]
         })
       ]),
-      dsResposta: this.formBuilder.array([]),
-      tsReclamacao: [Date.now(), [Validators.required]],
-      protocolo: ['', [Validators.required]]
+      DS_RESPOSTA: this.formBuilder.array([]),
+      TS_DENUNCIA: [Date.now().toString(), [Validators.required]],
+      PROTOCOLO: ['', [Validators.required]]
     });
 
     if (this.route.snapshot.data['opts'] && this.route.snapshot.data['opts'].cpf) {
@@ -75,7 +74,7 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
       });
       user.subscribe(
         (success: any) => {
-          this.form.controls['idUsuario'].setValue(success[0].id);
+          this.form.controls['USUARIO_ID'].setValue(success[0].id);
           this.hasUserLogged = true;
          },
         (error: any) => {
@@ -88,7 +87,7 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
       });
       user.subscribe(
         (success: any) => {
-          this.form.controls['idUsuario'].setValue(success[0].id);
+          this.form.controls['USUARIO_ID'].setValue(success[0].id);
           this.hasUserLogged = true;
          },
         (error: any) => {
@@ -99,16 +98,16 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
   }
 
   onBeforeSubmit(txtDenuncia: string) {
-    this.protocol = SisUtil.gerarProtocolo(this.form.controls['dsTitulo'].value);
-    this.form.controls['protocolo'].setValue(this.protocol);
+    this.protocol = SisUtil.gerarProtocolo(this.form.controls['DS_TITULO'].value);
+    this.form.controls['PROTOCOLO'].setValue(this.protocol);
 
     if( GlobalConstants.COMPANY_ID !== 0){
-      this.form.controls['idEmpresa'].setValue(GlobalConstants.COMPANY_ID);
+      this.form.controls['EMPRESA_ID'].setValue(GlobalConstants.COMPANY_ID);
     }
 
     if( txtDenuncia ){
-      let controlDsHistoria = <FormArray>this.form.controls['dsHistoria'];
-      (<FormGroup>controlDsHistoria.controls[0]).controls['dsHistoria'].setValue(txtDenuncia);
+      let controlDsHistoria = <FormArray>this.form.controls['DS_HISTORIA'];
+      (<FormGroup>controlDsHistoria.controls[0]).controls['DS_HISTORIA'].setValue(txtDenuncia);
     }
 
     this.slideForward();
@@ -177,19 +176,23 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
   private upload() {
     let files = new Set<File>();
 
-    for( let i=0; i<this.filesToUpload.length; i++ ){
-      files.add(this.filesToUpload[i]);
+    if(this.filesToUpload){
+      for( let i=0; i<this.filesToUpload.length; i++ ){
+        files.add(this.filesToUpload[i]);
+      }
+  
+      this.fileSerive.uploadDenunciaAnexos(files)
+      .pipe(
+        tap((res: any) => {
+          let controlDsHistoria = <FormArray>this.form.controls['DS_HISTORIA'];
+          const dsNomeAnexo = SisUtil.formatFilesName(res);
+          (<FormGroup>controlDsHistoria.controls[0]).controls['DS_NOME_ANEXO'].setValue(dsNomeAnexo);
+        })
+      )
+      .subscribe(res =>  this.submit());
+    }else{
+      this.submit()
     }
-
-    this.fileSerive.uploadDenunciaAnexos(files)
-    .pipe(
-      tap((res: any) => {
-        let controlDsHistoria = <FormArray>this.form.controls['dsHistoria'];
-        const dsNomeAnexo = SisUtil.formatFilesName(res);
-        (<FormGroup>controlDsHistoria.controls[0]).controls['dsNomeAnexo'].setValue(dsNomeAnexo);
-      })
-    )
-    .subscribe(res =>  this.submit());
   }
 
   /**
@@ -220,11 +223,11 @@ export class DelatationFormComponent extends BaseFormComponent implements OnInit
    */
   slideForward(isToIdentify?: boolean){
     if( isToIdentify === true ){
-      if (this.form.controls['idUsuario'].value){
-        this.form.controls['tsVisivel'].setValue(1);
+      if (this.form.controls['USUARIO_ID'].value){
+        this.form.controls['TS_VISIVEL'].setValue(1);
       }
     }else if( isToIdentify === false ){
-      this.form.controls['tsVisivel'].setValue(0);
+      this.form.controls['TS_VISIVEL'].setValue(0);
     }
     $('.selectpicker').selectpicker('refresh');
     $('.carousel').carousel('next');

@@ -90,7 +90,6 @@ export class SignComponent extends BaseFormComponent implements OnInit {
           }  
         },
         error => {
-          //console.log(`Senha: ${this.password} | Cpf: ${this.form.controls['cpf'].value}`);
           this.handleAlert("Erro ao logar. Contate o administrador.");
         }
       );

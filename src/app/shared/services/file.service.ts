@@ -18,7 +18,7 @@ export class FileService {
   public uploadDenunciaAnexos( files: Set<File> ) {
     const formData = new FormData();
     files.forEach(file => formData.append('file', file, file.name));
-    return this.http.post(`${this.url}denuncia`, formData, {
+    return this.http.post(`${this.url}denuncia/anexo`, formData, {
       //responseType: 'blob' as 'json'
     });
   }
